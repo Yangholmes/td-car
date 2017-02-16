@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dd-config>
+    <author page="http://www.yangholmes.github.io">yangholmes</author>
+
+    <remote>
+      <app-url>http://www.gdrtc.org/car/index.html</app-url>
+      <corpid>ding8ddf91e46c80e26435c2f4657eb6378f</corpid>
+      <corpsecret>a1nbELBHO_xqTRnHl4uY2lfTkW5unbe6ExJWIaseREl-DbohXD9tU6cf6y79lPUE</corpsecret>
+
+      <agentId>76775472</agentId>
+      <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corId>
+      <timeStamp></timeStamp>
+      <nonceStr></nonceStr>
+      <signature></signature>
+      <type>0</type>
+      <jsApiList data-type='string-array'>
+          <item>runtime.info</item>
+          <item>biz.contact.choose</item>
+          <item>device.notification.confirm</item>
+          <item>device.notification.alert</item>
+          <item>device.notification.prompt</item>
+          <item>biz.ding.post</item>
+          <item>biz.util.openLink</item>
+          <item>ui.pullToRefresh.enable</item>
+          <item>ui.pullToRefresh.stop</item>
+          <item>biz.util.openLink</item>
+          <item>biz.navigation.setLeft</item>
+          <item>biz.navigation.setTitle</item>
+          <item>biz.navigation.setRight</item>
+      </jsApiList>
+    </remote>
+
+    <local>
+      <app-url>http://192.168.4.7/dingding/td-car/index.html</app-url>
+      <corpid>ding8ddf91e46c80e26435c2f4657eb6378f</corpid>
+      <corpsecret>a1nbELBHO_xqTRnHl4uY2lfTkW5unbe6ExJWIaseREl-DbohXD9tU6cf6y79lPUE</corpsecret>
+
+      <agentId>76844160</agentId>
+      <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corId>
+      <timeStamp></timeStamp>
+      <nonceStr></nonceStr>
+      <signature></signature>
+      <type>0</type>
+      <jsApiList data-type='string-array'>
+          <item>runtime.info</item>
+          <item>biz.contact.choose</item>
+          <item>device.notification.confirm</item>
+          <item>device.notification.alert</item>
+          <item>device.notification.prompt</item>
+          <item>biz.ding.post</item>
+          <item>biz.util.openLink</item>
+          <item>ui.pullToRefresh.enable</item>
+          <item>ui.pullToRefresh.stop</item>
+          <item>biz.util.openLink</item>
+          <item>biz.navigation.setLeft</item>
+          <item>biz.navigation.setTitle</item>
+          <item>biz.navigation.setRight</item>
+      </jsApiList>
+    </local>
+
+</dd-config>

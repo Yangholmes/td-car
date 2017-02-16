@@ -4,11 +4,11 @@
  * jsapi权限验证配置
  */
 dd.config({
-    agentId: '76775472', // this app ID
+    agentId: '76844160', // this app ID
     corpId: 'ding8ddf91e46c80e26435c2f4657eb6378f',
     timeStamp: 1440678945,
     nonceStr: 'abcdefg',
-    signature: '4af5b42704b887f3b641c436e7eddfaa326e8782', // jsapi signature
+    signature: 'e8874b6f5653140663bcd002b898335df096d863', // jsapi signature
     type: 0,   //选填。0表示微应用的jsapi,1表示服务窗的jsapi。
     jsApiList: [ // 需要调用的jsapi列表
         'runtime.info',
@@ -46,30 +46,28 @@ dd.ready(function() {
     }); // runtime info
 
     dd.ui.pullToRefresh.enable({
-        onSuccess: function() {},
+        onSuccess: function() {
+          setTimeout(function(){
+						//todo 相关数据更新操作
+						dd.ui.pullToRefresh.stop();
+					},2000);
+        },
         onFail: function() {}
     }) // pull to refresh
 
     dd.biz.navigation.setMenu({
-        items: [{
-                id: "此处可以设置帮助", //字符串
-                // "iconId":"file",//字符串，图标命名
-                text: "帮助"
+        items: [
+            {
+                "id": "1",
+                "text": "帮助"
             },
             {
                 "id": "2",
-                "iconId": "photo",
-                "text": "我们"
+                "text": "退出"
             },
             {
                 "id": "3",
-                "iconId": "file",
-                "text": "你们"
-            },
-            {
-                "id": "4",
-                "iconId": "time",
-                "text": "他们"
+                "text": "撤销"
             }
         ],
         onSuccess: function(data) {
