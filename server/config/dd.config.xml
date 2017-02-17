@@ -3,12 +3,12 @@
     <author page="http://www.yangholmes.github.io">yangholmes</author>
 
     <remote>
-      <app-url>http://www.gdrtc.org/car/index.html</app-url>
-      <corpid>ding8ddf91e46c80e26435c2f4657eb6378f</corpid>
-      <corpsecret>a1nbELBHO_xqTRnHl4uY2lfTkW5unbe6ExJWIaseREl-DbohXD9tU6cf6y79lPUE</corpsecret>
+      <url>http://www.gdrtc.org/car/index.php</url>
+      <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corpId>
+      <corpSecret>a1nbELBHO_xqTRnHl4uY2lfTkW5unbe6ExJWIaseREl-DbohXD9tU6cf6y79lPUE</corpSecret>
 
       <agentId>76775472</agentId>
-      <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corId>
+      <!-- <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corpId> -->
       <timeStamp></timeStamp>
       <nonceStr></nonceStr>
       <signature></signature>
@@ -31,12 +31,12 @@
     </remote>
 
     <local>
-      <app-url>http://192.168.4.7/dingding/td-car/index.html</app-url>
-      <corpid>ding8ddf91e46c80e26435c2f4657eb6378f</corpid>
-      <corpsecret>a1nbELBHO_xqTRnHl4uY2lfTkW5unbe6ExJWIaseREl-DbohXD9tU6cf6y79lPUE</corpsecret>
+      <url>http://192.168.4.7/dingding/td-car/index.php</url>
+      <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corpId>
+      <corpSecret>a1nbELBHO_xqTRnHl4uY2lfTkW5unbe6ExJWIaseREl-DbohXD9tU6cf6y79lPUE</corpSecret>
 
       <agentId>76844160</agentId>
-      <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corId>
+      <!-- <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corpId> -->
       <timeStamp></timeStamp>
       <nonceStr></nonceStr>
       <signature></signature>

@@ -35,7 +35,7 @@ class yang_HTTP_request{
 	 * @param $url:
 	 */
 	public function __construct($url){
-		if( !is_string($url) ) // url must be a string
+		if( $url && !is_string($url) ) // url must be a string
 			return false;
 		$this->url = $url;
 		$this->init();
@@ -47,8 +47,24 @@ class yang_HTTP_request{
 
 	private function init(){
 		$this->chandle = curl_init($this->url); // init a curl communication
-		curl_setopt($this->chandle, CURLOPT_RETURNTRANSFER, true); // set CURLOPT_RETURNTRANSFER true, it means curl_exec() will return a result on success.
+		curl_setopt( $this->chandle, CURLOPT_RETURNTRANSFER, true ); // set CURLOPT_RETURNTRANSFER true, it means curl_exec() will return a result on success.
 		return true;
+	}
+
+	/**
+	 *
+	 */
+	public function ssl_verification($verify=false, $certificates=null ){
+		curl_setopt( $this->chandle, CURLOPT_PROTOCOLS, CURLPROTO_HTTP|CURLPROTO_HTTPS|CURLPROTO_FTP );
+		if(!$verify){
+			curl_setopt( $this->chandle, CURLOPT_SSL_VERIFYPEER, false );
+			curl_setopt( $this->chandle, CURLOPT_SSL_VERIFYHOST, false );
+		}
+		else{
+			curl_setopt( $this->chandle, CURLOPT_SSL_VERIFYPEER, true );
+			curl_setopt( $this->chandle, CURLOPT_SSL_VERIFYHOST, true );
+			curl_setopt( $this->chandle, CURLOPT_CAINFO, $certificates );
+		}
 	}
 
 	/**
@@ -58,7 +74,7 @@ class yang_HTTP_request{
 		if( !is_string($url) ) // url must be a string
 			return false;
 		$this->url = $url;
-		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($this->chandle, CURLOPT_URL, $url);
 		return true;
 	}
 	 public function get_url(){
