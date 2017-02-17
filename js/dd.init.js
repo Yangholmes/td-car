@@ -1,4 +1,31 @@
 ;
+/**
+ * jsapi权限验证配置
+ * _config 是保存dd配置的全局变量
+ */
+dd.config({
+    agentId: _config.agentId[0], // this app ID
+    corpId: _config.corpId[0],
+    timeStamp: _config.timeStamp,
+    nonceStr: _config.nonceStr,
+    signature: _config.signature, // jsapi signature
+    type: 0, //选填。0表示微应用的jsapi,1表示服务窗的jsapi。
+    jsApiList: [ // 需要调用的jsapi列表
+        'runtime.info',
+        'biz.contact.choose',
+        'device.notification.confirm',
+        'device.notification.alert',
+        'device.notification.prompt',
+        'biz.ding.post',
+        'biz.util.openLink',
+        'ui.pullToRefresh.enable',
+        'ui.pullToRefresh.stop',
+        'biz.util.openLink',
+        'biz.navigation.setLeft',
+        'biz.navigation.setTitle',
+        'biz.navigation.setRight'
+    ]
+}); // jsapi permission
 
 dd.ready(function() {
     dd.biz.navigation.setTitle({
