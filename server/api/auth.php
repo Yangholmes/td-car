@@ -2,7 +2,7 @@
 
 /**
  * require http request class
- * require xml class
+ * require xml function
  */
 require_once( 'server/lib/yang-lib/yang-class-http-request.php');
 require_once( 'server/lib/yang-lib/yang-xml.php');
@@ -20,15 +20,15 @@ class auth{
     private $request;
     private $noncestr;
 
-    public function __construct($path, $debug=-1){
+    public function __construct($debug=-1){
+      $path = 'server/config/dd.config.xml';
       if( !is_string($path) )
         return false;
       if($debug == -1)
         $debug = 1; // set in local debug mode
       $this->_instance_http_request();
 
-      $this->noncestr = "abcdefg";
-
+      $this->_noncestr_rand();
       $this->_load_dd_config($path, $debug);
       $this->_get_access_token();
       $this->_get_jsapi_ticket();
@@ -50,6 +50,19 @@ class auth{
         // echo json_encode( $config )."<br>";
         $this->config = $config;
         return $config;
+    }
+
+    /**
+     * generate a random string as noncestr
+     */
+    private function _noncestr_rand(){
+      $dictionary = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      $noncestr = '';
+      for($i=0; $i<15; $i++){ // $i define the length of noncestr
+        $noncestr .= $dictionary[ mt_rand(0, 61) ];
+      }
+      $this->noncestr = $noncestr;
+      return $noncestr;
     }
 
     /**
