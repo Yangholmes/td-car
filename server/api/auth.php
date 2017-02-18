@@ -4,15 +4,15 @@
  * require http request class
  * require xml function
  */
-require_once( 'server/lib/yang-lib/yang-class-http-request.php');
-require_once( 'server/lib/yang-lib/yang-xml.php');
+require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-http-request.php');
+require_once( __DIR__.'/../../server/lib/yang-lib/yang-xml.php');
 // require_once( '../lib/yang-lib/yang-class-http-request.php');
 // require_once( '../lib/yang-lib/yang-xml.php');
 
 /**
  * Yangholmes 2017-02-17
  */
-class auth{
+class Auth{
     private $config;
     private $access_token;
     private $jsapi_ticket;
@@ -28,9 +28,9 @@ class auth{
         $debug = 1; // set in local debug mode
       $this->_instance_http_request();
 
-      $this->_noncestr_rand();
-      $this->_load_dd_config($path, $debug);
-      $this->_get_access_token();
+      $this->_noncestr_rand(); // generate noncestr
+      $this->_load_dd_config($path, $debug); // load config
+      $this->_get_access_token(); //
       $this->_get_jsapi_ticket();
       $this->_calc_signature();
   	}

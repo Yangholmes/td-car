@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<?php require_once('./server/api/auth.php'); ?>
+<?php require_once(__DIR__.'/server/api/Auth.php'); ?>
 
 <html>
 
@@ -15,7 +15,7 @@
     <p>施工中，请绕行。</p>
 
     <!-- script start -->
-    <script>var _config = <?php $auth = new auth(1); echo json_encode($auth->get_signature()); ?></script>
+    <script>var _config = <?php $auth = new Auth(1); echo json_encode($auth->get_signature()); ?></script>
     <script src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
     <script src="./lib/jquery/jquery-3.1.1.js"></script>
     <script src="./js/dd.init.js"></script>

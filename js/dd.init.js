@@ -29,22 +29,46 @@ dd.config({
 
 dd.ready(function() {
     dd.biz.navigation.setTitle({
-        title: '用车管理',
-        onSuccess: function(data) {},
+        title: '通导用车',
+        onSuccess: function(data) {
+            console.log(data);
+        },
         onFail: function(err) {
-            log.e(JSON.stringify(err));
+            console.log(JSON.stringify(err));
         }
     }); // set navigation title
 
-    dd.runtime.info({
+
+    /**
+     * 容器
+     */
+    dd.runtime.info({ // 获取容器信息
         onSuccess: function(info) {
-            logger.e('runtime info: ' + JSON.stringify(info));
+            console.log('runtime info: ' + JSON.stringify(info));
         },
         onFail: function(err) {
-            logger.e('fail: ' + JSON.stringify(err));
+            console.log('fail: ' + JSON.stringify(err));
         }
     }); // runtime info
 
+    dd.runtime.permission.requestAuthCode({ // 获取微应用免登授权码
+        corpId: _config.corpId[0],
+        onSuccess: function(result) {
+            console.log('微应用免登授权码: ', result);
+        },
+        onFail: function(err) {
+            console.log('微应用免登授权码, 错误: ', err);
+        }
+
+    })
+
+    /**
+     * 业务
+     */
+
+    /**
+     *
+     */
     dd.ui.pullToRefresh.enable({
         onSuccess: function() {
             setTimeout(function() {
