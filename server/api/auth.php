@@ -6,8 +6,12 @@
  */
 require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-http-request.php');
 require_once( __DIR__.'/../../server/lib/yang-lib/yang-xml.php');
-// require_once( '../lib/yang-lib/yang-class-http-request.php');
-// require_once( '../lib/yang-lib/yang-xml.php');
+
+/**
+ * require server config
+ * load all constant
+ */
+ require_once( __DIR__.'/../../server/config/server-config.php');
 
 /**
  * Yangholmes 2017-02-17
@@ -21,7 +25,7 @@ class Auth{
     private $noncestr;
 
     public function __construct($debug=-1){
-      $path = 'server/config/dd.config.xml';
+      $path = __DIR__.'/../../server/config/dd-config.xml';
       if( !is_string($path) )
         return false;
       if($debug == -1)
@@ -41,7 +45,7 @@ class Auth{
 
    /**
     * load dd config
-    * @param $path: path of the config xml doc. '../config/dd.config.xml'
+    * @param $path: path of the config xml doc. '../config/dd-config.xml'
     * @return $config: a config object
     */
     private function _load_dd_config($path, $debug){
@@ -79,7 +83,7 @@ class Auth{
      * get access_token
      */
     private function _get_access_token(){
-        $url = "https://oapi.dingtalk.com/gettoken?corpid=".$this->config->corpId."&corpsecret=".$this->config->corpSecret;
+        $url = OAPI_HOST."gettoken?corpid=".$this->config->corpId."&corpsecret=".$this->config->corpSecret;
         $this->request->set_url($url);
         $raw_access_token = $this->request->request('GET'); // $raw_response is json
         $access_token = json_decode($raw_access_token);
@@ -95,7 +99,7 @@ class Auth{
      * get jsapi_ticket
      */
     private function _get_jsapi_ticket(){
-        $url = "https://oapi.dingtalk.com/get_jsapi_ticket?access_token=".$this->access_token->access_token;
+        $url = OAPI_HOST."get_jsapi_ticket?access_token=".$this->access_token->access_token;
         $this->request->set_url($url);
         $raw_jsapi_ticket = $this->request->request('GET'); // $raw_response is json
         $jsapi_ticket = json_decode($raw_jsapi_ticket);
@@ -125,7 +129,9 @@ class Auth{
                   "corpId" => $this->config->corpId,
                   "timeStamp" => $timestamp,
                   "nonceStr" => $this->noncestr,
-                  "signature" => $signature
+                  "signature" => $signature,
+                  "accessToken" => $this->access_token->access_token,
+                  "timeStamp" => $timestamp,
               ];
         // echo json_encode( $signature_result );
         $this->signature_result = $signature_result;
@@ -139,5 +145,5 @@ class Auth{
 /**
  * test
  */
-// $auth = new auth('../config/dd.config.xml', 1);
+// $auth = new auth('../config/dd-config.xml', 1);
 // echo json_encode( $auth->get_signature() );
