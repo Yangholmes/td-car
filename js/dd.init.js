@@ -6,11 +6,11 @@
  * _user
  */
 var _user = {
-              'userId': null,
-              'deviceId': null,
-              'isSys': null,
-              'sysLevel': null,
-            }; // user info
+    'userId': null,
+    'deviceId': null,
+    'isSys': null,
+    'sysLevel': null,
+}; // user info
 
 /**
  * jsapi权限验证配置
@@ -72,18 +72,17 @@ dd.ready(function() {
         onSuccess: function(result) {
             console.log('微应用免登授权码: ', result);
             $.ajax({
-              url: "server/verification/get-user-info.php?access_token=" + _config.accessToken + "&code=" + result.code,
-              method: 'GET',
-              dataType: 'json',
-              success: function(respond){
-                console.log(respond);
-                _user.userId = respond.userid;
-                _user.deviceId = respond.deviceId;
-                _user.isSys = respond.isSys;
-                _user.sysLevel = respond.sysLevel;
-              },
-              error: function(){
-              }
+                url: "server/verification/get-user-info.php?access_token=" + _config.accessToken + "&code=" + result.code,
+                method: 'GET',
+                dataType: 'json',
+                success: function(respond) {
+                    console.log(respond);
+                    _user.userId = respond.userid;
+                    _user.deviceId = respond.deviceId;
+                    _user.isSys = respond.isSys;
+                    _user.sysLevel = respond.sysLevel;
+                },
+                error: function() {}
             });
         },
         onFail: function(err) {
@@ -100,15 +99,15 @@ dd.ready(function() {
     /**
      * 导航栏设置
      */
-     dd.biz.navigation.setRight({
-     show: false,//控制按钮显示， true 显示， false 隐藏， 默认true
-     control: true,//是否控制点击事件，true 控制，false 不控制， 默认false
-     text: '更多',//控制显示文本，空字符串表示显示默认文本
-     onSuccess : function(result) {
-       alert('没有更多了~');
-     },
-     onFail : function(err) {}
- });
+    dd.biz.navigation.setRight({
+        show: false, //控制按钮显示， true 显示， false 隐藏， 默认true
+        control: true, //是否控制点击事件，true 控制，false 不控制， 默认false
+        text: '更多', //控制显示文本，空字符串表示显示默认文本
+        onSuccess: function(result) {
+            alert('没有更多了~');
+        },
+        onFail: function(err) {}
+    });
 
     /**
      * UI控件

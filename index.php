@@ -12,13 +12,30 @@
 </head>
 
 <body>
-    <p>施工中，请绕行。</p>
+
+  <!-- 用车申请表单(开始) -->
+  <form id="">
+    <div class="td-form-field">
+      <label>标题示意</label>
+      <input type="text" placeholder="提示语示意">
+    </div>
+    <div class="td-form-field">
+      <label>长标题示意长标题示意</label>
+      <input type="text" placeholder="提示语示意">
+    </div>
+
+    <div class="td-form-field td-form-button">
+      <input type="submit">
+    </div>
+  </form>
+  <!-- 用车申请表单(结束) -->
+
 
     <!-- script start -->
     <script>
       var _config =
         <?php
-          $auth = new Auth(1);  // debug: 1表示本地调试；0表示远程服务器
+          $auth = new Auth(1);  // debug: 1表示本地调试；0表示远程服务器。使用本地调试时，请注意修改config文件
           echo json_encode($auth->get_signature());
         ?>
     </script>
