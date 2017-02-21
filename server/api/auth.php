@@ -40,7 +40,7 @@ class Auth{
   	}
 
   	public function __destruct(){
-
+      $this->request = null;
   	}
 
    /**
@@ -83,12 +83,12 @@ class Auth{
      * get access_token
      */
     private function _get_access_token(){
-        $url = OAPI_HOST."gettoken?corpid=".$this->config->corpId."&corpsecret=".$this->config->corpSecret;
+        $url = OAPI_HOST."/gettoken?corpid=".$this->config->corpId."&corpsecret=".$this->config->corpSecret;
         $this->request->set_url($url);
         $raw_access_token = $this->request->request('GET'); // $raw_response is json
         $access_token = json_decode($raw_access_token);
         // echo "url is $url, access_token is ".json_encode( $access_token )."<br>";
-        $this->access_token = $access_token;
+        $this->access_token = $access_token->access_token;
         return $access_token;
     }
     public function get_acess_token(){
@@ -99,7 +99,7 @@ class Auth{
      * get jsapi_ticket
      */
     private function _get_jsapi_ticket(){
-        $url = OAPI_HOST."get_jsapi_ticket?access_token=".$this->access_token->access_token;
+        $url = OAPI_HOST."/get_jsapi_ticket?access_token=".$this->access_token;
         $this->request->set_url($url);
         $raw_jsapi_ticket = $this->request->request('GET'); // $raw_response is json
         $jsapi_ticket = json_decode($raw_jsapi_ticket);
@@ -130,7 +130,7 @@ class Auth{
                   "timeStamp" => $timestamp,
                   "nonceStr" => $this->noncestr,
                   "signature" => $signature,
-                  "accessToken" => $this->access_token->access_token,
+                  "accessToken" => $this->access_token,
                   "timeStamp" => $timestamp,
               ];
         // echo json_encode( $signature_result );

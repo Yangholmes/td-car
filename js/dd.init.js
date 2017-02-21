@@ -1,4 +1,17 @@
 ;
+
+/**
+ * super global variables
+ * _config
+ * _user
+ */
+var _user = {
+              'userId': null,
+              'deviceId': null,
+              'isSys': null,
+              'sysLevel': null,
+            }; // user info
+
 /**
  * jsapi权限验证配置
  * _config 是保存dd配置的全局变量
@@ -27,6 +40,9 @@ dd.config({
     ]
 }); // jsapi permission
 
+/**
+ * 钉钉入口
+ */
 dd.ready(function() {
     dd.biz.navigation.setTitle({
         title: '通导用车',
@@ -55,29 +71,48 @@ dd.ready(function() {
         corpId: _config.corpId[0],
         onSuccess: function(result) {
             console.log('微应用免登授权码: ', result);
+            $.ajax({
+              url: "server/verification/get-user-info.php?access_token=" + _config.accessToken + "&code=" + result.code,
+              method: 'GET',
+              dataType: 'json',
+              success: function(respond){
+                console.log(respond);
+                _user.userId = respond.userid;
+                _user.deviceId = respond.deviceId;
+                _user.isSys = respond.isSys;
+                _user.sysLevel = respond.sysLevel;
+              },
+              error: function(){
+              }
+            });
         },
         onFail: function(err) {
             console.log('微应用免登授权码, 错误: ', err);
         }
 
-    })
+    });
 
     /**
-     * 业务
+     * 下拉刷新
      */
+    dd.ui.pullToRefresh.disable();
 
     /**
-     *
+     * 导航栏设置
      */
-    dd.ui.pullToRefresh.enable({
-        onSuccess: function() {
-            setTimeout(function() {
-                //todo 相关数据更新操作
-                dd.ui.pullToRefresh.stop();
-            }, 2000);
-        },
-        onFail: function() {}
-    }) // pull to refresh
+     dd.biz.navigation.setRight({
+     show: false,//控制按钮显示， true 显示， false 隐藏， 默认true
+     control: true,//是否控制点击事件，true 控制，false 不控制， 默认false
+     text: '更多',//控制显示文本，空字符串表示显示默认文本
+     onSuccess : function(result) {
+       alert('没有更多了~');
+     },
+     onFail : function(err) {}
+ });
+
+    /**
+     * UI控件
+     */
 
 });
 

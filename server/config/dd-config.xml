@@ -4,10 +4,10 @@
 
     <remote>
       <url>http://www.gdrtc.org/car/index.php</url>
-      <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corpId>
-      <corpSecret>a1nbELBHO_xqTRnHl4uY2lfTkW5unbe6ExJWIaseREl-DbohXD9tU6cf6y79lPUE</corpSecret>
+      <corpId>dingc4aebce85d94b448</corpId>
+      <corpSecret>AfT88B9DO8MvVH36C102danRqMjfvvaokAvDH4bIcr77XAwfXN1YnUFEAf5jLY2C</corpSecret>
 
-      <agentId>76775472</agentId>
+      <agentId>76647142</agentId>
       <!-- <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corpId> -->
       <timeStamp></timeStamp>
       <nonceStr></nonceStr>
@@ -32,10 +32,10 @@
 
     <local>
       <url>http://192.168.4.7/dingding/td-car/index.php</url>
-      <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corpId>
-      <corpSecret>a1nbELBHO_xqTRnHl4uY2lfTkW5unbe6ExJWIaseREl-DbohXD9tU6cf6y79lPUE</corpSecret>
+      <corpId>dingc4aebce85d94b448</corpId>
+      <corpSecret>AfT88B9DO8MvVH36C102danRqMjfvvaokAvDH4bIcr77XAwfXN1YnUFEAf5jLY2C</corpSecret>
 
-      <agentId>76844160</agentId>
+      <agentId>76417678</agentId>
       <!-- <corpId>ding8ddf91e46c80e26435c2f4657eb6378f</corpId> -->
       <timeStamp></timeStamp>
       <nonceStr></nonceStr>
