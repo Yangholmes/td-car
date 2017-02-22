@@ -48,6 +48,29 @@
       </ul>
     </div>
 
+    <div class="td-form-field td-form-approver-picker">
+      <label for="">审批人</label>
+      <ul class="td-form-approver-picker-list">
+        <li class="td-form-approver-picker-item">
+          <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
+            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
+          </div>
+          <div class="td-form-approver-picker-item-name">陈楚娜</div>
+        </li>
+        <li class="td-form-approver-picker-item">
+          <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
+            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
+          </div>
+          <div class="td-form-approver-picker-item-name">陈楚娜</div>
+        </li>
+
+
+        <div class="td-form-approver-picker-add">
+          <div class="td-form-approver-picker-add-icon fa fa-plus"></div>
+        </div>
+      </ul>
+    </div>
+
     <div class="td-form-field td-form-button">
       <div class="td-button">按钮示例</div>
     </div>

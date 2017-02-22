@@ -28,7 +28,7 @@ form {
 }
 
 
-/* field style, namespace: td-* */
+/* td-form-field style, namespace: td-* */
 
 div.td-form-field {
     width: calc( 100% - 1em);
@@ -39,7 +39,7 @@ div.td-form-field {
     border-bottom: 1px solid rgba(100, 100, 100, .5);
     display: flex;
     background-color: white;
-    justify-content: center;
+    /*justify-content: center;*/
     align-items: center;
 }
 
@@ -138,6 +138,50 @@ div.td-form-comb li.td-form-comb-item .td-form-field-detail:active, div.td-form-
 
 /* td-form-comb style (end) */
 
+/* td-form-approver-picker style (start) */
+div.td-form-approver-picker {
+    display: block;
+}
+
+div.td-form-approver-picker .td-form-approver-picker-item-avatar img {
+    width: 64px;
+    height: 64px;
+    display: block;
+    border-radius: 50%;
+}
+
+div.td-form-approver-picker li.td-form-approver-picker-item {
+    display: inline-block;
+    text-align: center;
+    margin: .5em 1em .5em .5em;
+}
+div.td-form-approver-picker li.td-form-approver-picker-item .td-form-approver-picker-item-avatar{
+  position: relative;
+}
+div.td-form-approver-picker .td-form-approver-picker-item-avatar:before {
+  position: absolute;
+  top: calc( 32px - .5em );
+  left: calc( 64px + .5em );
+  color: rgba(200, 200, 200, .7);
+}
+
+div.td-form-approver-picker div.td-form-approver-picker-add {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin: .5em;
+    width: 62px;
+    height: 62px;
+    border: 1px solid rgba(200,200,200,.7);
+    border-radius: 50%;
+    text-align: center;
+}
+div.td-form-approver-picker div.td-form-approver-picker-add .td-form-approver-picker-add-icon{
+  line-height: 2em;
+  color: rgba(200,200,200,.7);
+  font-size: 2em;
+}
+/* td-form-approver-picker style (end) */
 
 /* td-form-button style (start) */
 
@@ -157,6 +201,7 @@ div.td-form-button {
     line-height: 2.5em;
     text-align: center;
     -webkit-user-select: none;
+    margin: 0 auto;
 }
 
 .td-button:active {
