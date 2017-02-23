@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 /* cover default style */
-
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +8,6 @@
 
 
 /* global width height and font */
-
 html, body {
     /* 钉钉自带微应用字体样式 */
     font-family: "Microsoft Yahei", "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
@@ -21,7 +19,6 @@ html, body {
 
 
 /* single form */
-
 form {
     width: 100%;
     height: auto;
@@ -29,7 +26,6 @@ form {
 
 
 /* td-form-field style, namespace: td-* */
-
 div.td-form-field {
     width: calc( 100% - 1em);
     height: auto;
@@ -47,17 +43,15 @@ div.td-form-field:nth-last-child(2){
   margin-bottom: calc( 3em + 1em );
 }
 
-/* label style */
-
+/* label style (start) */
 div.td-form-field label {
     display: inline-block;
     width: 5em;
     margin: 0 .5em
 }
+/* label style (end) */
 
-
-/* input style */
-
+/* input style (start) */
 div.td-form-field input {
     border: none;
     box-shadow: none;
@@ -67,6 +61,7 @@ div.td-form-field input {
     /* label: 6em, padding: 1em */
     width: calc( 100% - 8em);
 }
+/* input style (end) */
 
 /* td-form-datetime-picker (start) */
 div.td-form-datetime-picker input[type="datetime-local"]{
@@ -98,14 +93,44 @@ div.td-form-textarea textarea{
 }
 /* td-form-textarea (end) */
 
-/* td-form-comb style (start) */
+/* td-form-comb-text style (start) */
+div.td-form-comb-text div.td-form-comb-text-selected {
+    margin: 0 .5em;
+    width: calc( 100% - 8em);
+}
+div.td-form-comb-text ul.td-form-comb-text-list {
+    display: none;
+    padding: 0 .5em;
+    width: calc( 100% - 5em);
+    position: fixed;
+    background-color: white;
+    z-index: 100;
+    top: 5em;
+    left: 2em;
+    max-height: calc( 100% - 10em);
+    overflow-y: scroll;
+    box-shadow: 1px 0px 5px #FFFFFF;
+    border-radius: 2px;
+}
+div.td-form-comb-text li.td-form-comb-text-item {
+    display: flex;
+    padding: .5em 0;
+    border-bottom: 1px solid rgba(200, 200, 200, .7);
+    line-height: 64px;
+    margin: 0 .5em;
+}
+div.td-form-comb-text li.td-form-comb-text-item:last-child {
+    border-bottom: none;
+}
+/* td-form-comb-text style (start) */
 
-div.td-form-comb div.td-form-comb-selected {
+/* td-form-comb-img-text style (start) */
+div.td-form-comb-img-text div.td-form-comb-img-text-selected {
     margin: 0 .5em;
     width: calc( 100% - 8em);
 }
 
-div.td-form-comb ul.td-form-comb-list {
+div.td-form-comb-img-text ul.td-form-comb-img-text-list {
     display: none;
     padding: 0 .5em;
     width: calc( 100% - 5em);
@@ -120,40 +145,45 @@ div.td-form-comb ul.td-form-comb-list {
     border-radius: 2px;
 }
 
-div.td-form-comb li.td-form-comb-item, div.td-form-comb div.td-form-comb-item {
+div.td-form-comb-img-text li.td-form-comb-img-text-item,
+div.td-form-comb-img-text div.td-form-comb-img-text-item {
     display: flex;
     padding: .5em 0;
 }
 
-div.td-form-comb li.td-form-comb-item {
+div.td-form-comb-img-text li.td-form-comb-img-text-item {
     border-bottom: 1px solid rgba(200, 200, 200, .7);
 }
 
-div.td-form-comb li.td-form-comb-item:last-child {
+div.td-form-comb-img-text li.td-form-comb-img-text-item:last-child {
     border-bottom: none;
 }
 
-div.td-form-comb li.td-form-comb-item .td-form-comb-item-img, div.td-form-comb div.td-form-comb-item .td-form-comb-item-img {
+div.td-form-comb-img-text li.td-form-comb-img-text-item .td-form-comb-img-text-item-img,
+div.td-form-comb-img-text div.td-form-comb-img-text-item .td-form-comb-img-text-item-img {
     display: inline-block;
     width: 64px;
     height: 64px;
     margin-right: .5em;
 }
 
-div.td-form-comb li.td-form-comb-item .td-form-comb-item-img img, div.td-form-comb div.td-form-comb-item .td-form-comb-item-img img {
+div.td-form-comb-img-text li.td-form-comb-img-text-item .td-form-comb-img-text-item-img img,
+div.td-form-comb-img-text div.td-form-comb-img-text-item .td-form-comb-img-text-item-img img {
     border-radius: 50%;
     width: 64px;
     height: 64px;
 }
 
-div.td-form-comb li.td-form-comb-item .td-form-comb-item-text, div.td-form-comb div.td-form-comb-item .td-form-comb-item-text {
+div.td-form-comb-img-text li.td-form-comb-img-text-item .td-form-comb-img-text-item-text,
+div.td-form-comb-img-text div.td-form-comb-img-text-item .td-form-comb-img-text-item-text {
     display: inline-block;
     line-height: 64px;
     width: calc( 100% - 64px - 1em);
     margin: 0 .5em;
 }
 
-div.td-form-comb li.td-form-comb-item .td-form-field-detail, div.td-form-comb div.td-form-comb-item .td-form-field-detail {
+div.td-form-comb-img-text li.td-form-comb-img-text-item .td-form-field-detail,
+div.td-form-comb-img-text div.td-form-comb-img-text-item .td-form-field-detail {
     line-height: 64px;
     font-size: 1em;
     color: rgba(200, 200, 200, 1);
@@ -162,13 +192,12 @@ div.td-form-comb li.td-form-comb-item .td-form-field-detail, div.td-form-comb di
     right: 1.5em;
 }
 
-div.td-form-comb li.td-form-comb-item .td-form-field-detail:active, div.td-form-comb div.td-form-comb-item .td-form-field-detail:active {
+div.td-form-comb-img-text li.td-form-comb-img-text-item .td-form-field-detail:active,
+div.td-form-comb-img-text div.td-form-comb-img-text-item .td-form-field-detail:active {
     color: rgba(0, 0, 0, 1);
     transition: color .3s;
 }
-
-
-/* td-form-comb style (end) */
+/* td-form-comb-img-text style (end) */
 
 /* td-form-approver-picker style (start) */
 div.td-form-approver-picker {
@@ -261,12 +290,12 @@ div.td-form-cc-picker div.td-form-cc-picker-add .td-form-cc-picker-add-icon{
 /* td-form-cc-picker style (end) */
 
 /* td-form-button style (start) */
-
 div.td-form-button {
     border: none;
     position: fixed;
     bottom: 0;
     margin: 0;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .td-button {
@@ -284,13 +313,10 @@ div.td-form-button {
 .td-button:active {
     background-color: rgba(80, 175, 250, .8);
 }
-
-
 /* td-form-button style (end) */
 
 
 /* mask (start) */
-
 .transparent-mask {
     display: none;
     width: 100%;
@@ -300,6 +326,10 @@ div.td-form-button {
     z-index: 99;
     background: rgba(0, 0, 0, .5);
 }
-
-
 /* mask (end) */
+
+/* popup object style (start) */
+.popup{
+  display: block;
+}
+/* popup object style (end) */

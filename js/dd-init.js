@@ -5,12 +5,8 @@
  * _config
  * _user
  */
-var _user = {
-    'userId': null,
-    'deviceId': null,
-    'isSys': false,
-    'sysLevel': null,
-}; // user info
+var _user = {}, // user info
+    _config = _config; // dd config
 
 /**
  * jsapi权限验证配置
@@ -44,21 +40,12 @@ dd.config({
  * 钉钉入口
  */
 dd.ready(function() {
-    dd.biz.navigation.setTitle({
-        title: '通导用车',
-        onSuccess: function(data) {
-            console.log(data);
-        },
-        onFail: function(err) {
-            console.log(JSON.stringify(err));
-        }
-    }); // set navigation title
-
 
     /**
      * 容器
      */
-    dd.runtime.info({ // 获取容器信息
+    // 获取容器信息
+    dd.runtime.info({
         onSuccess: function(info) {
             console.log('runtime info: ' + JSON.stringify(info));
         },
@@ -67,7 +54,8 @@ dd.ready(function() {
         }
     }); // runtime info
 
-    dd.runtime.permission.requestAuthCode({ // 获取微应用免登授权码
+    // 获取微应用免登授权码、登陆用户信息
+    dd.runtime.permission.requestAuthCode({
         corpId: _config.corpId[0],
         onSuccess: function(result) {
             console.log('微应用免登授权码: ', result);
@@ -77,10 +65,7 @@ dd.ready(function() {
                 dataType: 'json',
                 success: function(respond) {
                     console.log(respond);
-                    _user.userId = respond.userid;
-                    _user.deviceId = respond.deviceId;
-                    _user.isSys = respond.is_sys;
-                    _user.sysLevel = respond.sys_level;
+                    _user = respond; //
                 },
                 error: function() {}
             });
@@ -97,6 +82,19 @@ dd.ready(function() {
     dd.ui.pullToRefresh.disable();
 
     /**
+     * 标题栏
+     */
+    dd.biz.navigation.setTitle({
+        title: '通导用车',
+        onSuccess: function(data) {
+            console.log(data);
+        },
+        onFail: function(err) {
+            console.log(JSON.stringify(err));
+        }
+    }); // set navigation title
+
+    /**
      * 导航栏设置
      */
     dd.biz.navigation.setRight({
@@ -110,7 +108,7 @@ dd.ready(function() {
     });
 
     /**
-     * UI控件
+     * 其他业务
      */
 
 });
