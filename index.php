@@ -25,6 +25,17 @@
       <input id="" type="text" placeholder="提示语示意">
     </div>
 
+    <div class="td-form-field td-form-datetime-picker">
+      <label for="">日期时间</label>
+      <output name="datetime-output">2017-02-23 11:13</output>
+      <input type="datetime-local">
+    </div>
+
+    <div class="td-form-field td-form-textarea">
+      <label for="">大段文本</label>
+      <textarea placeholder="提示语示意(最多可以输入140个字符)" maxlength="140"></textarea>
+    </div>
+
     <div class="td-form-field td-form-comb">
       <label for="">下拉列表</label>
       <div class="td-form-comb-selected">
@@ -63,10 +74,29 @@
           </div>
           <div class="td-form-approver-picker-item-name">陈楚娜</div>
         </li>
-
-
         <div class="td-form-approver-picker-add">
           <div class="td-form-approver-picker-add-icon fa fa-plus"></div>
+        </div>
+      </ul>
+    </div>
+
+    <div class="td-form-field td-form-cc-picker">
+      <label for="">抄送</label>
+      <ul class="td-form-cc-picker-list">
+        <li class="td-form-cc-picker-item">
+          <div class="td-form-cc-picker-item-avatar">
+            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
+          </div>
+          <div class="td-form-cc-picker-item-name">陈楚娜</div>
+        </li>
+        <li class="td-form-cc-picker-item">
+          <div class="td-form-cc-picker-item-avatar">
+            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
+          </div>
+          <div class="td-form-cc-picker-item-name">陈楚娜</div>
+        </li>
+        <div class="td-form-cc-picker-add">
+          <div class="td-form-cc-picker-add-icon fa fa-plus"></div>
         </div>
       </ul>
     </div>

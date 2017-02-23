@@ -8,7 +8,7 @@
 var _user = {
     'userId': null,
     'deviceId': null,
-    'isSys': null,
+    'isSys': false,
     'sysLevel': null,
 }; // user info
 
@@ -79,8 +79,8 @@ dd.ready(function() {
                     console.log(respond);
                     _user.userId = respond.userid;
                     _user.deviceId = respond.deviceId;
-                    _user.isSys = respond.isSys;
-                    _user.sysLevel = respond.sysLevel;
+                    _user.isSys = respond.is_sys;
+                    _user.sysLevel = respond.sys_level;
                 },
                 error: function() {}
             });
@@ -100,11 +100,11 @@ dd.ready(function() {
      * 导航栏设置
      */
     dd.biz.navigation.setRight({
-        show: false, //控制按钮显示， true 显示， false 隐藏， 默认true
+        show:  false,//控制按钮显示， true 显示， false 隐藏， 默认true
         control: true, //是否控制点击事件，true 控制，false 不控制， 默认false
-        text: '更多', //控制显示文本，空字符串表示显示默认文本
+        text: '车辆管理', //控制显示文本，空字符串表示显示默认文本
         onSuccess: function(result) {
-            alert('没有更多了~');
+            console.log(_user);
         },
         onFail: function(err) {}
     });

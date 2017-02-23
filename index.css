@@ -43,6 +43,9 @@ div.td-form-field {
     align-items: center;
 }
 
+div.td-form-field:nth-last-child(2){
+  margin-bottom: calc( 3em + 1em );
+}
 
 /* label style */
 
@@ -65,6 +68,35 @@ div.td-form-field input {
     width: calc( 100% - 8em);
 }
 
+/* td-form-datetime-picker (start) */
+div.td-form-datetime-picker input[type="datetime-local"]{
+  visibility: hidden;
+  position: absolute;
+  left: -99999px
+}
+div.td-form-datetime-picker output {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  font-size: 1em;
+  margin: 0 .5em;
+  width: calc( 100% - 8em);
+}
+/* td-form-datetime-picker (end) */
+
+/* td-form-textarea (start) */
+div.td-form-textarea textarea{
+  border: none;
+  box-shadow: none;
+  outline: none;
+  font-size: 1em;
+  margin: 0 .5em;
+  width: calc( 100% - 8em);
+  height: 5em;
+  resize: none;
+  font-family: inherit;
+}
+/* td-form-textarea (end) */
 
 /* td-form-comb style (start) */
 
@@ -183,11 +215,56 @@ div.td-form-approver-picker div.td-form-approver-picker-add .td-form-approver-pi
 }
 /* td-form-approver-picker style (end) */
 
+/* td-form-cc-picker style (start) */
+div.td-form-cc-picker {
+    display: block;
+}
+
+div.td-form-cc-picker .td-form-cc-picker-item-avatar img {
+    width: 64px;
+    height: 64px;
+    display: block;
+    border-radius: 50%;
+}
+
+div.td-form-cc-picker li.td-form-cc-picker-item {
+    display: inline-block;
+    text-align: center;
+    margin: .5em 1em .5em .5em;
+}
+div.td-form-cc-picker li.td-form-cc-picker-item .td-form-cc-picker-item-avatar{
+  position: relative;
+}
+div.td-form-cc-picker .td-form-cc-picker-item-avatar:before {
+  position: absolute;
+  top: calc( 32px - .5em );
+  left: calc( 64px + .5em );
+  color: rgba(200, 200, 200, .7);
+}
+
+div.td-form-cc-picker div.td-form-cc-picker-add {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin: .5em;
+    width: 62px;
+    height: 62px;
+    border: 1px solid rgba(200,200,200,.7);
+    border-radius: 50%;
+    text-align: center;
+}
+div.td-form-cc-picker div.td-form-cc-picker-add .td-form-cc-picker-add-icon{
+  line-height: 2em;
+  color: rgba(200,200,200,.7);
+  font-size: 2em;
+}
+/* td-form-cc-picker style (end) */
+
 /* td-form-button style (start) */
 
 div.td-form-button {
     border: none;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     margin: 0;
 }
