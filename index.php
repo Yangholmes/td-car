@@ -36,7 +36,7 @@
       <textarea placeholder="提示语示意(最多可以输入140个字符)" maxlength="140"></textarea>
     </div>
 
-    <div class="td-form-field td-form-comb-text">
+    <div class="td-form-field td-form-comb td-form-comb-text">
       <label for="">下拉列表<br>不带图片</label>
       <div class="td-form-comb-text-selected">
         <div class="td-form-comb-text-item">
@@ -53,7 +53,7 @@
       </ul>
     </div>
 
-    <div class="td-form-field td-form-comb-img-text">
+    <div class="td-form-field td-form-comb td-form-comb-img-text">
       <label for="">下拉列表<br>带图片</label>
       <div class="td-form-comb-img-text-selected">
         <div class="td-form-comb-img-text-item">
