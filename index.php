@@ -38,8 +38,8 @@
 
     <div class="td-form-field td-form-comb td-form-comb-text">
       <label for="">下拉列表<br>不带图片</label>
-      <div class="td-form-comb-text-selected">
-        <div class="td-form-comb-text-item">
+      <div class="td-form-comb-selected td-form-comb-text-selected">
+        <div class="td-form-comb-item td-form-comb-text-item">
           <div class="td-form-comb-text-item-text">选项一</div>
         </div>
       </div>
@@ -50,13 +50,22 @@
         <li class="td-form-comb-text-item">
           <div class="td-form-comb-text-item-text">选项二</div>
         </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">选项三</div>
+        </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">选项四</div>
+        </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">选项五</div>
+        </li>
       </ul>
     </div>
 
     <div class="td-form-field td-form-comb td-form-comb-img-text">
       <label for="">下拉列表<br>带图片</label>
-      <div class="td-form-comb-img-text-selected">
-        <div class="td-form-comb-img-text-item">
+      <div class="td-form-comb-selected td-form-comb-img-text-selected">
+        <div class="td-form-comb-item td-form-comb-img-text-item">
           <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白奥.jpg" ></div>
           <div class="td-form-comb-img-text-item-text">白色奥德赛</div>
           <div class="td-form-field-detail fa fa-car"></div>
