@@ -88,17 +88,11 @@
     <div class="td-form-field td-form-approver-picker">
       <label for="">审批人</label>
       <ul class="td-form-approver-picker-list">
-        <li class="td-form-approver-picker-item">
+        <li class="td-form-approver-picker-item" id="admin">
           <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
-            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
+            <img src="http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg">
           </div>
-          <div class="td-form-approver-picker-item-name">陈楚娜</div>
-        </li>
-        <li class="td-form-approver-picker-item">
-          <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
-            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
-          </div>
-          <div class="td-form-approver-picker-item-name">陈楚娜</div>
+          <div class="td-form-approver-picker-item-name">卢威</div>
         </li>
         <div class="td-form-approver-picker-add">
           <div class="td-form-approver-picker-add-icon fa fa-plus"></div>
@@ -109,12 +103,6 @@
     <div class="td-form-field td-form-cc-picker">
       <label for="">抄送</label>
       <ul class="td-form-cc-picker-list">
-        <li class="td-form-cc-picker-item">
-          <div class="td-form-cc-picker-item-avatar">
-            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
-          </div>
-          <div class="td-form-cc-picker-item-name">陈楚娜</div>
-        </li>
         <li class="td-form-cc-picker-item">
           <div class="td-form-cc-picker-item-avatar">
             <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
