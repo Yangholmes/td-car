@@ -1,0 +1,7 @@
+{
+  "records": [
+       { "recid": "1", "personname": "悟空", "start": "公司", "end": "白云区", "imageSrc":"../img/cd-icon-picture.svg", "appointmentt1": "2014.08.23 12:00", "appointmentt2": "2014.08.25 18:00", "borrowt1": "2014.08.23 12:00", "borrowt2": "2014.08.25 19:00", "remark": "这是备注这是备注这是备注这是备注这是备注这是备注这是备注这是备注"},
+       { "recid": "2", "personname": "悟净", "start": "公司", "end": "红海湾", "imageSrc":"../img/cd-icon-picture.svg", "appointmentt1": "2014.12.23 18:00", "appointmentt2": "2014.12.25 18:00", "borrowt1": "2014.12.23 10:00", "borrowt2": "2014.12.25 10:00", "remark": "这是备注" },
+	   { "recid": "3", "personname": "悟能", "start": "公司", "end": "深圳", "imageSrc":"../img/cd-icon-picture.svg","appointmentt1": "2015.01.05 18:00", "appointmentt2": "2015.01.06 18:00", "borrowt1": "2015.01.06 18:00", "borrowt2": "2015.01.07 19:00", "remark": "这是备注这是备注这是备注这是备注这是备注这是备注这是备注这是备注"}
+	   ]
+}

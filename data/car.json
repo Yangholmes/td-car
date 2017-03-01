@@ -1,0 +1,8 @@
+{
+  "records": [
+       { "recid": "1", "plateNumber": "粤A-xxxxxx", "brand": "本田奥德赛", "imageSrc":"../img/car1.jpg", "model": "XX型号", "seating": "7", "level": "中型", "gearbox": "自动", "gasoline": "92"},
+       { "recid": "2", "plateNumber": "粤A-xxxxxx", "brand": "丰田普拉多", "imageSrc":"../img/car2.jpg", "model": "XX型号", "seating": "7", "level": "SUV", "gearbox": "自动", "gasoline": "95" },
+	   { "recid": "3", "plateNumber": "粤A-xxxxxx", "brand": "大众速腾", "imageSrc":"../img/car3.jpg","model": "XX型号", "seating": "5", "level": "紧凑型车", "gearbox": "手动" , "gasoline": "92"},
+	   { "recid": "4", "plateNumber": "粤A-xxxxxx", "brand": "丰田卡罗拉", "imageSrc":"../img/car4.jpg", "model": "XX型号", "seating": "5", "level": "紧凑型车", "gearbox": "自动", "gasoline": "95" }
+	   ]
+}
