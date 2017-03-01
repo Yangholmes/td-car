@@ -9,10 +9,10 @@ $(document).ready(function(){
 		$.each(data["records"],function(i,item){
 		html_resultinfo='';
 		html_resultinfo += '<div class="single-member effect-'+item['recid']+'"><div class="member-info"><h3>'
-		+ item['plateNumber'] + '</h3><h5>' + item['brand'] +
+		+ item['plateNumber'] + '</h3><h5>' + item['model'] +
 		'</h5></div><div class="member-image"><img src="' +
-				item["imageSrc"] + '" alt="Member"></div><div class="more-info"><p>型号：'+ 
-				item['model'] + '</br>座位数：' +item['seating']+
+				item["imageSrc"] + '" alt="Member"></div><div class="more-info"><p>品牌：'+ 
+				item['brand'] + '</br>座位数：' +item['seating']+
 				'座</br>级别：' + item['level'] + '</br>变速箱：'+item['gearbox']+
 				'</br>汽油：'+item['gasoline']+'</p><div class="social-touch icon-colored"><button class="fa fa-trash-o" id="delete-effect-'+
 				item['recid']+'"></button><button class="fa fa-pencil" id="edit-effect-'+
