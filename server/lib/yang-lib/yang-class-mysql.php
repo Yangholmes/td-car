@@ -119,6 +119,7 @@ class yangMysql{
 	public function getCharset(){
 		$queryCharset = "SHOW VARIABLES LIKE 'character_set_connection'";
 		$this->charset = $this->query($queryCharset)[0]["Value"];
+		return $this->charset;
 	}
 
 	/**
