@@ -85,8 +85,8 @@ class yangMysql{
 	 * deal with errors
 	 */
 	public function errorHandle(){
-		$this->errorInfo["errno"] = $this->connection->connect_errno; 
-		$this->errorInfo["error"] = $this->connection->connect_error; 
+		$this->errorInfo["errno"] = $this->connection->connect_errno;
+		$this->errorInfo["error"] = $this->connection->connect_error;
 		$this->log(); //log the error
 	}
 	/**
@@ -94,7 +94,23 @@ class yangMysql{
 	 */
 	public function log(){
 		$logging = "\n\t##errno ".$this->errorInfo["errno"]."\n\t##error ".$this->errorInfo["error"];
-		logFileIO($logging, 'yang-mysql-error');
+		$this->_logFileIO($logging, 'yang-mysql-error');
+	}
+	/**
+	 *
+	 */
+	private function _logFileIO($logging='', $filename='commonlog'){
+		$folder = dirname(__FILE__)."/mysql-log/";
+		$logFileName = $filename.'-';
+
+		// set the default timezone to use. Available since PHP 5.1
+		date_default_timezone_set('Asia/Shanghai');
+		$currentDate = date("Y-m-d");
+		$currentTime = date("Y-m-d H:i:s");
+
+		$logFile = fopen($folder.$logFileName.$currentDate.".log", "a+");
+		fwrite($logFile, $currentTime." ".$logging."\n");
+		fclose($logFile);
 	}
 
 	/**
@@ -228,15 +244,16 @@ class yangMysql{
 /**
  * test
  */
-/*$yangsql = new yangMysql(); //instantiation
+ /*
+$yangsql = new yangMysql(); //instantiation
 
 $yangsql->getCharset(); //test queryCharset()
-$yangsql->selectDb("ordermeal"); //
+$yangsql->selectDb(DB_DATABASE); //
 $yangsql->showTables(); //
-$yangsql->selectTable("personnel");
-$yangsql->insert(["personnelId"=>1, "name"=>"测试", "engName"=>"test", "age"=>33, "department"=>1]); //
-$yangsql->simpleSelect(null,"personnelId=1",null,null);
-$yangsql->update(["name"=>"999", "engName"=>"nineninenine", "age"=>null, "department"=>null], "personnelId=1", null, null);
-$yangsql->simpleSelect(null,"personnelId=1",null,null);
-$yangsql->delete("personnelId=1");
-$yangsql->truncateTable("order160808"); //*/
+$yangsql->selectTable("car");
+$yangsql->insert(["id"=>1]); //
+$yangsql->simpleSelect(null,"id=1",null,null);
+$yangsql->simpleSelect(null,"id=1",null,null);
+$yangsql->delete("id=1");
+// $yangsql->truncateTable("car"); //
+*/
