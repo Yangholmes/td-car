@@ -63,6 +63,17 @@ div.td-form-field input {
 }
 /* input style (end) */
 
+/* td-form-easy-picker style (start) */
+div.td-form-field output.td-form-easy-picker-selected {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    font-size: 1em;
+    margin: 0 .5em;
+    width: calc( 100% - 8em);
+}
+/* td-form-easy-picker style (end) */
+
 /* td-form-datetime-picker (start) */
 div.td-form-datetime-picker input[type="datetime-local"]{
     /* visibility: hidden; */

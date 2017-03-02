@@ -16,54 +16,10 @@
 
   <!-- 用车申请表单(开始) -->
   <form id="">
-    <div class="td-form-field">
-      <label for="">标题示意</label>
-      <input id="" type="text" placeholder="提示语示意">
-    </div>
-    <div class="td-form-field">
-      <label for="">长标题示意长标题示意</label>
-      <input id="" type="text" placeholder="提示语示意">
-    </div>
 
-    <div class="td-form-field td-form-datetime-picker">
-      <label for="">日期时间</label>
-      <output name="datetime-output">2017-02-23 11:13</output>
-      <input type="datetime-local">
-    </div>
-
-    <div class="td-form-field td-form-textarea">
-      <label for="">大段文本</label>
-      <textarea placeholder="提示语示意(最多可以输入140个字符)" maxlength="140"></textarea>
-    </div>
-
-    <div class="td-form-field td-form-comb td-form-comb-text">
-      <label for="">下拉列表<br>不带图片</label>
-      <div class="td-form-comb-selected td-form-comb-text-selected">
-        <div class="td-form-comb-item td-form-comb-text-item">
-          <div class="td-form-comb-text-item-text">选项一</div>
-        </div>
-      </div>
-      <ul class="td-form-comb-text-list">
-        <li class="td-form-comb-text-item">
-          <div class="td-form-comb-text-item-text">选项一</div>
-        </li>
-        <li class="td-form-comb-text-item">
-          <div class="td-form-comb-text-item-text">选项二</div>
-        </li>
-        <li class="td-form-comb-text-item">
-          <div class="td-form-comb-text-item-text">选项三</div>
-        </li>
-        <li class="td-form-comb-text-item">
-          <div class="td-form-comb-text-item-text">选项四</div>
-        </li>
-        <li class="td-form-comb-text-item">
-          <div class="td-form-comb-text-item-text">选项五</div>
-        </li>
-      </ul>
-    </div>
-
-    <div class="td-form-field td-form-comb td-form-comb-img-text">
-      <label for="">下拉列表<br>带图片</label>
+    <!-- choose a car -->
+    <div class="td-form-field td-form-comb td-form-comb-img-text" id="car">
+      <label for="">车辆选择</label>
       <div class="td-form-comb-selected td-form-comb-img-text-selected">
         <div class="td-form-comb-item td-form-comb-img-text-item">
           <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白奥.jpg" ></div>
@@ -84,7 +40,88 @@
         </li>
       </ul>
     </div>
+    <!-- choose a car -->
 
+    <!-- usage -->
+    <div class="td-form-field td-form-comb td-form-comb-text" id="usage">
+      <label for="">用车事由</label>
+      <div class="td-form-comb-selected td-form-comb-text-selected">
+        <div class="td-form-comb-item td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">外勤</div>
+        </div>
+      </div>
+      <ul class="td-form-comb-text-list">
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">出差</div>
+        </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">接待</div>
+        </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">外勤</div>
+        </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">车辆维修</div>
+        </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">其他</div>
+        </li>
+      </ul>
+    </div>
+    <!-- usage -->
+
+    <!-- driver -->
+    <div class="td-form-field td-form-easy-picker" id="driver">
+      <label for="">司机</label>
+      <output class="td-form-easy-picker-selected"></div>
+    </div>
+    <!-- driver -->
+
+    <!-- accompanist -->
+    <div class="td-form-field td-form-textarea" id="accompanist">
+      <label for="">随行人员</label>
+      <textarea placeholder="输入随行人员的姓名" maxlength="140"></textarea>
+    </div>
+    <!-- accompanist -->
+
+    <!-- startpoint -->
+    <div class="td-form-field" id="startpoint">
+      <label for="">起点</label>
+      <input id="" type="text" placeholder="输入出发地点">
+    </div>
+    <!-- startpoint -->
+
+    <!-- endpoint -->
+    <div class="td-form-field" id="endpoint">
+      <label for="">终点</label>
+      <input id="" type="text" placeholder="输入目的地">
+    </div>
+    <!-- endpoint -->
+
+    <!-- schedule-start -->
+    <div class="td-form-field td-form-datetime-picker" id="schedule-start">
+      <label for="">出发时刻</label>
+      <output name="datetime-output"></output>
+      <input type="datetime-local">
+    </div>
+    <!-- schedule-start -->
+
+    <!-- schedule-end -->
+    <div class="td-form-field td-form-datetime-picker" id="schedule-end">
+      <label for="">返回时刻</label>
+      <output name="datetime-output"></output>
+      <input type="datetime-local">
+    </div>
+    <!-- schedule-end -->
+
+    <!-- remark -->
+    <div class="td-form-field td-form-textarea">
+      <label for="">备注</label>
+      <textarea placeholder="输入备注(最多可以输入140个字符)" maxlength="140"></textarea>
+    </div>
+    <!-- remark -->
+
+    <!-- approver -->
     <div class="td-form-field td-form-approver-picker">
       <label for="">审批人</label>
       <ul class="td-form-approver-picker-list">
@@ -99,7 +136,9 @@
         </div>
       </ul>
     </div>
+    <!-- approver -->
 
+    <!-- cc -->
     <div class="td-form-field td-form-cc-picker">
       <label for="">抄送</label>
       <ul class="td-form-cc-picker-list">
@@ -114,10 +153,13 @@
         </div>
       </ul>
     </div>
+    <!-- cc -->
 
+    <!-- submit -->
     <div class="td-form-field td-form-button">
-      <div class="td-button">按钮示例</div>
+      <div class="td-button">提交申请</div>
     </div>
+    <!-- submit -->
   </form>
   <!-- 用车申请表单(结束) -->
 

@@ -27,7 +27,7 @@
 
     <div class="td-form-field td-form-datetime-picker">
       <label for="">日期时间</label>
-      <output name="datetime-output">2017-02-23T11:13</output>
+      <output name="datetime-output">2017-02-23 11:13</output>
       <input type="datetime-local">
     </div>
 
@@ -38,8 +38,8 @@
 
     <div class="td-form-field td-form-comb td-form-comb-text">
       <label for="">下拉列表<br>不带图片</label>
-      <div class="td-form-comb-text-selected">
-        <div class="td-form-comb-text-item">
+      <div class="td-form-comb-selected td-form-comb-text-selected">
+        <div class="td-form-comb-item td-form-comb-text-item">
           <div class="td-form-comb-text-item-text">选项一</div>
         </div>
       </div>
@@ -50,13 +50,22 @@
         <li class="td-form-comb-text-item">
           <div class="td-form-comb-text-item-text">选项二</div>
         </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">选项三</div>
+        </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">选项四</div>
+        </li>
+        <li class="td-form-comb-text-item">
+          <div class="td-form-comb-text-item-text">选项五</div>
+        </li>
       </ul>
     </div>
 
     <div class="td-form-field td-form-comb td-form-comb-img-text">
       <label for="">下拉列表<br>带图片</label>
-      <div class="td-form-comb-img-text-selected">
-        <div class="td-form-comb-img-text-item">
+      <div class="td-form-comb-selected td-form-comb-img-text-selected">
+        <div class="td-form-comb-item td-form-comb-img-text-item">
           <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白奥.jpg" ></div>
           <div class="td-form-comb-img-text-item-text">白色奥德赛</div>
           <div class="td-form-field-detail fa fa-car"></div>
@@ -76,20 +85,19 @@
       </ul>
     </div>
 
+    <div class="td-form-field td-form-easy-picker">
+      <label for="">司机</label>
+      <output class="td-form-easy-picker-selected">刘荣</div>
+    </div>
+
     <div class="td-form-field td-form-approver-picker">
       <label for="">审批人</label>
       <ul class="td-form-approver-picker-list">
-        <li class="td-form-approver-picker-item">
+        <li class="td-form-approver-picker-item" id="admin">
           <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
-            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
+            <img src="http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg">
           </div>
-          <div class="td-form-approver-picker-item-name">陈楚娜</div>
-        </li>
-        <li class="td-form-approver-picker-item">
-          <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
-            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
-          </div>
-          <div class="td-form-approver-picker-item-name">陈楚娜</div>
+          <div class="td-form-approver-picker-item-name">卢威</div>
         </li>
         <div class="td-form-approver-picker-add">
           <div class="td-form-approver-picker-add-icon fa fa-plus"></div>
@@ -100,12 +108,6 @@
     <div class="td-form-field td-form-cc-picker">
       <label for="">抄送</label>
       <ul class="td-form-cc-picker-list">
-        <li class="td-form-cc-picker-item">
-          <div class="td-form-cc-picker-item-avatar">
-            <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
-          </div>
-          <div class="td-form-cc-picker-item-name">陈楚娜</div>
-        </li>
         <li class="td-form-cc-picker-item">
           <div class="td-form-cc-picker-item-avatar">
             <img src="https://static.dingtalk.com/media/lADOCtdeBs0C7s0C7g_750_750.jpg">
