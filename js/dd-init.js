@@ -97,12 +97,29 @@ dd.ready(function() {
     /**
      * 导航栏设置
      */
-    dd.biz.navigation.setRight({
-        show:  false,//控制按钮显示， true 显示， false 隐藏， 默认true
-        control: true, //是否控制点击事件，true 控制，false 不控制， 默认false
-        text: '车辆管理', //控制显示文本，空字符串表示显示默认文本
-        onSuccess: function(result) {
-            console.log(_user);
+    dd.biz.navigation.setMenu({
+        items: [{
+            "id": "1",
+            "text": "我的历史",
+        },{
+            "id": "2",
+            "text": "车的管理",
+        },{
+            "id": "3",
+            "text": "更多",
+        }],
+        onSuccess: function(data) {
+          switch(data.id){
+            case '1':
+              break;
+            case '2':
+              window.location.href = 'page/car.html' + '?userid=' + _user.userid;
+              break;
+            case '3':
+              break;
+            default:
+              break;
+          }
         },
         onFail: function(err) {}
     });
