@@ -73,7 +73,16 @@ class yangMysql{
 		}
 		if(!is_bool($result)){ //For successful SELECT, SHOW, DESCRIBE or EXPLAIN queries mysqli_query() will return a mysqli_result object.
 			$this->row = $result->num_rows;
-			$this->result = $result->fetch_all(MYSQLI_ASSOC); //PHP 5 >= 5.3.0, PHP 7, MYSQL_ASSOC means return an association array
+			// 阿里云服务器php版本为5.5，依旧不支持下行的写法。。。
+			// $this->result = $result->fetch_all(MYSQLI_ASSOC); //PHP 5 >= 5.3.0, PHP 7, MYSQL_ASSOC means return an association array
+			// ↓↓↓ 兼容阿里云服务器 ↓↓↓
+			$resultAssocs = [];
+			while ($row = $result->fetch_assoc()){
+				// ↓↓↓ 兼容阿里云服务器编码 ↓↓↓
+				array_push($resultAssocs, $this->_arryConvertEncoding( $row, "GBK") );
+			}
+			$this->result = $resultAssocs;
+			$result->free();
 			// echo "## affect $this->row rows \n$$ result is "; echo json_encode($this->result); echo "\n";
 			return $this->result;
 		}
@@ -238,6 +247,19 @@ class yangMysql{
 		$where_condition = $condition ? "WHERE $condition" : "";
 		$query = "DELETE FROM $this->db_table $where_condition";
 		return $this->query($query);
+	}
+
+	/**
+	 * 其他编码转换成utf8
+	 * @param $array: data being convert
+	 * @param $charset: current encoding
+	 */
+	private function _arryConvertEncoding($array, $charset){
+		$chartype = ($charset == 'utf8') ? 1 : 0; //if $array encoding is utf8, do not convert
+		while(list($i,$element) = each($array)){
+			$array[$i] = $chartype ? $array[$i] : iconv( $charset, "utf-8", $array[$i] );
+		}
+		return $array;
 	}
 }
 
