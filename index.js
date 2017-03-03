@@ -91,6 +91,7 @@ $(function() {
             title: "挑个人呗~", // 如果你需要修改选人页面的title，可以在这里赋值
             local: "false", // 是否显示本地联系人，默认false
             onSuccess: function(data) {
+              console.log(data);
                 var approverPickerList = $(that).parents('.td-form-approver-picker').find('ul li#admin'),
                     newApproverHtml = '<li class="td-form-approver-picker-item">' +
                                       '<div class="td-form-approver-picker-item-avatar fa fa-arrow-right">' +

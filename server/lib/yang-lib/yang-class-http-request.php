@@ -30,6 +30,9 @@ class yang_HTTP_request{
 	// return from curl_exec()
 	private $response;
 
+	// curl_errno
+	public $curl_errno;
+
 	/**
 	 * constructor and destructor
 	 * @param $url:
@@ -98,7 +101,7 @@ class yang_HTTP_request{
 	 * @param $data: must be an array
 	 */
 	public function set_data($data){
-		if( !is_array($data) )
+		if( !is_array($data) && !is_string($data) )
 			return false;
 		$this->data = $data;
 		return true;
@@ -149,7 +152,11 @@ class yang_HTTP_request{
 				curl_setopt($this->chandle, CURLOPT_POST, false);
 				break;
 			case 'POST':
+				// echo "\n url is: ".$this->url."\n";
+				// echo "\n data is: ".$this->data."\n";
+				// echo "\n posting... \n";
 				curl_setopt($this->chandle, CURLOPT_POST, true);
+				// curl_setopt($this->chandle, CURLOPT_SAFE_UPLOAD, false); // required as of PHP 5.6.0
 				curl_setopt($this->chandle, CURLOPT_POSTFIELDS, $this->data);
 				break;
 			default:
@@ -157,6 +164,7 @@ class yang_HTTP_request{
 				break;
 		}
 		$this->response = curl_exec($this->chandle);
+		$this->errorno = curl_errno($this->chandle);
 		return $this->response;
 	}
 }

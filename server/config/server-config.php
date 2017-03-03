@@ -21,6 +21,3 @@ define('DB_DATABASE', 'td_car');
 define('DB_TABLE', 'car');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
-
-
-?>
