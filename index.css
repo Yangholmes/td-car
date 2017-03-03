@@ -159,9 +159,9 @@ div.td-form-comb-img-text ul.td-form-comb-img-text-list {
     border-radius: 2px;
 }
 
-div.td-form-comb-img-text li.td-form-comb-img-text-item,
+div.td-form-comb-img-text div.td-form-comb-block,
 div.td-form-comb-img-text div.td-form-comb-img-text-item {
-    display: flex;
+	display: flex;
     padding: .5em 0;
 }
 
@@ -343,3 +343,14 @@ div.td-form-button {
   transition: display .5s;
 }
 /* popup object style (end) */
+.td-form-comb-block{
+	width:100%;
+}
+.td-form-comb-car-detial{
+	width:100%;
+	display: none;
+}
+.td-form-comb-car-detial p{
+	font-size:.5em;
+	color: #7d7d7d;
+}

@@ -38,10 +38,16 @@ $(function() {
     $('.td-form-comb ul li').on('touchend', function(e) {
         if (touchMoving) return; //
         e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
-        var selectedDiv = $(e.currentTarget).parent('ul').prev('.td-form-comb-selected').find('.td-form-comb-item'),
-            selectedCtx = $(e.currentTarget).html();
-        selectedDiv.html(selectedCtx);
-        $('.popup').removeClass('popup');
+        var carId = (e.currentTarget.id).substr(20, 1);
+		console.log(carId);
+		if(e.target.className == "td-form-field-detail fa fa-car"){
+			$('#td-form-field-car'+carId).toggle();
+		}else{
+			var selectedDiv = $(e.currentTarget).parent('ul').prev('.td-form-comb-selected').find('.td-form-comb-item');
+			var selectedCtx = $(e.currentTarget).find('.td-form-comb-block').html();
+			selectedDiv.html(selectedCtx);
+			$('.popup').removeClass('popup');
+		}
     });
 
     /**
