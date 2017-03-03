@@ -28,15 +28,28 @@
         </div>
       </div>
       <ul class="td-form-comb-img-text-list">
-        <li class="td-form-comb-img-text-item">
-          <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白奥.jpg" ></div>
-          <div class="td-form-comb-img-text-item-text">白色奥德赛</div>
-          <div class="td-form-field-detail fa fa-car"></div>
-        </li>
-        <li class="td-form-comb-img-text-item">
-          <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白福.jpg" ></div>
-          <div class="td-form-comb-img-text-item-text">白色福特</div>
-          <div class="td-form-field-detail fa fa-car"></div>
+        <li class="td-form-comb-img-text-item" id="td-form-comb-car-id-1">
+			<div class = "td-form-comb-block">
+			  <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白奥.jpg" ></div>
+			  <div class="td-form-comb-img-text-item-text">白色奥德赛</div>
+			  <div class="td-form-field-detail fa fa-car"></div>
+			</div>
+			<div class="td-form-comb-car-detial" id="td-form-field-car1">
+				<p>车牌号：粤A.XXXXXX&nbsp&nbsp座位数：7座</p>
+				<p>今日已约：08：00-12：00&nbsp&nbsp18：00-19：00</p>
+				<p>明日已约：08：00-12：00</p>
+			</div>
+        <li class="td-form-comb-img-text-item" id="td-form-comb-car-id-2">
+			<div class = "td-form-comb-block">
+			  <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白福.jpg" ></div>
+			  <div class="td-form-comb-img-text-item-text">白色福特</div>
+			  <div class="td-form-field-detail fa fa-car"></div>
+			</div>
+			<div class="td-form-comb-car-detial" id="td-form-field-car2">
+				<p>车牌号：粤A.XXXXXX&nbsp&nbsp座位数：7座</p>
+				<p>今日已约：08：00-12：00&nbsp&nbsp18：00-19：00</p>
+				<p>明日已约：08：00-12：00</p>
+			</div>
         </li>
       </ul>
     </div>
