@@ -79,7 +79,8 @@ class yangMysql{
 			$resultAssocs = [];
 			while ($row = $result->fetch_assoc()){
 				// ↓↓↓ 兼容阿里云服务器编码 ↓↓↓
-				array_push($resultAssocs, $this->_arryConvertEncoding( $row, "GBK") );
+				// array_push($resultAssocs, $this->_arryConvertEncoding( $row, "GBK") );
+				array_push($resultAssocs, $this->_arryConvertEncoding( $row, "utf-8") );
 			}
 			$this->result = $resultAssocs;
 			$result->free();

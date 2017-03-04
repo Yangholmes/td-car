@@ -2,8 +2,9 @@
 
 /**
  * super global variables
- * _config
- * _user
+ * _config  √
+ * _user    √
+ * _car     °
  */
 var _user = {}, // user info
     _config = _config; // dd config

@@ -22,9 +22,9 @@
       <label for="">车辆选择</label>
       <div class="td-form-comb-selected td-form-comb-img-text-selected">
         <div class="td-form-comb-item td-form-comb-img-text-item">
-          <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白奥.jpg" ></div>
+          <!-- <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白奥.jpg" ></div>
           <div class="td-form-comb-img-text-item-text">白色奥德赛</div>
-          <div class="td-form-field-detail fa fa-car"></div>
+          <div class="td-form-field-detail fa fa-car"></div> -->
         </div>
       </div>
       <ul class="td-form-comb-img-text-list">

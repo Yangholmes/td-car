@@ -15,6 +15,7 @@ html, body {
     width: 100%;
     height: auto;
     background-color: rgba(245, 245, 245, .7);
+    -webkit-user-select: none;
 }
 
 
@@ -208,6 +209,20 @@ div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail:acti
 }
 /* td-form-comb-img-text style (end) */
 
+/* td-form-comb-img-text-item-detial (start) */
+.td-form-comb-img-text-item-detial{
+  display: none;
+  font-size: .75em;
+}
+.td-car-info {
+    display: flex;
+    justify-content: space-around;
+}
+.td-car-reservation-data{
+  width: 3em;
+}
+/* td-form-comb-img-text-item-detial (end) */
+
 /* td-form-approver-picker style (start) */
 div.td-form-approver-picker {
     display: block;
@@ -343,15 +358,3 @@ div.td-form-button {
   transition: display .5s;
 }
 /* popup object style (end) */
-
-.td-form-comb-img-text-item-detial{
-  display: none;
-  font-size: .75em;
-}
-.td-car-info {
-    display: flex;
-    justify-content: space-around;
-}
-.td-car-reservation-data{
-  width: 3em;
-}
