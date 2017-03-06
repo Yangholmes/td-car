@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../font/font-awesome-4.4.0/css/font-awesome.min.css">
+    
+    <link type="text/css" rel="stylesheet" href="../index.css">
+</head>
+<body>
+
+		    <div class="td-detial-container">
+				<form id="td-detial-form">
+					<div class="td-form-field">
+					  <label for="plateNumber">车牌号</label>
+					  <input id="plateNumber" type="text">
+					</div>
+					<div class="td-form-field">
+					  <label for="brand">品牌</label>
+					  <input id="brand" type="text">
+					</div>
+					<div class="td-form-field">
+					  <label for="model">型号</label>
+					  <input id="model" type="text">
+					</div>
+					<div class="td-form-field">
+					  <label for="seating">座位数</label>
+					  <input id="seating" type="text">
+					</div>
+					<div class="td-form-field">
+					  <label for="level">级别</label>
+					  <input id="level" type="text">
+					</div>
+					<div class="td-form-field">
+					  <label for="gearbox">变速箱</label>
+					  <input id="gearbox" type="text">
+					</div>
+					<div class="td-form-field">
+					  <label for="gasoline">汽油</label>
+					  <input id="gasoline" type="text">
+					</div>
+					<div class="td-form-field">
+						<label for="carImage">汽车图片</label>
+						<input type="file" name="file" onchange="imgPreview(this)" />
+					</div>
+					<div class="td-form-field">
+						<img id="td-form-field-preview" />
+					</div>
+					<div class="td-form-field td-form-button">
+					  <div class="td-button">确认</div>
+					</div>
+			  </form>
+		    </div>
+			<script src="../js/add.js"></script>
+	
+</body>
+</html>
