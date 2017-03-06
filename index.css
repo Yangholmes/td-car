@@ -200,7 +200,9 @@ div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail {
     color: rgba(200, 200, 200, 1);
     /* display: none; */
     position: absolute;
-    right: 1.5em;
+    right: 0em;
+    width: 3em;
+    text-align: center;
 }
 
 div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail:active {
@@ -219,7 +221,7 @@ div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail:acti
     justify-content: space-around;
 }
 .td-car-reservation-data{
-  width: 3em;
+  width: 5em;
 }
 /* td-form-comb-img-text-item-detial (end) */
 

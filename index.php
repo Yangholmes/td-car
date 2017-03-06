@@ -28,52 +28,6 @@
         </div>
       </div>
       <ul class="td-form-comb-img-text-list">
-        <li class="td-form-comb-img-text-item">
-          <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白奥.jpg" ></div>
-          <div class="td-form-comb-img-text-item-text">白色奥德赛</div>
-          <div class="td-form-field-detail fa fa-car"></div>
-        </li>
-        <div class="td-form-comb-img-text-item-detial" id="car1">
-          <div class="td-car-info">
-            <div>车牌号：<span class="td-car-info-plate-number">粤A.XXXXXX</span></div>
-            <div>座位数：<span class="td-car-info-seating">7座</span></div>
-          </div>
-          <table class="td-car-reservation">
-            <tbody>
-              <tr>
-                <td class="td-car-reservation-data">今日：</td>
-                <td class="td-car-reservation-time">08:00-12:00|18:00-19:00|18:00-19:00</td>
-              </tr>
-              <tr>
-                <td class="td-car-reservation-data">明日：</td>
-                <td class="td-car-reservation-time">08:00-12:00</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <li class="td-form-comb-img-text-item">
-          <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白福.jpg" ></div>
-          <div class="td-form-comb-img-text-item-text">白色福特</div>
-          <div class="td-form-field-detail fa fa-car"></div>
-        </li>
-        <div class="td-form-comb-img-text-item-detial" id="car2">
-          <div class="td-car-info">
-            <div>车牌号：<span class="td-car-info-plate-number">粤A.XXXXXX</span></div>
-            <div>座位数：<span class="td-car-info-seating">7座</span></div>
-          </div>
-          <table class="td-car-reservation">
-            <tbody>
-              <tr>
-                <td class="td-car-reservation-data">今日：</td>
-                <td class="td-car-reservation-time">08:00-12:00|18:00-19:00|18:00-19:00</td>
-              </tr>
-              <tr>
-                <td class="td-car-reservation-data">明日：</td>
-                <td class="td-car-reservation-time">08:00-12:00</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </ul>
     </div>
     <!-- choose a car -->
@@ -122,14 +76,14 @@
 
     <!-- startpoint -->
     <div class="td-form-field" id="startpoint">
-      <label for="">起点</label>
+      <label for="">出发地点</label>
       <input id="" type="text" placeholder="输入出发地点">
     </div>
     <!-- startpoint -->
 
     <!-- endpoint -->
     <div class="td-form-field" id="endpoint">
-      <label for="">终点</label>
+      <label for="">目的地点</label>
       <input id="" type="text" placeholder="输入目的地">
     </div>
     <!-- endpoint -->
