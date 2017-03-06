@@ -358,3 +358,8 @@ div.td-form-button {
   transition: display .5s;
 }
 /* popup object style (end) */
+
+#td-form-field-preview{
+	width:100%;
+	
+}
