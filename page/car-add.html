@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="../font/font-awesome-4.4.0/css/font-awesome.min.css">
-    
+
     <link type="text/css" rel="stylesheet" href="../index.css">
 </head>
 <body>
@@ -39,9 +39,10 @@
 					  <label for="gasoline">汽油</label>
 					  <input id="gasoline" type="text">
 					</div>
-					<div class="td-form-field">
+					<div class="td-form-field td-form-img-picker">
 						<label for="carImage">汽车图片</label>
-						<input type="file" name="file" onchange="imgPreview(this)" />
+						<div class="td-form-img-picker-touch fa fa-camera"></div>
+			      <input type="file" name="file" accept="image/*" onchange="imgPreview(this)" />
 					</div>
 					<div class="td-form-field">
 						<img id="td-form-field-preview" />
@@ -52,6 +53,6 @@
 			  </form>
 		    </div>
 			<script src="../js/add.js"></script>
-	
+
 </body>
 </html>

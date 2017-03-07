@@ -17,7 +17,7 @@ var _car = {};
  */
 var tdCarInit = function(){
   $.ajax({
-    url: 'server/car-management/car.php',
+    url: 'server/car-management/car-load.php',
     method: 'GET',
     dataType: 'json',
     data: 'keyword=yangholmes',
@@ -46,8 +46,8 @@ var tdFormData = function(car){
     var car = _car[i],
         item = $(itemHtml);
 
-    item.eq(0).attr('id', 'td-car-item-'+car.recid);
-    item.eq(1).attr('id', 'td-car-detail-'+car.recid);
+    item.eq(0).attr('id', 'td-car-item-'+car.carid);
+    item.eq(1).attr('id', 'td-car-detail-'+car.carid);
     item.find('img').attr('src', car.imageSrc);
     item.find('.td-form-comb-img-text-item-text').html(car.model);
     item.find('.td-car-info-plate-number').html(car.plateNumber);
@@ -64,7 +64,8 @@ var tdFormController = function(){
   /**
    * when touch is moving, prevent touchend event
    */
-  var touchMoving = false;
+  var touchMoving = false, // true is to prevent default event handler when touch is moving
+      preventMoving = false;
   $('body').on('touchstart', function(e) {
       touchMoving = false;
   });
@@ -88,6 +89,7 @@ var tdFormController = function(){
       if (touchMoving) return; // prevent popup while touch is moving
       $(e.currentTarget).find('ul').addClass('popup');
       $('.transparent-mask').addClass('popup');
+      preventMoving = true;
   });
   // select item
   $('.td-form-comb ul li').on('touchend', function(e) {
@@ -97,6 +99,7 @@ var tdFormController = function(){
         selectedCtx = $(e.currentTarget).html();
     selectedDiv.html(selectedCtx);
     $('.popup').removeClass('popup');
+    preventMoving = false;
   });
   // toggle details
   $('.td-form-field-detail').on('touchend', function(e) {
@@ -233,6 +236,7 @@ var tdFormController = function(){
    */
   $('.transparent-mask').on('touchend', function(e) {
       $('.popup').removeClass('popup');
+      preventMoving = false;
   });
 
   /**

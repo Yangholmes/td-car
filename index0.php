@@ -90,6 +90,12 @@
       <output class="td-form-easy-picker-selected">刘荣</div>
     </div>
 
+    <div class="td-form-field td-form-img-picker">
+      <label for="">图片上传</label>
+      <div class="td-form-img-picker-touch fa fa-camera"></div>
+      <input type="file" accept="image/*" />
+    </div>
+
     <div class="td-form-field td-form-approver-picker">
       <label for="">审批人</label>
       <ul class="td-form-approver-picker-list">
