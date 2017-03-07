@@ -23,3 +23,7 @@ function imgPreview(fileDom){
 	};
 	reader.readAsDataURL(file);
 }
+$('#td-add-submit').click(function(e) {
+	$("#td-detial-form").submit();
+    
+});
