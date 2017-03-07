@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../font/font-awesome-4.4.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="../index.css">
+</head>
+
+<body>
+  <script src="../lib/jquery/jquery-3.1.1.js"></script>
+  <script>
+    var data = {
+      car: {
+            plateNumber: '粤A-55555',
+            brand: '广汽丰田',
+            imageSrc: 'http://192.168.4.7/dingding/td-car/img/cars-pics/%E7%99%BD%E5%A5%A5.jpg',
+            model: '银色凯美瑞',
+            seating: '5',
+            level: '中型车',
+            gearbox: 'auto',
+            gasoline: 92
+          }
+    };
+    $.ajax({
+      url: '../server/car-management/car-add.php',
+      method: 'POST',
+      dataType: 'json',
+      data: data,
+      dataType: 'json',
+      success: function(data, status, respond){
+        console.log(data);
+      },
+    })
+  </script>
+</body>
+<html>
