@@ -14,6 +14,8 @@ function imgPreview(fileDom){
 		alert("请选择图片！");
 		return;
 	}
+
+
 	//读取完成
 	reader.onload = function(e) {
 		//获取图片dom
@@ -24,6 +26,14 @@ function imgPreview(fileDom){
 	reader.readAsDataURL(file);
 }
 $('#td-add-submit').click(function(e) {
-	$("#td-detial-form").submit();
-    
+	var $form = $('form');
+	var formData = new FormData($form[0]);
+
+	$.ajax({
+		url: '../server/car-management/car-add.php',
+		type: "POST",
+		data: formData,
+		processData: false,  // 告诉jQuery不要去处理发送的数据
+  	contentType: false   // 告诉jQuery不要去设置Content-Type请求头
+	});
 });
