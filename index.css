@@ -91,7 +91,35 @@ div.td-form-datetime-picker output {
   font-size: 1em;
   margin: 0 .5em;
   width: calc( 100% - 8em);
+  height: 1em;
 }
+/*div.td-form-datetime-picker .td-form-datetime-picker-panel{
+  color: rgba(100, 100, 100, .7);
+  font-size: 1.5em;
+  display: block;
+  position: fixed;;
+  width: calc( 100% - 2em ); height: calc( 3em + 2em + 3em );
+  margin: auto 1em; padding: 0;
+  background-color: white;
+  box-shadow: 1px 0px 5px #FFFFFF;
+  border-radius: 2px;
+  z-index: 100;
+}
+div.td-form-datetime-picker .td-form-datetime-picker-wheel {
+    perspective: 2000px;
+    perspective-origin: center;
+    width: 5em;
+}
+div.td-form-datetime-picker .td-form-datetime-picker-wheel-prev {
+    transform: rotateX(40deg);
+}
+div.td-form-datetime-picker .td-form-datetime-picker-wheel-curr {
+    transform: rotateX(0deg);
+    color: black;
+}
+div.td-form-datetime-picker .td-form-datetime-picker-wheel-next {
+    transform: rotateX(-40deg);
+}*/
 /* td-form-datetime-picker (end) */
 
 /* td-form-textarea (start) */

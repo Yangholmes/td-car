@@ -76,8 +76,18 @@ var tdFormController = function(){
   /**
    * td-form-datetime-picker
    */
-  $('.td-form-datetime-picker input').change(function(e) {
-      $(e.target).prev('output').val(e.target.value); // notice: must format datetime value
+  $('.td-form-datetime-picker output').on('touchend', function(e) {
+    if (touchMoving) return; //
+    e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
+    dd.biz.util.datetimepicker({
+        format: 'yyyy-MM-dd HH:mm',
+        value: '', //默认显示
+        onSuccess : function(result) {
+          console.log(result);
+          $(e.currentTarget).val(result.value); // notice: must format datetime value
+        },
+        onFail : function() {}
+    })
   });
 
   /**

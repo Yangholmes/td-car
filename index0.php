@@ -28,7 +28,14 @@
     <div class="td-form-field td-form-datetime-picker">
       <label for="">日期时间</label>
       <output name="datetime-output">2017-02-23 11:13</output>
-      <input type="datetime-local">
+      <!-- <input type="datetime-local"> -->
+      <!-- <div class="td-form-datetime-picker-panel">
+        <div class="td-form-datetime-picker-wheel td-form-datetime-picker-year">
+          <div class="td-form-datetime-picker-wheel-prev">2016</div>
+          <div class="td-form-datetime-picker-wheel-curr">2017</div>
+          <div class="td-form-datetime-picker-wheel-next">2018</div>
+        </div>
+      </div> -->
     </div>
 
     <div class="td-form-field td-form-textarea">
