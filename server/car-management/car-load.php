@@ -11,8 +11,8 @@ $carQuery->selectTable("car");
 $car = $carQuery->simpleSelect(null,null,null,null);
 
 $result = [
-  "records" => $car
+  "records" => $car,
+  "error" => 0,
+  "errorMsg" => ""
 ];
 echo json_encode( $result );
-
-?>

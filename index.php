@@ -15,7 +15,7 @@
 <body>
 
   <!-- 用车申请表单(开始) -->
-  <form id="reservation-form" enctype="application/x-www-form-urlencoded" accept-charset="utf-8">
+  <form id="reservation-form" enctype="multipart/form-data" autocomplete="on" >
 
     <!-- choose a car -->
     <div class="td-form-field td-form-comb td-form-comb-img-text" id="car-comb">
