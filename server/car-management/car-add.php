@@ -10,7 +10,9 @@ $record = $_POST;
 $image = $_FILES['imageSrc'];
 
 if( $image['name'] ){
-	copy($image['tmp_name'], 'C:\Users\Yangholmes\Downloads\0.png');//以指定名称保存到服务器
+  $imageName = time().substr( $image['name'], strrpos($image['name'],'.') ); // 重新命名图片
+  $record['imageSrc'] = IMAGE_ROOT.'/cars-pics/'.$imageName;
+	copy($image['tmp_name'], __DIR__.'/../../img/cars-pics/'.$imageName); // 以指定名称保存到服务器
 }
 
 $carQuery = new yangMysql(); // instantiation
@@ -18,14 +20,10 @@ $carQuery = new yangMysql(); // instantiation
 $carQuery->selectDb(DB_DATABASE); //
 $carQuery->selectTable("car");
 
-carFilter($record);
-
-
 $condition = "plateNumber="."'".$record['plateNumber']."'";
 $car = $carQuery->simpleSelect(null, $condition, null, null ); // 车牌号不能重复
 
-echo count($car);
-
+// 数据库已经存在这个车牌号 放弃保存并提示
 if( count($car)>0 ){
   $result = [
     "records" => null,
@@ -33,6 +31,7 @@ if( count($car)>0 ){
     "errorMsg" => "车牌号重复"
   ];
 }
+// 新车牌号 保存
 else{
   $car = $carQuery->insert($record);
   $result = $car ?  [
