@@ -10,16 +10,15 @@ $record = $_POST;
 $image = $_FILES['imageSrc'];
 
 if( $image['name'] ){
-  $imageName = time().substr( $image['name'], strrpos($image['name'],'.') ); // 重新命名图片
+  $imageName = 'car'.time().substr( $image['name'], strrpos($image['name'],'.') ); // 重新命名图片
   $record['imageSrc'] = IMAGE_ROOT.'/cars-pics/'.$imageName;
-	copy($image['tmp_name'], __DIR__.'/../../img/cars-pics/'.$imageName); // 以指定名称保存到服务器
+	$image = copy($image['tmp_name'], __DIR__.'/../../img/cars-pics/'.$imageName); // 以指定名称保存到服务器
 }
 else{
   $record['imageSrc'] = 'https://static.dingtalk.com/media/lALObKjV5M0Bo80Byw_459_419.png'; // 默认图片
 }
 
 $carQuery = new yangMysql(); // instantiation
-// $carQuery->getCharset(); //test queryCharset()
 $carQuery->selectDb(DB_DATABASE); //
 $carQuery->selectTable("car");
 
@@ -48,7 +47,7 @@ else{
                       "errorMsg" => ""
                     ] : [
                       "records" => null,
-                      "error" => 1,
+                      "error" => 2,
                       "errorMsg" => "插入失败"
                     ];
 }
@@ -56,7 +55,7 @@ else{
 echo json_encode( $result );
 
 /**
- *
+ * data filter
  */
 function carFilter(&$car){
 
