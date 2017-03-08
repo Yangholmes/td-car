@@ -14,12 +14,19 @@ if( $image['name'] ){
   $record['imageSrc'] = IMAGE_ROOT.'/cars-pics/'.$imageName;
 	copy($image['tmp_name'], __DIR__.'/../../img/cars-pics/'.$imageName); // 以指定名称保存到服务器
 }
+else{
+  $record['imageSrc'] = 'https://static.dingtalk.com/media/lALObKjV5M0Bo80Byw_459_419.png'; // 默认图片
+}
 
 $carQuery = new yangMysql(); // instantiation
 // $carQuery->getCharset(); //test queryCharset()
 $carQuery->selectDb(DB_DATABASE); //
 $carQuery->selectTable("car");
 
+// 数据安全检查
+carFilter($record);
+
+// 查重
 $condition = "plateNumber="."'".$record['plateNumber']."'";
 $car = $carQuery->simpleSelect(null, $condition, null, null ); // 车牌号不能重复
 
@@ -31,6 +38,7 @@ if( count($car)>0 ){
     "errorMsg" => "车牌号重复"
   ];
 }
+
 // 新车牌号 保存
 else{
   $car = $carQuery->insert($record);
@@ -52,10 +60,4 @@ echo json_encode( $result );
  */
 function carFilter(&$car){
 
-}
-
-/**
- * 查重
- */
-function duplicatCheck($record){
 }

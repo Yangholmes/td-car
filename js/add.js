@@ -15,7 +15,6 @@ function imgPreview(fileDom){
 		return;
 	}
 
-
 	//读取完成
 	reader.onload = function(e) {
 		//获取图片dom
@@ -34,6 +33,12 @@ $('#td-add-submit').click(function(e) {
 		type: "POST",
 		data: formData,
 		processData: false,  // 告诉jQuery不要去处理发送的数据
-  	contentType: false   // 告诉jQuery不要去设置Content-Type请求头
+  	contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
+		success: function(){
+			alert('恭喜！添加成功！');
+		},
+		error: function(){
+			alert('很遗憾！添加失败！');
+		}
 	});
 });

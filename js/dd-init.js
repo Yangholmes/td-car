@@ -107,7 +107,7 @@ dd.ready(function() {
             "text": "车的管理",
         },{
             "id": "3",
-            "text": "更多",
+            "text": "添加车辆",
         }],
         onSuccess: function(data) {
           switch(data.id){
@@ -117,6 +117,7 @@ dd.ready(function() {
               window.location.href = 'page/car.html' + '?userid=' + _user.userid;
               break;
             case '3':
+              window.location.href = 'page/car-add.html' + '?userid=' + _user.userid;
               break;
             default:
               break;
