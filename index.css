@@ -413,6 +413,6 @@ div.td-form-button {
 /* popup object style (end) */
 
 #td-form-field-preview{
-	width:100%;
-
+	height: 0;
+    margin: auto;
 }

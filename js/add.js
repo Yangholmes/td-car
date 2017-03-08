@@ -1,19 +1,20 @@
-function imgPreview(fileDom){
-	//判断是否支持FileReader
-	if (window.FileReader) {
+$("#imageSrc").on("change", function(){
+if (window.FileReader) {
 		var reader = new FileReader();
 	} else {
 		alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
 	}
-
-	//获取文件
-	var file = fileDom.files[0];
-	var imageType = /^image\//;
-	//是否是图片
-	if (!imageType.test(file.type)) {
-		alert("请选择图片！");
+    // Get a reference to the fileList
+    var files = !!this.files ? this.files : [];
+	var preview = $("#td-form-field-preview");
+    // If no files were selected, or no FileReader support, return
+    if (!files.length){
+		alert("请选择文件！"); 
+		//没有选择文件则要清空文件上一次load的文件域和预览的图片
+		preview.css("height","0");
 		return;
 	}
+<<<<<<< HEAD
 
 	//读取完成
 	reader.onload = function(e) {
@@ -24,6 +25,27 @@ function imgPreview(fileDom){
 	};
 	reader.readAsDataURL(file);
 }
+=======
+ 
+    // Only proceed if the selected file is an image
+    if (/^image/.test( files[0].type)){
+ 
+        var reader = new FileReader();
+        // Read the local file as a DataURL
+        reader.readAsDataURL(files[0]);
+ 
+        // When loaded, set image data as background of div
+        reader.onloadend = function(){
+			preview.css("height","80px");
+			preview.attr("src", this.result);        
+        }
+ 
+    }else{
+		alert("请选择图片！"); 
+		return;
+	}
+});
+>>>>>>> refs/remotes/origin/master
 $('#td-add-submit').click(function(e) {
 	var $form = $('form');
 	var formData = new FormData($form[0]);
