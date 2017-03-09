@@ -6,8 +6,8 @@ $("#imageSrc").on("change", function(){
 	}
 	// Get a reference to the fileList
 	var files = !!this.files ? this.files : [];
-	
 	var preview = $("#td-form-field-preview");
+	
 	// If no files were selected, or no FileReader support, return
 	if (!files.length){
 		alert("请选择文件！"); 
@@ -30,12 +30,22 @@ $("#imageSrc").on("change", function(){
  
     }else{
 		alert("请选择图片！"); 
-		var inputFile = $("#imageSrc");
-		inputFile.after(inputFile.clone().val(""));
-		inputFile.remove();
+		preview.css("height","0");
+		resetFileInput();
 		return;
 	}
 });
+
+$('#td-form-field-preview').click(function(e){
+	$("#td-form-field-preview").css("height","0");
+	resetFileInput();
+});
+
+function resetFileInput(){
+	var file = $("#imageSrc");
+	file[0].value = '';
+	
+}
 
 $('#td-add-submit').click(function(e) {
     var $form = $('form');
@@ -48,7 +58,6 @@ $('#td-add-submit').click(function(e) {
         processData: false, // 告诉jQuery不要去处理发送的数据
         contentType: false, // 告诉jQuery不要去设置Content-Type请求头
         success: function(data) {
-			console.log(data);
 			if(!data.error)
 				alert('恭喜！添加成功！');
 			else alert('ERROR！添加失败！');

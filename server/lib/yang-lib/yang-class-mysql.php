@@ -38,6 +38,7 @@ class yangMysql{
 		$this->db_port = DB_PORT;
 		$this->db_table = DB_TABLE; //default table
 		$this->connect(); //connect to mysql
+		$this->_getCharset(); // get mysql server character set
 	}
 	/**
 	 * yangMysql destructor
@@ -56,8 +57,9 @@ class yangMysql{
 			$this->connection = null; //if error occur, set connection null
 			return false;
 		}
-		if($this->db_table)
+		if($this->db_table){
 			$this->selectTable($this->db_table);
+		}
 	}
 
 	/**
@@ -80,7 +82,7 @@ class yangMysql{
 			while ($row = $result->fetch_assoc()){
 				// ↓↓↓ 兼容阿里云服务器编码 ↓↓↓
 				// array_push($resultAssocs, $this->_arryConvertEncoding( $row, "GBK") );
-				array_push($resultAssocs, $this->_arryConvertEncoding( $row, "utf-8") );
+				array_push($resultAssocs, $this->_arryConvertEncoding( $row, $this->charset) );
 			}
 			$this->result = $resultAssocs;
 			$result->free();
@@ -126,9 +128,9 @@ class yangMysql{
 	/**
 	 * get MySQL charset
 	 */
-	public function getCharset(){
-		$queryCharset = "SHOW VARIABLES LIKE 'character_set_connection'";
-		$this->charset = $this->query($queryCharset)[0]["Value"];
+	private function _getCharset(){
+		$queryCharset = "SHOW VARIABLES LIKE 'character_set_server'";
+		$this->charset = $this->connection->query($queryCharset)->fetch_assoc()['Value'];
 		return $this->charset;
 	}
 
@@ -217,7 +219,7 @@ class yangMysql{
 		$name = implode(",", array_keys($record)); //implode() join()  Join array elements with a string
 		$value = implode(",", $record); //
 		$query = "INSERT INTO $this->db_table($name) VALUES($value)";
-		return $this->query($query);
+		return $this->query($query); // boolean
 	}
 
 	/**
@@ -239,7 +241,8 @@ class yangMysql{
 		$orderby = $order ? "ORDER BY $order[0] $order[1]" : "";
 		$limit = $rowcount ? "LIMIT $rowcount" : "";
 		$query = "UPDATE $this->db_table SET $updateExp $where_condition $orderby $limit";
-		return $this->query($query);
+		// echo $query;
+		return $this->query($query); // boolean
 	}
 
 	/**
@@ -248,11 +251,12 @@ class yangMysql{
 	public function delete($condition){
 		$where_condition = $condition ? "WHERE $condition" : "";
 		$query = "DELETE FROM $this->db_table $where_condition";
-		return $this->query($query);
+		// echo $query;
+		return $this->query($query); // boolean
 	}
 
 	/**
-	 * 其他编码转换成utf8
+	 * change other charset into utf-8
 	 * @param $array: data being convert
 	 * @param $charset: current encoding
 	 */
