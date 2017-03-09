@@ -52,6 +52,12 @@ div.td-form-field label {
 }
 /* label style (end) */
 
+/* td-form-field-tips style (start) */
+div.td-form-field span.td-form-field-tips {
+    color: #abaeae;
+}
+/* td-form-field-tips style (end) */
+
 /* input style (start) */
 div.td-form-field input {
     border: none;
@@ -61,6 +67,7 @@ div.td-form-field input {
     margin: 0 .5em;
     /* label: 6em, padding: 1em */
     width: calc( 100% - 8em);
+    -webkit-user-select: none;
 }
 /* input style (end) */
 

@@ -43,13 +43,13 @@ $resultRows = [
 
 // echo "\n"."fetch_all(MYSQLI_ASSOC) is: \n".json_encode( $resultAll )."\n";
 
-$query = "SHOW VARIABLES LIKE 'character_set_server'";
+// $query = "SHOW VARIABLES LIKE 'character_set_server'";
+
+$query = "SELECT * FROM reservation WHERE `schedule-start`<='2017-03-08 10:00' AND `schedule-end`>='2017-03-08 10:00'";
 
 $result = $testMysql->query($query);
 
 echo "\n"."type is: \n".gettype( $result )."\n";
-
-echo "\n"."fetch_assocs is: \n".json_encode( $result->fetch_assoc()['Value'] )."\n";
 
 /* fetch associative array */
 $resultAssocs = [];

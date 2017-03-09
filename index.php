@@ -21,12 +21,10 @@
       <!-- choose a car -->
       <div class="td-form-field td-form-comb td-form-comb-img-text" id="car-comb">
         <label for="">车辆选择</label>
+        <input type="hidden" class="td-form-input-hidden" name="car">
         <div class="td-form-comb-selected td-form-comb-img-text-selected">
-          <input type="hidden" class="td-form-input-hidden" name="car">
           <div class="td-form-comb-item td-form-comb-img-text-item">
-            <!-- <div class="td-form-comb-img-text-item-img"><img src="./img/cars-pics/白奥.jpg" ></div>
-            <div class="td-form-comb-img-text-item-text">白色奥德赛</div>
-            <div class="td-form-field-detail fa fa-car"></div> -->
+            <span class=td-form-field-tips>请选择</span>
           </div>
         </div>
         <ul class="td-form-comb-img-text-list">
@@ -37,26 +35,26 @@
       <!-- usage -->
       <div class="td-form-field td-form-comb td-form-comb-text" id="usage-comb">
         <label for="">用车事由</label>
+        <input type="hidden" class="td-form-input-hidden" name="usage">
         <div class="td-form-comb-selected td-form-comb-text-selected">
-          <input type="hidden" class="td-form-input-hidden" name="usage">
           <div class="td-form-comb-item td-form-comb-text-item">
-            <div class="td-form-comb-text-item-text">外勤</div>
+            <span class=td-form-field-tips>请选择</span>
           </div>
         </div>
         <ul class="td-form-comb-text-list">
-          <li class="td-form-comb-text-item">
+          <li class="td-form-comb-text-item" id="td-usage-1">
             <div class="td-form-comb-text-item-text">出差</div>
           </li>
-          <li class="td-form-comb-text-item">
+          <li class="td-form-comb-text-item" id="td-usage-2">
             <div class="td-form-comb-text-item-text">接待</div>
           </li>
-          <li class="td-form-comb-text-item">
+          <li class="td-form-comb-text-item" id="td-usage-3">
             <div class="td-form-comb-text-item-text">外勤</div>
           </li>
-          <li class="td-form-comb-text-item">
+          <li class="td-form-comb-text-item" id="td-usage-4">
             <div class="td-form-comb-text-item-text">车辆维修</div>
           </li>
-          <li class="td-form-comb-text-item">
+          <li class="td-form-comb-text-item" id="td-usage-5">
             <div class="td-form-comb-text-item-text">其他</div>
           </li>
         </ul>
@@ -66,14 +64,17 @@
       <!-- driver -->
       <div class="td-form-field td-form-easy-picker" id="driver-picker">
         <label for="driver">司机</label>
-        <output class="td-form-easy-picker-selected" id="driver" name="driver">
+        <input type="hidden" class="td-form-input-hidden" name="driver">
+        <output class="td-form-easy-picker-selected" id="driver">
+          <span class=td-form-field-tips>请选择</span>
+        </output>
       </div>
       <!-- driver -->
 
       <!-- accompanist -->
       <div class="td-form-field td-form-textarea" id="accompanist-input">
         <label for="accompanist">随行人员</label>
-        <textarea placeholder="输入随行人员的姓名" maxlength="140" id="accompanist" name="accompanist"></textarea>
+        <textarea placeholder="输入随行人员的姓名，多人请用空格区分" maxlength="140" id="accompanist" name="accompanist"></textarea>
       </div>
       <!-- accompanist -->
 
@@ -94,14 +95,14 @@
       <!-- schedule-start -->
       <div class="td-form-field td-form-datetime-picker" id="schedule-start-input">
         <label for="schedule-start">出发时刻</label>
-        <output id="schedule-start" name="schedule-start"></output>
+        <input placeholder="请选择" id="schedule-start" name="schedule-start">
       </div>
       <!-- schedule-start -->
 
       <!-- schedule-end -->
       <div class="td-form-field td-form-datetime-picker" id="schedule-end-input">
         <label for="schedule-end">返回时刻</label>
-        <output id= "schedule-end" name="schedule-end"></output>
+        <input placeholder="请选择" id="schedule-end" name="schedule-end">
       </div>
       <!-- schedule-end -->
 
@@ -115,6 +116,7 @@
       <!-- approver -->
       <div class="td-form-field td-form-approver-picker" id="approver-picker">
         <label for="">审批人</label>
+        <input type="hidden" class="td-form-input-hidden" name="approver" value="03401806572466">
         <ul class="td-form-approver-picker-list">
           <li class="td-form-approver-picker-item" id="admin">
             <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
@@ -132,6 +134,7 @@
       <!-- cc -->
       <div class="td-form-field td-form-cc-picker" id="cc-picker">
         <label for="">抄送</label>
+        <input type="hidden" class="td-form-input-hidden" name="cc">
         <ul class="td-form-cc-picker-list">
           <div class="td-form-cc-picker-add">
             <div class="td-form-cc-picker-add-icon fa fa-plus"></div>

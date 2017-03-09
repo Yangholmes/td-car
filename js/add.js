@@ -43,7 +43,7 @@ $('#td-add-submit').click(function(e) {
         type: "POST",
         data: formData,
         processData: false, // 告诉jQuery不要去处理发送的数据
-        contentType : false, //必须false才会自动加上正确的Content-Type 
+        contentType : false, //必须false才会自动加上正确的Content-Type
         cache: false,
         success: function() {
             alert('恭喜！添加成功！');
@@ -56,7 +56,7 @@ $('#td-add-submit').click(function(e) {
             xhr.upload.addEventListener("progress", function (e) {
                 console.log(e.lengthComputable);
                 if (e.lengthComputable) {
-                  $('progress')[0].value = 100 * e.loaded / e.total;
+                  $('progress').val( 100 * e.loaded / e.total );
                 }
             }, false);
             return xhr;
