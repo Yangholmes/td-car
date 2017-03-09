@@ -17,7 +17,7 @@ $("#imageSrc").on("change", function(){
 	}
     // Only proceed if the selected file is an image
     if (/^image/.test( files[0].type)){
-		if(files[0].size < 10000){
+		if(files[0].size < 1000000){
 			var reader = new FileReader();
 			// Read the local file as a DataURL
 			reader.readAsDataURL(files[0]);

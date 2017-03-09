@@ -41,7 +41,7 @@ div.td-form-field {
 }
 
 div.td-form-field:nth-last-child(2){
-  margin-bottom: calc( 3em + 1em );
+  /*margin-bottom: calc( 3em + 1em );*/
 }
 
 /* label style (start) */
@@ -269,7 +269,7 @@ div.td-form-img-picker input[type="file"]{
   height: 1em;
 }
 div.td-form-img-picker .td-form-img-picker-touch{
-  display: inline-block;;
+  display: inline-block;
   height: 1em; width: calc( 100% - 6.5em - .5em - 2em);
 }
 div.td-form-img-picker .td-form-img-picker-touch:before {
@@ -376,8 +376,7 @@ div.td-form-cc-picker div.td-form-cc-picker-add .td-form-cc-picker-add-icon{
 /* td-form-button style (start) */
 div.td-form-button {
     border: none;
-    position: fixed;
-    bottom: 0;
+    /*position: absolute; bottom: 0;*/
     margin: 0;
     background-color: rgba(255, 255, 255, 0.8);
 }

@@ -21,7 +21,7 @@
       <!-- choose a car -->
       <div class="td-form-field td-form-comb td-form-comb-img-text" id="car-comb">
         <label for="">车辆选择</label>
-        <input type="hidden" class="td-form-input-hidden" name="car">
+        <input type="hidden" class="td-form-input-hidden" name="car" required="required">
         <div class="td-form-comb-selected td-form-comb-img-text-selected">
           <div class="td-form-comb-item td-form-comb-img-text-item">
             <span class=td-form-field-tips>请选择</span>
@@ -35,7 +35,7 @@
       <!-- usage -->
       <div class="td-form-field td-form-comb td-form-comb-text" id="usage-comb">
         <label for="">用车事由</label>
-        <input type="hidden" class="td-form-input-hidden" name="usage">
+        <input type="hidden" class="td-form-input-hidden" name="usage" required="required">
         <div class="td-form-comb-selected td-form-comb-text-selected">
           <div class="td-form-comb-item td-form-comb-text-item">
             <span class=td-form-field-tips>请选择</span>
@@ -64,7 +64,7 @@
       <!-- driver -->
       <div class="td-form-field td-form-easy-picker" id="driver-picker">
         <label for="driver">司机</label>
-        <input type="hidden" class="td-form-input-hidden" name="driver">
+        <input type="hidden" class="td-form-input-hidden" name="driver" required="required">
         <output class="td-form-easy-picker-selected" id="driver">
           <span class=td-form-field-tips>请选择</span>
         </output>
@@ -81,28 +81,28 @@
       <!-- startpoint -->
       <div class="td-form-field" id="startpoint-input">
         <label for="startpoint">出发地点</label>
-        <input type="text" placeholder="输入出发地点" id="startpoint" name="startpoint">
+        <input type="text" placeholder="输入出发地点" id="startpoint" name="startpoint" required="required">
       </div>
       <!-- startpoint -->
 
       <!-- endpoint -->
       <div class="td-form-field" id="endpoint-input">
         <label for="endpoint">目的地点</label>
-        <input type="text" placeholder="输入目的地" id="endpoint" name="endpoint">
+        <input type="text" placeholder="输入目的地" id="endpoint" name="endpoint" required="required">
       </div>
       <!-- endpoint -->
 
       <!-- schedule-start -->
       <div class="td-form-field td-form-datetime-picker" id="schedule-start-input">
         <label for="schedule-start">出发时刻</label>
-        <input placeholder="请选择" id="schedule-start" name="schedule-start">
+        <input placeholder="请选择" id="schedule-start" name="schedule-start" required="required">
       </div>
       <!-- schedule-start -->
 
       <!-- schedule-end -->
       <div class="td-form-field td-form-datetime-picker" id="schedule-end-input">
         <label for="schedule-end">返回时刻</label>
-        <input placeholder="请选择" id="schedule-end" name="schedule-end">
+        <input placeholder="请选择" id="schedule-end" name="schedule-end" required="required">
       </div>
       <!-- schedule-end -->
 
@@ -116,7 +116,7 @@
       <!-- approver -->
       <div class="td-form-field td-form-approver-picker" id="approver-picker">
         <label for="">审批人</label>
-        <input type="hidden" class="td-form-input-hidden" name="approver" value="03401806572466">
+        <input type="hidden" class="td-form-input-hidden" name="approver">
         <ul class="td-form-approver-picker-list">
           <li class="td-form-approver-picker-item" id="admin">
             <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">

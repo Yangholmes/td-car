@@ -269,7 +269,20 @@ var tdFormController = function(){
       $('.td-form-approver-picker').trigger('upload');
       $('.td-form-cc-picker').trigger('upload');
       var form = $('form'),
-          formData = new FormData(form[0]);
+          formData = new FormData(form[0]),
+          requiredFields = form.find('*[required]');
+
+          for( field of requiredFields ){
+            if(!field.value){
+              // todo
+              alert(
+                $(field).prev('label').css('color', 'red').animate({opacity: 0}, 500, function(){
+                  $(this).css({'opacity': '1', 'color': 'black'})
+                }).html() + "必填哦~"
+              );
+              return false;
+            }
+          }
 
           $.ajax({
               url: 'server/reservation/apply.php',
