@@ -421,14 +421,10 @@ div.td-form-button {
 
 #td-form-field-preview{
 	height: 0;
-    margin: auto;
-<<<<<<< HEAD
-}
-=======
+  margin: auto;
 	display: block;
 }
 
 .td-form-img-picker{
 	display:block !important;
 }
->>>>>>> refs/remotes/origin/master
