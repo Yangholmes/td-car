@@ -11,48 +11,49 @@
 		    <div class="td-detial-container">
 				<form id="td-detial-form" enctype="multipart/form-data" action="../server/car-management/car-add.php" method="post">
 					<div class="td-form-field">
+<<<<<<< HEAD
 					  <label for="plateNumber">车牌号</label>
 					  <input id="plateNumber" name="plateNumber" type="text" maxlength="8">
+=======
+						<label for="plateNumber">车牌号</label>
+						<input id="plateNumber" name="plateNumber" type="text">
+>>>>>>> refs/remotes/origin/master
 					</div>
 					<div class="td-form-field">
-					  <label for="brand">品牌</label>
-					  <input id="brand" name="brand" type="text">
+						<label for="brand">品牌</label>
+						<input id="brand" name="brand" type="text">
 					</div>
 					<div class="td-form-field">
-					  <label for="model">型号</label>
-					  <input id="model" name="model" type="text">
+						<label for="model">型号</label>
+						<input id="model" name="model" type="text">
 					</div>
 					<div class="td-form-field">
-					  <label for="seating">座位数</label>
-					  <input id="seating" name="seating" type="text">
+						<label for="seating">座位数</label>
+						<input id="seating" name="seating" type="text">
 					</div>
 					<div class="td-form-field">
-					  <label for="level">级别</label>
-					  <input id="level" name="level" type="text">
+						<label for="level">级别</label>
+						<input id="level" name="level" type="text">
 					</div>
 					<div class="td-form-field">
-					  <label for="gearbox">变速箱</label>
-					  <input id="gearbox" name="gearbox" type="text">
+						<label for="gearbox">变速箱</label>
+						<input id="gearbox" name="gearbox" type="text">
 					</div>
 					<div class="td-form-field">
-					  <label for="gasoline">汽油</label>
-					  <input id="gasoline" name="gasoline" type="text">
+						<label for="gasoline">汽油</label>
+						<input id="gasoline" name="gasoline" type="text">
 					</div>
 					<div class="td-form-field td-form-img-picker">
 						<label for="carImage">汽车图片</label>
+						<input type="file" name="imageSrc" accept="image/*" id ="imageSrc"/>
 						<div class="td-form-img-picker-touch fa fa-camera"></div>
-			      <input type="file" name="imageSrc" accept="image/*" id ="imageSrc"/>
-					</div>
-					<div class="td-form-field">
-						<img id="td-form-field-preview" />
+					    <img id="td-form-field-preview" />
 					</div>
 					<div class="td-form-field td-form-button">
-					  <div class="td-button" id="td-add-submit">确认</div>
+						<div class="td-button" id="td-add-submit">确认</div>
 					</div>
 			  </form>
 		    </div>
-
-				<progress max="100"></progress>
 
 
 			<script src="../lib/jquery/jquery-3.1.1.js"></script>
