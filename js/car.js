@@ -2,8 +2,7 @@ $(document).ready(function() {
     //使用ajax方法读取json数据,
     //注意：info.json可以是不同类型文件，只要其中的数据为json类型即可
     $.ajax({
-    //    url: '../server/car-management/car-load.php',
-		url: '../data/car.json',
+        url: '../server/car-management/car-load.php',
         dataType: 'json',
         success: function(data) {
             var html_resultinfo;
