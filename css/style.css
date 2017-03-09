@@ -1,4 +1,4 @@
-body{ font-family: Lato,'Open Sans', sans-sarif; font-size: 16px; background-image: url(../img/background.jpg);background-repeat:no-repeat; background-size:100%; }
+body{ font-family: Lato,'Open Sans', sans-sarif; font-size: 16px;}
 *{margin: 0; padding: 0; box-sizing: border-box;}
 .container{margin: 0 auto; max-width: 1000px;}
 .row{width: 103%; float: left; margin: 110px -1.5%;}

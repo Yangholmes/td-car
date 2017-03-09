@@ -10,28 +10,34 @@ $("#imageSrc").on("change", function(){
 	
 	// If no files were selected, or no FileReader support, return
 	if (!files.length){
-		alert("请选择文件！"); 
 		//没有选择文件则要清空文件上一次load的文件域和预览的图片
 		preview.css("height","0");
+		alert("请选择文件！"); 
 		return;
 	}
     // Only proceed if the selected file is an image
     if (/^image/.test( files[0].type)){
- 
-        var reader = new FileReader();
-        // Read the local file as a DataURL
-        reader.readAsDataURL(files[0]);
- 
-        // When loaded, set image data as background of div
-        reader.onloadend = function(){
-			preview.css("height","80px");
-			preview.attr("src", this.result);        
-        }
+		if(files[0].size < 10000){
+			var reader = new FileReader();
+			// Read the local file as a DataURL
+			reader.readAsDataURL(files[0]);
+	 
+			// When loaded, set image data as background of div
+			reader.onloadend = function(){
+				preview.css("height","80px");
+				preview.attr("src", this.result);        
+			}
+		}else{
+			preview.css("height","0");
+			resetFileInput();
+			alert("图片大小限制在1M！"); 
+			return;
+		}
  
     }else{
-		alert("请选择图片！"); 
 		preview.css("height","0");
 		resetFileInput();
+		alert("请选择图片！"); 
 		return;
 	}
 });
