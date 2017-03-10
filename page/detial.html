@@ -10,37 +10,37 @@
 		<script src="http://libs.baidu.com/html5shiv/3.7/html5shiv.min.js"></script>
 	<![endif]-->
 </head>
-<body>
+<body style="background-color: rgb(224, 236, 247);">
 
 		    <div class="td-detial-container">
 				<form id="td-detial-form">
 					<div class="td-form-field">
 					  <label for="plateNumber">车牌号</label>
-					  <input id="plateNumber" type="text">
+					  <input id="plateNumber" type="text" required="required">
 					</div>
 					<div class="td-form-field">
 					  <label for="brand">品牌</label>
-					  <input id="brand" type="text">
+					  <input id="brand" type="text" required="required">
 					</div>
 					<div class="td-form-field">
 					  <label for="model">型号</label>
-					  <input id="model" type="text">
+					  <input id="model" type="text" required="required">
 					</div>
 					<div class="td-form-field">
 					  <label for="seating">座位数</label>
-					  <input id="seating" type="text">
+					  <input id="seating" type="text" required="required">
 					</div>
 					<div class="td-form-field">
 					  <label for="level">级别</label>
-					  <input id="level" type="text">
+					  <input id="level" type="text" required="required">
 					</div>
 					<div class="td-form-field">
 					  <label for="gearbox">变速箱</label>
-					  <input id="gearbox" type="text">
+					  <input id="gearbox" type="text" required="required">
 					</div>
 					<div class="td-form-field">
 					  <label for="gasoline">汽油</label>
-					  <input id="gasoline" type="text">
+					  <input id="gasoline" type="text" required="required">
 					</div>
 					<div class="td-form-field td-form-img-picker">
 						<label for="carImage">汽车图片</label>
@@ -49,7 +49,7 @@
 					    <img id="td-form-field-preview" />
 					</div>
 					<div class="td-form-field td-form-button">
-					  <div class="td-button">提交修改</div>
+					  <div class="td-button" id = "td-edit-submit">提交修改</div>
 					</div>
 			  </form>
 			  <section id="cd-timeline" class="cd-container">
