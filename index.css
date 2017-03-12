@@ -417,13 +417,3 @@ div.td-form-button {
   transition: display .5s;
 }
 /* popup object style (end) */
-
-#td-form-field-preview{
-	height: 0;
-  margin: auto;
-	display: block;
-}
-
-.td-form-img-picker{
-	display:block !important;
-}

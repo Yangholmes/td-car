@@ -54,9 +54,21 @@ function resetFileInput(){
 }
 
 $('#td-add-submit').click(function(e) {
-    var $form = $('form');
-    var formData = new FormData($form[0]);
+	var form = $('form'),
+	formData = new FormData(form[0]),
+	requiredFields = form.find('*[required]');
 
+	for( field of requiredFields ){
+		if(!field.value){
+		  // todo
+		  alert(
+			$(field).prev('label').css('color', 'red').animate({opacity: 0}, 500, function(){
+			  $(this).css({'opacity': '1', 'color': 'black'})
+			}).html() + "必填哦~"
+		  );
+		  return false;
+		}
+	}
     $.ajax({
         url: '../server/car-management/car-add.php',
         type: "POST",
