@@ -55,6 +55,7 @@ var tdFormData = function(car){
 
     item.appendTo(list);
   }
+
 }
 
 /**
@@ -268,6 +269,12 @@ var tdFormController = function(){
   $('.td-form-button .td-button').on('touchend', function(e) {
       $('.td-form-approver-picker').trigger('upload');
       $('.td-form-cc-picker').trigger('upload');
+      $('input#applicant').val( JSON.stringify({
+        "avatar": _user.avatar,
+        "emplId": _user.userid,
+        "name": _user.name,
+      }) );
+
       var form = $('form'),
           formData = new FormData(form[0]),
           requiredFields = form.find('*[required]');

@@ -18,6 +18,10 @@
     <!-- 用车申请表单(开始) -->
     <form id="reservation-form" enctype="multipart/form-data" autocomplete="on" >
 
+      <!-- This user -->
+      <input type="hidden" class="td-form-input-hidden" name="applicant" id="applicant">
+      <!-- This user -->
+
       <!-- choose a car -->
       <div class="td-form-field td-form-comb td-form-comb-img-text" id="car-comb">
         <label for="">车辆选择</label>

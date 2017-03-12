@@ -176,13 +176,15 @@ class yangMysql{
 	 * decorate value
 	 */
 	private function _decorate(&$array){
+		$record = [];
 		while(list($name, $value) = each($array)){
-			if($value==null)
-				$array[$name] = "null";
+			if(!is_numeric($value) && $value==null)
+				$record["`$name`"] = "null";
 			else
-				$array[$name] = "'$value'";
+				$record["`$name`"] = "'$value'";
 		}
-		reset($array); //reset index of the $array
+		reset($record); //reset index of the $array
+		$array = $record;
 	}
 
 	/**
@@ -219,6 +221,7 @@ class yangMysql{
 		$name = implode(",", array_keys($record)); //implode() join()  Join array elements with a string
 		$value = implode(",", $record); //
 		$query = "INSERT INTO $this->db_table($name) VALUES($value)";
+		// echo $query;
 		return $this->query($query); // boolean
 	}
 

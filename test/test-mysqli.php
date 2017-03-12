@@ -45,7 +45,12 @@ $resultRows = [
 
 // $query = "SHOW VARIABLES LIKE 'character_set_server'";
 
-$query = "SELECT * FROM reservation WHERE `schedule-start`<='2017-03-08 10:00' AND `schedule-end`>='2017-03-08 10:00'";
+$query = "select * from reservation where
+					( `schedule-start` between '2017-03-13 10:00' and '2017-03-17 10:00' )
+					or 
+					( `schedule-end` between '2017-03-13 10:00' and '2017-03-17 10:00' )
+					or
+					( `schedule-start` <= '2017-03-13 10:00' and `schedule-end`>='2017-03-17 10:00' )";
 
 $result = $testMysql->query($query);
 
@@ -57,6 +62,7 @@ while ($row = $result->fetch_assoc()) {
 	// array_push($resultAssocs, arryConvertEncoding($row, "GBK"));
 	array_push($resultAssocs, $row);
 }
+echo "\n"."total rows is: \n".$result->num_rows."\n";
 echo "\n"."fetch_assocs are: \n".json_encode( $resultAssocs )."\n";
 
 
