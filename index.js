@@ -17,7 +17,8 @@ var _car = {};
  */
 var tdCarInit = function(){
   $.ajax({
-    url: 'server/car-management/car-load.php',
+    // url: 'server/car-management/car-load.php',
+    url: 'server/reservation/init.php',
     method: 'GET',
     dataType: 'json',
     data: 'keyword=yangholmes',
@@ -41,10 +42,15 @@ var tdFormData = function(car){
    * init td-form-comb-img-text data
    */
   var list = $('ul.td-form-comb-img-text-list'),
-      itemHtml = '<li class="td-form-comb-img-text-item"><div class="td-form-comb-img-text-item-img"><img src="" ></div><div class="td-form-comb-img-text-item-text"></div><div class="td-form-field-detail fa fa-car"></div></li><div class="td-form-comb-img-text-item-detial" id=""><div class="td-car-info"><div>车牌号：<span class="td-car-info-plate-number"></span></div><div>座位数：<span class="td-car-info-seating"></span></div></div><table class="td-car-reservation"><tbody><tr><td class="td-car-reservation-data">今日已约：</td><td class="td-car-reservation-time"></td></tr><tr><td class="td-car-reservation-data">明日已约：</td><td class="td-car-reservation-time"></td></tr></tbody></table></div>';
+      itemHtml = '<li class="td-form-comb-img-text-item"><div class="td-form-comb-img-text-item-img"><img src="" ></div><div class="td-form-comb-img-text-item-text"></div><div class="td-form-field-detail fa fa-car"></div></li><div class="td-form-comb-img-text-item-detial" id=""><div class="td-car-info"><div>车牌号：<span class="td-car-info-plate-number"></span></div><div>座位数：<span class="td-car-info-seating"></span></div></div><table class="td-car-reservation"><tbody><tr><td class="td-car-reservation-data">近日已约</td><td class="td-car-reservation-time"></td></tr></tbody></table></div>';
   for(var i=0; i<_car.length; i++){
     var car = _car[i],
-        item = $(itemHtml);
+        item = $(itemHtml),
+        recentRes = [];
+
+    for( var reservation of car.reservation ){
+      recentRes.push( reservation['schedule-start'] + "~" + reservation['schedule-end'] );
+    }
 
     item.eq(0).attr('id', 'td-car-item-'+car.carid);
     item.eq(1).attr('id', 'td-car-detail-'+car.carid);
@@ -52,6 +58,7 @@ var tdFormData = function(car){
     item.find('.td-form-comb-img-text-item-text').html(car.model);
     item.find('.td-car-info-plate-number').html(car.plateNumber);
     item.find('.td-car-info-seating').html(car.seating);
+    item.find('.td-car-reservation-time').html(recentRes.join(' '));
 
     item.appendTo(list);
   }
@@ -295,11 +302,10 @@ var tdFormController = function(){
               url: 'server/reservation/apply.php',
               type: "POST",
               data: formData,
+              dataType: 'json',
               processData: false, // 告诉jQuery不要去处理发送的数据
               contentType : false, // 必须false才会自动加上正确的Content-Type
               cache: false,
-              success: function() { },
-              error: function() { },
               xhr: function () {
                   var xhr = new window.XMLHttpRequest();
                   xhr.upload.addEventListener("progress", function (e) {
@@ -309,6 +315,10 @@ var tdFormController = function(){
                   }, false);
                   return xhr;
               },
+              success: function(data, textStatus, jqXHR ) {
+                window.location.href = 'page/approval.html?resid=' + data.records.resid;
+              },
+              error: function(jqXHR, textStatus, errorThrown) { },
           });
   });
 

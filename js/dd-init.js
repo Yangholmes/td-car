@@ -113,11 +113,16 @@ dd.ready(function() {
           switch(data.id){
             case '1':
               break;
-            case '2':
-              window.location.href = 'page/car.html' + '?userid=' + _user.userid;
+            case '2': // open a new page in current page
+              window.location.href = 'page/car.html' + '?userid=' + _user.userid, 'carManager';
               break;
             case '3':
-              window.location.href = 'page/car-add.html' + '?userid=' + _user.userid;
+              dd.biz.util.openLink({
+                url: 'http://192.168.4.197/dingding/td-car/page/car-add.html' + '?userid=' + _user.userid,
+                onSuccess : function(result) {},
+                onFail : function() {}
+              });
+              // window.location.href = 'page/car-add.html' + '?userid=' + _user.userid;
               break;
             default:
               break;

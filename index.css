@@ -255,8 +255,14 @@ div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail:acti
     display: flex;
     justify-content: space-around;
 }
-.td-car-reservation-data{
-  width: 5em;
+.td-form-comb-img-text-item-detial td{
+  padding: .5em 0;
+}
+td.td-car-reservation-data{
+  width: 2em;
+}
+td.td-car-reservation-time {
+  width: 20em;
 }
 /* td-form-comb-img-text-item-detial (end) */
 

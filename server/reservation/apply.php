@@ -62,11 +62,11 @@ carFilter($record);
 $condition = "( `car` = '".$record['car']."' )
               and
               (
-              ( `schedule-start` between '".$record['schedule-start']."' and '".$record['schedule-end']."' )
-    					or
-    					( `schedule-end` between '".$record['schedule-start']."' and '".$record['schedule-end']."' )
-    					or
-    					( `schedule-start` <= '".$record['schedule-start']."' and `schedule-end`>='".$record['schedule-end']."' )
+                ( `schedule-start` between '".$record['schedule-start']."' and '".$record['schedule-end']."' )
+      					or
+      					( `schedule-end` between '".$record['schedule-start']."' and '".$record['schedule-end']."' )
+      					or
+      					( `schedule-start` <= '".$record['schedule-start']."' and `schedule-end`>='".$record['schedule-end']."' )
               )";
 
 $res = $resQuery->simpleSelect(null, $condition, null, null ); // 查询时刻表
@@ -105,7 +105,12 @@ $res = $resQuery->simpleSelect(null, $condition, null, null ); // 查询新的�
 
 $record['resid'] = $res[0]['resid'];
 //
-echo json_encode( $record ); // 返回预约单单号
+$result = [
+  "records"  => $record,
+  "error"    => 0,
+  "errorMsg" => ""
+];
+echo json_encode( $result ); // 返回预约单单号
 
 /**
  * 插入新的审批流程
