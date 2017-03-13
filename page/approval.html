@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="../font/font-awesome-4.4.0/css/font-awesome.min.css">
+		
+		<link rel="stylesheet" type="text/css" href="../css/approval.css">
+	</head>
+	<body>
+		<div class="td-approval-container">
+			<div  class="td-approval-table-div">
+				<table class="td-approval-table">
+					<tr>
+						<td class="table-left">审批编号：</td><td id="approvalId"></td>
+					</tr>
+					<tr>
+						<td class="table-left">用车事由：</td><td id="reason"></td>
+					</tr>
+					<tr>
+						<td class="table-left">司机：</td><td id="driver"></td>
+					</tr>
+					<tr>
+						<td class="table-left">随行人员：</td><td id="accompany"></td>
+					</tr>
+					<tr>
+						<td class="table-left">出发地点：</td><td id="start"></td>
+					</tr>
+					<tr>
+						<td class="table-left">目的地点：</td><td id="end"></td>
+					</tr>
+					<tr>
+						<td class="table-left">出发时刻：</td><td id="startTime"></td>
+					</tr>
+					<tr>
+						<td class="table-left">返回时刻：</td><td id="endTime"></td>
+					</tr>
+					<tr>
+						<td class="table-left">备注：</td><td id="remark"></td>
+					</tr>
+					<tr>
+						<td class="table-left fa fa-car">车辆明细</td>
+					</tr>
+					<tr>
+						<td class="table-left">车牌号：</td><td id="plateNumber"></td>
+					</tr>
+					<tr>
+						<td class="table-left">车辆型号：</td><td id="model"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="td-approval-button-div">
+				<div class="td-button" id="td-agree-submit">同意</div>
+				<div class="td-button" id="td-disagree-submit">不同意</div>
+			</div>
+			<hr style="height:0px;border:2px solid #d7e4ed;"/>
+			<section id="cd-timeline" class="cd-container">
+				<div class="cd-timeline-block">
+					<div class="cd-timeline-img cd-picture">
+						<img src="../img/cars-pics/car1488967630.gif" alt="Picture">
+					</div>
+					<div class="cd-timeline-content">
+						<h2>悟空</h2><span class="cd-date">2017.3.13 9:00</span>
+						<p>发起申请</p>
+						
+					</div>
+				</div>
+				<div class="cd-timeline-block">
+					<div class="cd-timeline-img cd-picture">
+						<img src="../img/cars-pics/car1488967630.gif" alt="Picture">
+					</div>
+					<div class="cd-timeline-content">
+						<h2>悟净</h2><span class="cd-date">2017.3.13 9:00</span>
+						<p>已同意</p>
+					</div>
+				</div>
+				<div class="cd-timeline-block">
+					<div class="cd-timeline-img cd-picture">
+						<img src="../img/cars-pics/car1488967630.gif" alt="Picture">
+					</div>
+					<div class="cd-timeline-content">
+						<h2>悟能</h2><span class="cd-date">2017.3.13 9:00</span>
+						<p>待审批</p>
+					</div>
+				</div>
+			</section>
+		</div>
+		<script src="../lib/jquery/jquery-3.1.1.js"></script>
+		<script src="../js/approval.js"></script>	
+	</body>
+</html>

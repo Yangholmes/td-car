@@ -20,9 +20,33 @@ $(document).ready(function() {
                 $('.row').append(html_resultinfo); //after方法:在每个匹配的元素之后插入内容。
             });
             $('.fa-trash-o').click(function(e) {
-                var effectId = (e.target.id).slice(7);
-				console.log(effectId);
-                $('.' + effectId).remove();
+                var effectId = (e.target.id).slice(14);
+				$.ajax({
+					url: '../server/car-management/car-delete.php',
+					type: "POST",
+					data: effectId,
+					processData: false, // 告诉jQuery不要去处理发送的数据
+					contentType : false, //必须false才会自动加上正确的Content-Type
+					cache: false,
+					success: function(data) {
+						console.log(data);
+						alert('恭喜！删除成功！');
+					},
+					error: function() {
+						alert('很遗憾！删除失败！');
+					},
+					xhr: function () {
+						var xhr = new window.XMLHttpRequest();
+						xhr.upload.addEventListener("progress", function (e) {
+							console.log(e.lengthComputable);
+							if (e.lengthComputable) {
+							  100 * e.loaded / e.total;
+							}
+						}, false);
+						return xhr;
+					},
+				});
+                $('.effect-' + effectId).remove();
             });
             $('.fa-pencil').click(function(e) {
                 var effectId = (e.target.id).slice(5);

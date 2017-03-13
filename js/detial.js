@@ -65,5 +65,29 @@ $('#td-edit-submit').click(function(e) {
 		  return false;
 		}
 	}
+	$.ajax({
+        url: '../server/car-management/car-update.php',
+        type: "POST",
+        data: formData,
+        processData: false, // 告诉jQuery不要去处理发送的数据
+        contentType : false, //必须false才会自动加上正确的Content-Type
+        cache: false,
+        success: function() {
+            alert('恭喜！修改成功！');
+        },
+        error: function() {
+            alert('很遗憾！修改失败！');
+        },
+        xhr: function () {
+            var xhr = new window.XMLHttpRequest();
+            xhr.upload.addEventListener("progress", function (e) {
+                console.log(e.lengthComputable);
+                if (e.lengthComputable) {
+                  100 * e.loaded / e.total;
+                }
+            }, false);
+            return xhr;
+        },
+    });
 });
 
