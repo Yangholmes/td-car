@@ -18,6 +18,12 @@ html, body {
     -webkit-user-select: none;
 }
 
+/*fix specified area, stop it from scroll*/
+.fixed{
+  position: fixed;
+  overflow: hidden;
+}
+/*fix specified area, stop it from scroll*/
 
 /* single form */
 form {
@@ -418,7 +424,7 @@ div.td-form-button {
 /* mask (end) */
 
 /* popup object style (start) */
-.popup{
+.popup-unused{
   display: block !important;
   transition: display .5s;
 }

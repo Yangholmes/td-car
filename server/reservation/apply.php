@@ -149,11 +149,12 @@ for($i=0; $i<count($record['cc']); $i++){
 $msg = new Msg(null);
 $respond = $msg->sendMsg([
 	"touser"  => object2array($record['approver'][0])['emplId'],
-	"agentid" => "76417678",
+	"agentid" => "76647142",
 	"msgtype" => "link",
 	"link"    => [
-					"messageUrl" => "http://www.gdrtc.org/car/page/car.html?signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-					"picUrl" => $record['applicant']->avatar,
+					// "messageUrl" => "http://www.gdrtc.org/car/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
+          "messageUrl" => "http://192.168.4.197/dingding/td-car/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
+          "picUrl" => $record['applicant']->avatar,
 					"title" => "用车审批",
 					"text" => object2array($record['applicant'])['name']."的用车申请需要您审批\n测试换行"
 				]

@@ -31,7 +31,7 @@ for($i=0;$i<count($car);$i++){
                 )
                 and
                 ( `status` = '0' )";
-  $reservation = $carQuery->simpleSelect(null,$condition,null,null);
+  $reservation = $carQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],null);
   $car[$i]['reservation'] =  $reservation ;
 }
 

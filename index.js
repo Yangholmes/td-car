@@ -26,9 +26,13 @@ var tdCarInit = function(){
       console.log(respond);
     },
     success: function(data, status, respond){
-      _car = data.records;
-      tdFormData();
-      tdFormController();
+      if( data.error == 0 ){
+        _car = data.records;
+        tdFormData();
+        tdFormController();
+      }
+      else
+        alert('车辆初始化失败\n请重试');
     },
   });
 }
@@ -48,6 +52,7 @@ var tdFormData = function(car){
         item = $(itemHtml),
         recentRes = [];
 
+    // recent reservation
     for( var reservation of car.reservation ){
       recentRes.push( reservation['schedule-start'] + "~" + reservation['schedule-end'] );
     }
@@ -107,8 +112,9 @@ var tdFormController = function(){
   // popup list
   $('.td-form-comb').on('touchend', function(e) {
       if (touchMoving) return; // prevent popup while touch is moving
-      $(e.currentTarget).find('ul').addClass('popup');
-      $('.transparent-mask').addClass('popup');
+      // $(e.currentTarget).find('ul').addClass('popup');
+      // $('.transparent-mask').addClass('popup');
+      popup.call($(e.currentTarget).find('ul'), true);
       preventMoving = true;
   });
   // select item
@@ -120,7 +126,8 @@ var tdFormController = function(){
         selectedId = e.currentTarget.id;
     selectedDiv.html(selectedCtx).attr('id', selectedId);
     $(e.currentTarget).parent('ul').prevAll('input').val(selectedId);
-    $('.popup').removeClass('popup');
+    // $('.popup').removeClass('popup');
+    popup.call($(e.currentTarget).parent('ul'));
     preventMoving = false;
   });
   // toggle details
@@ -132,6 +139,19 @@ var tdFormController = function(){
     if( detailDiv.css('display') == 'none' )
       detailDiv.slideDown();
   });
+  // popup method
+  function popup(action){
+    if(action){
+      $('.transparent-mask').addClass('popup').show();
+      this.addClass('popup').fadeIn(200);
+      $('body').addClass('fixed');
+    }
+    else{
+      this.addClass('popup').fadeOut(200);
+      $('.transparent-mask').addClass('popup').hide();
+      $('body').removeClass('fixed');
+    }
+  }
 
   /**
    * td-form-easy-picker
@@ -273,7 +293,7 @@ var tdFormController = function(){
   /**
    * td-form-field td-form-button
    */
-  $('.td-form-button .td-button').on('touchend', function(e) {
+  $('.td-form-button .td-button').on('touchstart', function(e) {
       $('.td-form-approver-picker').trigger('upload');
       $('.td-form-cc-picker').trigger('upload');
       $('input#applicant').val( JSON.stringify({
@@ -306,19 +326,18 @@ var tdFormController = function(){
               processData: false, // 告诉jQuery不要去处理发送的数据
               contentType : false, // 必须false才会自动加上正确的Content-Type
               cache: false,
-              xhr: function () {
-                  var xhr = new window.XMLHttpRequest();
-                  xhr.upload.addEventListener("progress", function (e) {
-                      if (e.lengthComputable) {
-                         console.log( e.loaded / e.total );
-                      }
-                  }, false);
-                  return xhr;
+              success: function(data, status, respond) {
+                if( data.error == 0 ){
+                  localStorage.setItem(data.records.resid, JSON.stringify(data.records));
+                  window.location.href = 'page/approval.html?resid=' + data.records.resid;
+                }
+                else{
+                  alert('提交失败');
+                }
               },
-              success: function(data, textStatus, jqXHR ) {
-                window.location.href = 'page/approval.html?resid=' + data.records.resid;
+              error: function(respond, status, error) {
+                alert(status);
               },
-              error: function(jqXHR, textStatus, errorThrown) { },
           });
   });
 
@@ -326,7 +345,8 @@ var tdFormController = function(){
    * mask
    */
   $('.transparent-mask').on('touchend', function(e) {
-      $('.popup').removeClass('popup');
+      $('.popup').fadeOut(200);
+      $('body').removeClass('fixed');
       preventMoving = false;
   });
 
