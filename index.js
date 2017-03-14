@@ -18,7 +18,7 @@ var _car = {};
 var tdCarInit = function(){
   $.ajax({
     // url: 'server/car-management/car-load.php',
-    url: 'server/reservation/init.php',
+    url: 'server/reservation/application-init.php',
     method: 'GET',
     dataType: 'json',
     data: 'keyword=yangholmes',
