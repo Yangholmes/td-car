@@ -57,7 +57,6 @@ $('#td-add-submit').click(function(e) {
 	var form = $('form'),
 	formData = new FormData(form[0]),
 	requiredFields = form.find('*[required]');
-
 	for( field of requiredFields ){
 		if(!field.value){
 		  // todo
@@ -76,8 +75,13 @@ $('#td-add-submit').click(function(e) {
         processData: false, // 告诉jQuery不要去处理发送的数据
         contentType : false, //必须false才会自动加上正确的Content-Type
         cache: false,
-        success: function() {
-            alert('恭喜！添加成功！');
+        success: function(data) {
+			var jsonResult = JSON.parse(data);
+			if(!jsonResult.error){
+				alert('恭喜！添加成功！');
+			}else{
+				alert('添加失败！'+jsonResult.errorMsg);
+			}
         },
         error: function() {
             alert('很遗憾！添加失败！');

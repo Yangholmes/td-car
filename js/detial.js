@@ -72,8 +72,13 @@ $('#td-edit-submit').click(function(e) {
         processData: false, // 告诉jQuery不要去处理发送的数据
         contentType : false, //必须false才会自动加上正确的Content-Type
         cache: false,
-        success: function() {
-            alert('恭喜！修改成功！');
+        success: function(data) {
+            var jsonResult = JSON.parse(data);
+			if(!jsonResult.error){
+				alert('恭喜！修改成功！');
+			}else{
+				alert('修改失败！'+jsonResult.errorMsg);
+			}
         },
         error: function() {
             alert('很遗憾！修改失败！');
