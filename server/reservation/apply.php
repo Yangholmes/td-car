@@ -67,7 +67,9 @@ $condition = "( `car` = '".$record['car']."' )
       					( `schedule-end` between '".$record['schedule-start']."' and '".$record['schedule-end']."' )
       					or
       					( `schedule-start` <= '".$record['schedule-start']."' and `schedule-end`>='".$record['schedule-end']."' )
-              )";
+              )
+              and
+              ( `status` <> '1' or `status` <> '3' )";
 
 $res = $resQuery->simpleSelect(null, $condition, null, null ); // 查询时刻表
 $conflict = count($res);

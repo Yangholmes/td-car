@@ -112,9 +112,15 @@ dd.ready(function() {
         onSuccess: function(data) {
           switch(data.id){
             case '1':
+              alert('即将推出\n敬请期待');
               break;
             case '2': // open a new page in current page
-              window.location.href = 'page/car.html' + '?userid=' + _user.userid, 'carManager';
+              dd.biz.util.openLink({
+                url: 'http://192.168.4.197/dingding/td-car/page/car.html' + '?userid=' + _user.userid,
+                onSuccess : function(result) {},
+                onFail : function() {}
+              });
+              // window.location.href = 'page/car.html' + '?userid=' + _user.userid, 'carManager';
               break;
             case '3':
               dd.biz.util.openLink({

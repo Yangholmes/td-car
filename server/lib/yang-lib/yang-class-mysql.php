@@ -204,7 +204,7 @@ class yangMysql{
 			$select_expr = "*"; //all columns
 		$where_condition = $condition ? "WHERE $condition" : "";
 		$orderby = $order ? "ORDER BY $order[0] $order[1]" : "";
-		$limitby = $limit ? "LIMIT $limit[0] $limit[1]" : "";
+		$limitby = $limit ? "LIMIT $limit[0], $limit[1]" : "";
 		$query = "SELECT $select_expr FROM $this->db_table $where_condition $orderby $limitby";
 		// echo $query;
 		return $this->query($query);

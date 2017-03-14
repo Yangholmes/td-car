@@ -5,8 +5,8 @@
 <html>
 
 <head>
-    <title>通导用车</title>
     <meta charset="utf-8">
+    <title>通导用车</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="font/font-awesome-4.4.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="index.css">

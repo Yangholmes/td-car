@@ -46,7 +46,7 @@ var tdFormData = function(car){
    * init td-form-comb-img-text data
    */
   var list = $('ul.td-form-comb-img-text-list'),
-      itemHtml = '<li class="td-form-comb-img-text-item"><div class="td-form-comb-img-text-item-img"><img src="" ></div><div class="td-form-comb-img-text-item-text"></div><div class="td-form-field-detail fa fa-car"></div></li><div class="td-form-comb-img-text-item-detial" id=""><div class="td-car-info"><div>车牌号：<span class="td-car-info-plate-number"></span></div><div>座位数：<span class="td-car-info-seating"></span></div></div><table class="td-car-reservation"><tbody><tr><td class="td-car-reservation-data">近日已约</td><td class="td-car-reservation-time"></td></tr></tbody></table></div>';
+      itemHtml = '<li class="td-form-comb-img-text-item"><div class="td-form-comb-img-text-item-img"><img src="" ></div><div class="td-form-comb-img-text-item-text"></div><div class="td-form-field-detail fa fa-hand-pointer-o"></div></li><div class="td-form-comb-img-text-item-detial" id=""><div class="td-car-info"><div>车牌号：<span class="td-car-info-plate-number"></span></div><div>座位数：<span class="td-car-info-seating"></span></div></div><table class="td-car-reservation"><tbody><tr><td class="td-car-reservation-data">近日已约</td><td class="td-car-reservation-time"></td></tr></tbody></table></div>';
   for(var i=0; i<_car.length; i++){
     var car = _car[i],
         item = $(itemHtml),
@@ -124,7 +124,7 @@ var tdFormController = function(){
     var selectedDiv = $(e.currentTarget).parent('ul').prev('.td-form-comb-selected').find('.td-form-comb-item'),
         selectedCtx = $(e.currentTarget).html(),
         selectedId = e.currentTarget.id;
-    selectedDiv.html(selectedCtx).attr('id', selectedId);
+    selectedDiv.html(selectedCtx).attr('id', selectedId).find('.td-form-field-detail').removeClass('fa fa-hand-pointer-o');
     $(e.currentTarget).parent('ul').prevAll('input').val(selectedId);
     // $('.popup').removeClass('popup');
     popup.call($(e.currentTarget).parent('ul'));

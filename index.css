@@ -248,7 +248,7 @@ div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail {
 
 div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail:active {
     color: rgba(0, 0, 0, 1);
-    transition: color .3s;
+    transition: color .5s;
 }
 /* td-form-comb-img-text style (end) */
 
