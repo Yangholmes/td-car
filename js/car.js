@@ -21,16 +21,22 @@ $(document).ready(function() {
             });
             $('.fa-trash-o').click(function(e) {
                 var effectId = (e.target.id).slice(14);
+				var carid = {"carid":effectId};
 				$.ajax({
 					url: '../server/car-management/car-delete.php',
 					type: "POST",
-					data: effectId,
-					processData: false, // 告诉jQuery不要去处理发送的数据
-					contentType : false, //必须false才会自动加上正确的Content-Type
+					data: carid,
+					dataType: 'json',
+					//这两个参数是传送form的
+					// processData: false, // 告诉jQuery不要去处理发送的数据
+					// contentType : false, //必须false才会自动加上正确的Content-Type
 					cache: false,
 					success: function(data) {
-						console.log(data);
-						alert('恭喜！删除成功！');
+						if(!data.error){
+							alert('恭喜！删除成功！');
+						}else{
+							alert('删除失败！'+data.errorMsg);
+						}
 					},
 					error: function() {
 						alert('很遗憾！删除失败！');
@@ -49,9 +55,10 @@ $(document).ready(function() {
                 $('.effect-' + effectId).remove();
             });
             $('.fa-pencil').click(function(e) {
-                var effectId = (e.target.id).slice(5);
-				var effect = $('.' + effectId);
-				var selectCar = '{"plateNumber":"'+effect.find('.plateNumber')[0].textContent+
+                var effectId = (e.target.id).slice(12);
+				var effect = $('.effect-' + effectId);
+				var selectCar = '{"carid":"'+effectId+
+					'","plateNumber":"'+effect.find('.plateNumber')[0].textContent+
 					'","model":"' + effect.find('.model')[0].textContent+
 					'","brand":"' + effect.find('.brand')[0].textContent+
 					'","seating":"' + effect.find('.seating')[0].textContent+
