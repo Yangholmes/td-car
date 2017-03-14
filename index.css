@@ -18,6 +18,12 @@ html, body {
     -webkit-user-select: none;
 }
 
+/*fix specified area, stop it from scroll*/
+.fixed{
+  position: fixed;
+  overflow: hidden;
+}
+/*fix specified area, stop it from scroll*/
 
 /* single form */
 form {
@@ -242,7 +248,7 @@ div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail {
 
 div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail:active {
     color: rgba(0, 0, 0, 1);
-    transition: color .3s;
+    transition: color .5s;
 }
 /* td-form-comb-img-text style (end) */
 
@@ -418,7 +424,7 @@ div.td-form-button {
 /* mask (end) */
 
 /* popup object style (start) */
-.popup{
+.popup-unused{
   display: block !important;
   transition: display .5s;
 }

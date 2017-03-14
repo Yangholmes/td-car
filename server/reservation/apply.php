@@ -67,7 +67,9 @@ $condition = "( `car` = '".$record['car']."' )
       					( `schedule-end` between '".$record['schedule-start']."' and '".$record['schedule-end']."' )
       					or
       					( `schedule-start` <= '".$record['schedule-start']."' and `schedule-end`>='".$record['schedule-end']."' )
-              )";
+              )
+              and
+              ( `status` <> '1' or `status` <> '3' )";
 
 $res = $resQuery->simpleSelect(null, $condition, null, null ); // 查询时刻表
 $conflict = count($res);
@@ -149,11 +151,12 @@ for($i=0; $i<count($record['cc']); $i++){
 $msg = new Msg(null);
 $respond = $msg->sendMsg([
 	"touser"  => object2array($record['approver'][0])['emplId'],
-	"agentid" => "76417678",
+	"agentid" => "76647142",
 	"msgtype" => "link",
 	"link"    => [
-					"messageUrl" => "http://www.gdrtc.org/car/page/car.html?signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-					"picUrl" => $record['applicant']->avatar,
+					// "messageUrl" => "http://www.gdrtc.org/car/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
+          "messageUrl" => "http://192.168.4.197/dingding/td-car/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
+          "picUrl" => $record['applicant']->avatar,
 					"title" => "用车审批",
 					"text" => object2array($record['applicant'])['name']."的用车申请需要您审批\n测试换行"
 				]
