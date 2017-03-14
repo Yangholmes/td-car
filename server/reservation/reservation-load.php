@@ -8,32 +8,39 @@ require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
  */
 $record = $_POST;
 
-$offset = $record['offset'] ? $record['offset'] : 0;
-$rowCount = $record['rowCount'] ? $record['rowCount'] : 0;
+// $resid = $record['resid'];
+$resid = '7ly7Ih2P5Y5pPm0MPMzU{1489491785}';
 
+$resQuery = new yangMysql(); // instantiation
+$resQuery->selectDb(DB_DATABASE); //
 
-$carQuery = new yangMysql(); // instantiation
-$carQuery->selectDb(DB_DATABASE); //
-$carQuery->selectTable("car");
-$car = $carQuery->simpleSelect(null,null,null,null);
+$resQuery->selectTable("reservation");
+$condition = " `resid` = '".$resid."'";
+$reservation = $resQuery->simpleSelect(null, $condition, null, null);
 
-for($i=0;$i<count($car);$i++){
-  $carQuery->selectTable("reservation");
-  $condition = "( `car` = '".$car[$i]['carid']."' )
-                and
-                ( `status` <> '1' or `status` <> '3' )";
-  $reservation = $carQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],[$offset, $rowCount]);
-  for($j=0;$j<count($reservation);$j++){
-    $carQuery->selectTable("user");
-    $condition = " `emplId` = '".$reservation[$j]['applicant']."' ";
-    $applicant = $carQuery->simpleSelect(null,$condition,null,null);
-    $reservation[$j]['applicant'] = $applicant[0];
-  }
-  $car[$i]['reservation'] =  $reservation ;
+$resQuery->selectTable("user");
+$condition = " `emplId` = '".$reservation[0]['applicant']."' ";
+$applicant = $resQuery->simpleSelect(null,$condition,null,null);
+$reservation[0]['applicant'] = $applicant[0];
+$condition = " `emplId` = '".$reservation[0]['driver']."' ";
+$driver = $resQuery->simpleSelect(null,$condition,null,null);
+$reservation[0]['driver'] = $driver[0];
+
+$resQuery->selectTable("approval");
+$condition = " `resid` = '".$resid."'";
+$approval = $resQuery->simpleSelect(null, $condition, ['`sequence`', 'ASC'], null);
+
+for($j=0;$j<count($approval);$j++){
+  $resQuery->selectTable("user");
+  $condition = " `emplId` = '".$approval[$j]['userid']."' ";
+  $approver = $resQuery->simpleSelect(null,$condition,null,null);
+  $approval[$j]['approver'] = $approver[0];
 }
 
+$reservation[0]['approval'] = $approval;
+
 $result = [
-  "records"  => $car,
+  "records"  => $reservation,
   "error"    => 0,
   "errorMsg" => ""
 ];

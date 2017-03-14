@@ -129,7 +129,7 @@ for($i=0; $i<count($record['approver']); $i++){
     'resid'    => $record['resid'],
     'userid'   => $approver['emplId'],
     'sequence' => $i,
-    'approve'  => '2'
+    'result'  => '0',
   ];
   $resQuery->insert($newApr);
 }
