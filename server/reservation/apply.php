@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * in: new reservation form
+ * out: result object
+ */
+
+/**
  * set timezone
  * set the default timezone to use. Available since PHP 5.1
  */
@@ -74,94 +79,109 @@ $condition = "( `car` = '".$record['car']."' )
 $res = $resQuery->simpleSelect(null, $condition, null, null ); // 查询时刻表
 $conflict = count($res);
 
-if($conflict) return false;
+if($conflict) {
+  $error = '1';
+  $errorMsg = '该时段已经被预约';
+}
+else{
+  $newRes = [
+    'resid'          => randomIdFactory(20),
+    'createDt'       => date("Y-m-d H:i:s"),
+    'applicant'      => $record['applicant']->emplId,
+    'car'            => $record['car'],
+    'usage'          => $record['usage'],
+    'driver'         => $record['driver']->emplId,
+    'accompanist'    => $record['accompanist'],
+    'startpoint'     => $record['startpoint'],
+    'endpoint'       => $record['endpoint'],
+    'schedule-start' => $record['schedule-start'],
+    'schedule-end'   => $record['schedule-end'],
+    'remark'         => $record['remark'],
+    'status'         => '0',
+  ];
 
-$newRes = [
-  'resid'          => randomIdFactory(20),
-  'createDt'       => date("Y-m-d H:i:s"),
-  'applicant'      => $record['applicant']->emplId,
-  'car'            => $record['car'],
-  'usage'          => $record['usage'],
-  'driver'         => $record['driver']->emplId,
-  'accompanist'    => $record['accompanist'],
-  'startpoint'     => $record['startpoint'],
-  'endpoint'       => $record['endpoint'],
-  'schedule-start' => $record['schedule-start'],
-  'schedule-end'   => $record['schedule-end'],
-  'remark'         => $record['remark'],
-  'status'         => '0',
-];
+  // echo json_encode( $newRes );
 
-// echo json_encode( $newRes );
+  /**
+   * 插入新数据
+   */
+  $res = $resQuery->insert($newRes);
 
-/**
- * 插入新数据
- */
-$res = $resQuery->insert($newRes);
+  if(!$res){
+      $error = '2';
+      $errorMsg = '本次申请失败';
+  }
+  else{
+    $res = $resQuery->query('select @@IDENTITY');
+    $condition = "id = ".$res[0]['@@IDENTITY'];
+    $res = $resQuery->simpleSelect(null, $condition, null, null ); // 查询新的预约单号
 
-if(!$res) return false;
+    $record['resid'] = $res[0]['resid'];
 
-$res = $resQuery->query('select @@IDENTITY');
-$condition = "id = ".$res[0]['@@IDENTITY'];
-$res = $resQuery->simpleSelect(null, $condition, null, null ); // 查询新的预约单号
+    /**
+     * 插入新的审批流程
+     * 插入新的抄送
+     * 同时更新user table
+     */
+    // approval
+    $resQuery->selectTable("approval");
+    for($i=0; $i<count($record['approver']); $i++){
+      $approver = object2array( $record['approver'][$i] );
+      array_push( $users, $approver );
+      // echo json_encode($approver);
+      $newApr = [
+        'resid'    => $record['resid'],
+        'userid'   => $approver['emplId'],
+        'sequence' => $i,
+        'result'  => '0',
+      ];
+      $resQuery->insert($newApr);
+    }
+    // cc
+    $resQuery->selectTable("cc");
+    for($i=0; $i<count($record['cc']); $i++){
+      $cc = object2array( $record['cc'][$i] );
+      array_push( $users, $cc );
+      $newCc = [
+        'resid' => $record['resid'],
+        'userid' => $cc['emplId'],
+      ];
+      $resQuery->insert($newCc);
+    }
 
-$record['resid'] = $res[0]['resid'];
-//
+    $error = '0';
+    $errorMsg = 'success';
+
+  }
+}
+
+// return to browser
 $result = [
   "records"  => $record,
-  "error"    => 0,
-  "errorMsg" => ""
+  "error"    => $error,
+  "errorMsg" => $errorMsg
 ];
 echo json_encode( $result ); // 返回预约单单号
 
-/**
- * 插入新的审批流程
- * 插入新的抄送
- * 同时更新user table
- */
-// approval
-$resQuery->selectTable("approval");
-for($i=0; $i<count($record['approver']); $i++){
-  $approver = object2array( $record['approver'][$i] );
-  array_push( $users, $approver );
-  // echo json_encode($approver);
-  $newApr = [
-    'resid'    => $record['resid'],
-    'userid'   => $approver['emplId'],
-    'sequence' => $i,
-    'result'  => '0',
-  ];
-  $resQuery->insert($newApr);
+if($error == '0'){
+  /**
+   * send Msg
+   */
+  $msg = new Msg(null);
+  $respond = $msg->sendMsg([
+  	"touser"  => object2array($record['approver'][0])['emplId'],
+  	"agentid" => "76647142",
+  	"msgtype" => "link",
+  	"link"    => [
+  					// "messageUrl" => "http://www.gdrtc.org/car/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
+            "messageUrl" => SERVER_HOST."/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
+            "picUrl" => $record['applicant']->avatar,
+  					"title" => "用车审批",
+  					"text" => object2array($record['applicant'])['name']."的用车申请需要您审批\n测试换行"
+  				]
+  ]);
+  // echo $respond;
 }
-// cc
-$resQuery->selectTable("cc");
-for($i=0; $i<count($record['cc']); $i++){
-  $cc = object2array( $record['cc'][$i] );
-  array_push( $users, $cc );
-  $newCc = [
-    'resid' => $record['resid'],
-    'userid' => $cc['emplId'],
-  ];
-  $resQuery->insert($newCc);
-}
-
-/**
- * send Msg
- */
-$msg = new Msg(null);
-$respond = $msg->sendMsg([
-	"touser"  => object2array($record['approver'][0])['emplId'],
-	"agentid" => "76647142",
-	"msgtype" => "link",
-	"link"    => [
-					// "messageUrl" => "http://www.gdrtc.org/car/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-          "messageUrl" => "http://192.168.4.197/dingding/td-car/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-          "picUrl" => $record['applicant']->avatar,
-					"title" => "用车审批",
-					"text" => object2array($record['applicant'])['name']."的用车申请需要您审批\n测试换行"
-				]
-]);
-// echo $respond;
 
 /**
  * Update user table

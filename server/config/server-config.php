@@ -3,10 +3,13 @@
 // dd host config
 define("OAPI_HOST", "https://oapi.dingtalk.com");
 
-define("SERVER_HOST", "http://192.168.4.197");
+// this app server host
+define("SERVER_HOST", "http://192.168.4.197/dingding/td-car");
+// define("SERVER_HOST", "http://www.gdrtc.org");
 
 // image path
-define("IMAGE_ROOT", SERVER_HOST."/dingding/td-car/img");
+define("IMAGE_ROOT", SERVER_HOST."/img");
+// define("IMAGE_ROOT", SERVER_HOST."/car/img");
 
 // mysql config
 // ** MySQL settings - You can get this info from your web host ** //

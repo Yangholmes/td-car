@@ -338,17 +338,33 @@ var tdFormController = function(){
               processData: false, // 告诉jQuery不要去处理发送的数据
               contentType : false, // 必须false才会自动加上正确的Content-Type
               cache: false,
+              beforeSend: function(){
+                dd.device.notification.showPreloader({
+                  text: "正在使劲提交申请...", //loading显示的字符，空表示不显示文字
+                  showIcon: true, //是否显示icon，默认true
+                  onSuccess : function(result) {},
+                  onFail : function(err) {}
+              })
+              },
               success: function(data, status, respond) {
+                dd.device.notification.hidePreloader({
+                    onSuccess : function(result) {},
+                    onFail : function(err) {}
+                });
                 if( data.error == 0 ){
                   localStorage.setItem(data.records.resid, JSON.stringify(data.records));
                   window.location.href = 'page/approval.html?resid=' + data.records.resid;
                 }
                 else{
-                  alert('提交失败');
+                  alert(data.errorMsg);
                 }
               },
               error: function(respond, status, error) {
-                alert(status);
+                dd.device.notification.hidePreloader({
+                    onSuccess : function(result) {},
+                    onFail : function(err) {}
+                });
+                alert('申请失败！T.T');
               },
           });
   });
@@ -361,5 +377,9 @@ var tdFormController = function(){
       $('body').removeClass('fixed');
       preventMoving = false;
   });
+
+  $('body').on('touchmove', function(e){
+    console.log(e);
+  })
 
 };
