@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-
-<html>
-<head>
-	<meta charset="utf-8">
-</head>
-
-<body>
 <?php
 
 error_reporting(E_ALL);
@@ -45,12 +37,14 @@ $resultRows = [
 
 // $query = "SHOW VARIABLES LIKE 'character_set_server'";
 
-$query = "select * from reservation where
+/*$query = "select * from reservation where
 					( `schedule-start` between '2017-03-13 10:00' and '2017-03-17 10:00' )
 					or 
 					( `schedule-end` between '2017-03-13 10:00' and '2017-03-17 10:00' )
 					or
-					( `schedule-start` <= '2017-03-13 10:00' and `schedule-end`>='2017-03-17 10:00' )";
+					( `schedule-start` <= '2017-03-13 10:00' and `schedule-end`>='2017-03-17 10:00' )";*/
+
+$query = "select reservation.*, user.*, approval.userid from reservation, user, approval where reservation.applicant = user.emplId and reservation.resid = approval.resid";
 
 $result = $testMysql->query($query);
 
@@ -80,8 +74,3 @@ function arryConvertEncoding($array, $charset){
 	}
 	return $array;
 }
-
-?>
-</body>
-
-</html>

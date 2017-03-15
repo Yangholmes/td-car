@@ -20,6 +20,9 @@ for($i=0;$i<count($car);$i++){
     $condition = " `emplId` = '".$reservation[$j]['applicant']."' ";
     $applicant = $carQuery->simpleSelect(null,$condition,null,null);
     $reservation[$j]['applicant'] = $applicant[0];
+    $condition = " `emplId` = '".$reservation[$j]['driver']."' ";
+    $driver = $carQuery->simpleSelect(null,$condition,null,null);
+    $reservation[$j]['driver'] = $driver[0];
   }
   $car[$i]['reservation'] =  $reservation ;
 }
