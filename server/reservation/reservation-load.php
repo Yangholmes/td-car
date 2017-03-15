@@ -8,11 +8,11 @@ require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
  */
 $record = $_POST;
 
-// $resid = $record['resid'];
-$resid = '7ly7Ih2P5Y5pPm0MPMzU{1489491785}';
+$resid = $record['resid'];
+// $resid = '7ly7Ih2P5Y5pPm0MPMzU{1489491785}';
 
 $resQuery = new yangMysql(); // instantiation
-$resQuery->selectDb(DB_DATABASE); //
+$resQuery->selectDb(DB_DATABASE);
 
 $resQuery->selectTable("reservation");
 $condition = " `resid` = '".$resid."'";
@@ -36,8 +36,12 @@ for($j=0;$j<count($approval);$j++){
   $approver = $resQuery->simpleSelect(null,$condition,null,null);
   $approval[$j]['approver'] = $approver[0];
 }
-
 $reservation[0]['approval'] = $approval;
+
+$resQuery->selectTable("car");
+$condition = " `carid` = '".$reservation[0]['car']."'";
+$car = $resQuery->simpleSelect(null,$condition,null,null);
+$reservation[0]['car'] = $car;
 
 $result = [
   "records"  => $reservation,

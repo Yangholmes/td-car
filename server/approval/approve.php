@@ -39,7 +39,7 @@ if( !$apr ){
   $errorMsg = "审批失败！";
 }
 else{
-  if(result == 1){
+  if($result == 1){
     $sequence++;
     $condition = "resid= '".$resid."' and sequence= '".$sequence."'";
     $apr = $aprQuery->simpleSelect(null, $condition, null,null);
