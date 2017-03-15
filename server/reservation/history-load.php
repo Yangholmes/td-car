@@ -18,7 +18,7 @@ $resQuery->selectDb(DB_DATABASE); //
 $resQuery->selectTable("reservation");
 $condition = "( `car` = '".$car['carid']."' )
               and
-              ( `status` <> '1' or `status` <> '3' )";
+              ( `status` <> '2' or `status` <> '3' )";
 $reservation = $resQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],[$offset, $rowCount]);
 for($j=0;$j<count($reservation);$j++){
   $resQuery->selectTable("user");

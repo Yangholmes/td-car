@@ -13,7 +13,7 @@ for($i=0;$i<count($car);$i++){
   $carQuery->selectTable("reservation");
   $condition = "( `car` = '".$car[$i]['carid']."' )
                 and
-                ( `status` <> '1' or `status` <> '3' )";
+                ( `status` <> '2' or `status` <> '3' )";
   $reservation = $carQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],[0,5]);
   for($j=0;$j<count($reservation);$j++){
     $carQuery->selectTable("user");
