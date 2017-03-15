@@ -131,8 +131,8 @@ Main components
 
 #cd-timeline {
   position: relative;
-  padding: 2em 0;
-  margin-bottom: 2em;
+  /* padding: 2em 0; */
+  /* margin-bottom: 2em; */
 }
 #cd-timeline::before {
   /* this is the vertical line */
@@ -385,4 +385,11 @@ div.td-form-img-picker .td-form-img-picker-touch:before {
 
 .td-form-img-picker{
 	display:block !important;
+}
+
+#pullTOLoad{
+	display:block;
+	margin-bottom: 4em;
+    position: relative;
+	font-size:14px;
 }

@@ -1,54 +1,59 @@
 $.fn.setForm = function(jsonValue){
   var obj = this;
   $.each(jsonValue,function(name,ival){
-	obj.find("[id="+name+"]").val(ival);
+	findobj = obj.find("[id="+name+"]");
+	//findobj存在并且不能为imageSrc，因为input type=file不能直接赋值，会报错
+	if(findobj[0] && findobj[0].id!='imageSrc'){
+		findobj.val(ival);
+	}
   })
 }
 $(document).ready(function(){
 	//从上一个页面获取cookie转为JSON
-	var selectCar = getCookie('selectCar');
+	var storage=window.localStorage;
+	var selectCar=storage.getItem("car"+getCarId());
 	if(selectCar!=null && selectCar!="")
 	{
-		$("#td-detial-form").setForm(JSON.parse(selectCar));
-	}
-	$.ajax({
-	   url: '../data/history.json',
-	   dataType: 'json',
-	   success: function(data) {
+		var carjson = JSON.parse(selectCar);
+		$("#td-detial-form").setForm(carjson);
+		var history = carjson.reservation;
 		var html_resultinfo;
-		$.each(data["records"],function(i,item){
+		$.each(history,function(i,item){
 		html_resultinfo='';
 		html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
-			item['imageSrc']+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
-			item['personname'] + '</h2><p>起点：' + item['start'] +
-			' 目的地：' +item["end"] +' 用途：出差'+ '</p><p>约'+ item['appointmentt1'] + '-' +item['appointmentt2']+
+			item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
+			item['applicant'].name + '</h2><p>起点：' + item['startpoint'] +
+			' 目的地：' +item["endpoint"] +' 用途：'+item['usage']+ '</p><p>约'+ item['schedule-start'] + '-' +item['schedule-end']+
 			'</p><span class="cd-date">借' + item['borrowt1'] + '-'+item['borrowt2']+
 			'</span><p>备注：'+item['remark']+'</p></div></div>';
 		$('.cd-container').append(html_resultinfo);//after方法:在每个匹配的元素之后插入内容。
 		});
-	  },
-	  error:function(xhr,textStatus){
-		console.log('错误');
-		console.log(xhr);
-		console.log(textStatus);
-	  }
-	});
+		//console.log($("section>div").length);
+		var pageH=0,winH=0;
+		$(document.body).on('touchend',function(e) {
+			pageH = $(document.body).height(); //页面总高度
+			winH = $(window).height(); //页面可视区域高度
+			var scrollT = $(document.body).scrollTop(); //滚动条top
+			var aa = scrollT-(pageH-winH);
+			//console.log(aa);
+			if(aa >= 64 && scrollT > 0){
+				$.each(history,function(i,item){
+				html_resultinfo='';
+				html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
+					item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
+					item['applicant'].name + '</h2><p>起点：' + item['startpoint'] +
+					' 目的地：' +item["endpoint"] +' 用途：'+item['usage']+ '</p><p>约'+ item['schedule-start'] + '-' +item['schedule-end']+
+					'</p><span class="cd-date">借' + item['borrowt1'] + '-'+item['borrowt2']+
+					'</span><p>备注：'+item['remark']+'</p></div></div>';
+				$('.cd-container').append(html_resultinfo);//after方法:在每个匹配的元素之后插入内容。
+				});
+			}
+		});
+	}else{
+		alert("读取数据失败！请返回重新尝试");
+	}
+	storage.clear();
 });	
-function getCookie(c_name)
-{
-	if (document.cookie.length>0)
-		{
-			c_start=document.cookie.indexOf(c_name + "=");
-			if (c_start!=-1)
-			{ 
-				c_start=c_start + c_name.length+1;
-				c_end=document.cookie.indexOf(";",c_start);
-				if (c_end==-1) c_end=document.cookie.length;
-				return unescape(document.cookie.substring(c_start,c_end));
-			} 
-		}
-	return "";
-}
 
 $('#td-edit-submit').click(function(e) {
 	var form = $('form'),
@@ -95,4 +100,9 @@ $('#td-edit-submit').click(function(e) {
         },
     });
 });
-
+function  getCarId(){
+	var thisURL = document.URL;   
+	//split("=")将url分为两部分，取第二部分
+	var showval= thisURL.split("=")[1];  	
+	return showval;
+}
