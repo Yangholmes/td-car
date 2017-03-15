@@ -11,7 +11,8 @@ $.fn.setForm = function(jsonValue){
 $(document).ready(function(){
 	//从上一个页面获取cookie转为JSON
 	var storage=window.localStorage;
-	var selectCar=storage.getItem("car"+getCarId());
+	var carid = getCarId();
+	var selectCar=storage.getItem("car"+carid);
 	if(selectCar!=null && selectCar!="")
 	{
 		var carjson = JSON.parse(selectCar);
@@ -19,36 +20,72 @@ $(document).ready(function(){
 		var history = carjson.reservation;
 		var html_resultinfo;
 		$.each(history,function(i,item){
-		html_resultinfo='';
-		html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
-			item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
-			item['applicant'].name + '</h2><p>起点：' + item['startpoint'] +
-			' 目的地：' +item["endpoint"] +' 用途：'+item['usage']+ '</p><p>约'+ item['schedule-start'] + '-' +item['schedule-end']+
-			'</p><span class="cd-date">借' + item['borrowt1'] + '-'+item['borrowt2']+
-			'</span><p>备注：'+item['remark']+'</p></div></div>';
-		$('.cd-container').append(html_resultinfo);//after方法:在每个匹配的元素之后插入内容。
+			html_resultinfo='';
+			html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
+				item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
+				item['applicant'].name + '</h2><p>起点：' + item['startpoint'] +
+				' 目的地：' +item["endpoint"] +' 用途：'+item['usage']+ '</p><p>约'+ item['schedule-start'] + '-' +item['schedule-end']+
+				'</p><span class="cd-date">借' + item['borrowt1'] + '-'+item['borrowt2']+
+				'</span><p>备注：'+item['remark']+'</p></div></div>';
+			$('.cd-container').append(html_resultinfo);//after方法:在每个匹配的元素之后插入内容。
 		});
 		//console.log($("section>div").length);
-		var pageH=0,winH=0;
-		$(document.body).on('touchend',function(e) {
-			pageH = $(document.body).height(); //页面总高度
-			winH = $(window).height(); //页面可视区域高度
-			var scrollT = $(document.body).scrollTop(); //滚动条top
-			var aa = scrollT-(pageH-winH);
-			//console.log(aa);
-			if(aa >= 64 && scrollT > 0){
-				$.each(history,function(i,item){
-				html_resultinfo='';
-				html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
-					item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
-					item['applicant'].name + '</h2><p>起点：' + item['startpoint'] +
-					' 目的地：' +item["endpoint"] +' 用途：'+item['usage']+ '</p><p>约'+ item['schedule-start'] + '-' +item['schedule-end']+
-					'</p><span class="cd-date">借' + item['borrowt1'] + '-'+item['borrowt2']+
-					'</span><p>备注：'+item['remark']+'</p></div></div>';
-				$('.cd-container').append(html_resultinfo);//after方法:在每个匹配的元素之后插入内容。
-				});
-			}
-		});
+		if($("section>div").length>4){
+			var pageH=0,winH=0;
+			$(document.body).on('touchend',function(e) {
+				pageH = $(document.body).height(); //页面总高度
+				winH = $(window).height(); //页面可视区域高度
+				var scrollT = $(document.body).scrollTop(); //滚动条top
+				var aa = scrollT-(pageH-winH);
+				//console.log(aa);
+				var param = {"offset":$("section>div").length, "car":{"carid":carid}, "rowCount":"5"};
+				if(aa >= 64 && scrollT > 0){
+					$.ajax({
+						url: '../server/reservation/history-load.php',
+						type: "POST",
+						data: param,
+						dataType: 'json',
+						cache: false,
+						success: function(data) {
+							console.log(data);
+								if(!data.error){
+									var html_resultinfo;
+									$.each(data["records"],function(i,item){
+										html_resultinfo='';
+										html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
+											item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
+											item['applicant'].name + '</h2><p>起点：' + item['startpoint'] +
+											' 目的地：' +item["endpoint"] +' 用途：'+item['usage']+ '</p><p>约'+ item['schedule-start'] + '-' +item['schedule-end']+
+											'</p><span class="cd-date">借' + item['borrowt1'] + '-'+item['borrowt2']+
+											'</span><p>备注：'+item['remark']+'</p></div></div>';
+										$('.cd-container').append(html_resultinfo);//after方法:在每个匹配的元素之后插入内容。
+									});
+									if(data.records.length<5){
+										$("#pullTOLoad").text("加载完成，没有更多数据");
+									}
+								}else{
+									alert('加载失败！'+data.errorMsg);
+								}
+						},
+						error: function() {
+							alert('很遗憾！加载失败！');
+						},
+						xhr: function () {
+							var xhr = new window.XMLHttpRequest();
+							xhr.upload.addEventListener("progress", function (e) {
+								console.log(e.lengthComputable);
+								if (e.lengthComputable) {
+								  100 * e.loaded / e.total;
+								}
+							}, false);
+							return xhr;
+						},
+					});
+				}
+			});
+		}else{
+			$("#pullTOLoad").text("加载完成，没有更多数据");
+		}
 	}else{
 		alert("读取数据失败！请返回重新尝试");
 	}
