@@ -388,7 +388,7 @@ div.td-form-cc-picker div.td-form-cc-picker-add .td-form-cc-picker-add-icon{
 /* td-form-button style (start) */
 div.td-form-button {
     border: none;
-    /*position: absolute; bottom: 0;*/
+    /*position: fixed; bottom: 0;*/
     margin: 0;
     background-color: rgba(255, 255, 255, 0.8);
 }

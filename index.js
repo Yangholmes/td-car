@@ -28,6 +28,7 @@ var tdCarInit = function(){
     success: function(data, status, respond){
       if( data.error == 0 ){
         _car = data.records;
+        tdFormView();
         tdFormData();
         tdFormController();
       }
@@ -35,7 +36,18 @@ var tdCarInit = function(){
         alert('车辆初始化失败\n请重试');
     },
   });
-}
+};
+
+/**
+ * UI control view
+ */
+var tdFormView = function(){
+  // iOS can not render fixed style correctly, so block it in iOS.
+  if( /[Aa]ndroid/.test(navigator.userAgent) ){
+    $('div.td-form-button').css('position', 'fixed').css('bottom', '0');
+    $('div.td-form-field:nth-last-child(2)').css('margin-bottom', 'calc( 3em + 1em )');
+  };
+};
 
 /**
  * UI control data
@@ -350,5 +362,4 @@ var tdFormController = function(){
       preventMoving = false;
   });
 
-
-}
+};
