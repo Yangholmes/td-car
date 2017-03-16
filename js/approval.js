@@ -105,7 +105,6 @@ $('#td-agree-submit').click(function(e) {
 	var sign=-1;
 	for(var i=0; i<appDiv.length; i++)
 	{
-		console.log($(appDiv[i]).find(".approval-result"));
 		if($(appDiv[i]).find(".approval-result")[0].textContent == '未审批'){
 			sign = i;
 			break;
@@ -118,7 +117,6 @@ $('#td-agree-submit').click(function(e) {
 		var time = $(appDiv[sign]).find(".cd-date")[0];
 
 		var send={"sequence":sequence, "resid":getUrlParam(), "result":"1", "userid":time.id.slice(8)};
-		console.log(send);
 
 
 		$.ajax({
@@ -127,7 +125,6 @@ $('#td-agree-submit').click(function(e) {
         data: send,
         cache: false,
         success: function(data) {
-            console.log(data);
 			if(!data.error){
 				var myDate = new Date();
 				var mytime=myDate.toLocaleTimeString();     //获取当前时间
@@ -161,7 +158,6 @@ $('#td-disagree-submit').click(function(e) {
 	var sign=-1;
 	for(var i=0; i<appDiv.length; i++)
 	{
-		console.log($(appDiv[i]).find(".approval-result"));
 		if($(appDiv[i]).find(".approval-result")[0].textContent == '未审批'){
 			sign = i;
 			break;
@@ -174,8 +170,6 @@ $('#td-disagree-submit').click(function(e) {
 		var time = $(appDiv[sign]).find(".cd-date")[0];
 
 		var send={"sequence":sequence, "resid":getUrlParam(), "result":"2", "userid":time.id.slice(8)};
-		console.log(send);
-
 
 		$.ajax({
         url: '../server/approval/approve.php',
@@ -183,7 +177,6 @@ $('#td-disagree-submit').click(function(e) {
         data: send,
         cache: false,
         success: function(data) {
-            console.log(data);
 			if(!data.error){
 				var myDate = new Date();
 				var mytime=myDate.toLocaleTimeString();     //获取当前时间
@@ -210,6 +203,5 @@ $('#td-disagree-submit').click(function(e) {
         },
     });
 	}
-	console.log(sign);
-
+	
 });
