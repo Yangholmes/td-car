@@ -16,7 +16,7 @@ $.fn.setData = function(jsonValue){
   })
 }
 function getUrlParam(){
-	var thisURL = document.URL;
+	var thisURL = decodeURI( document.URL );
 	//split("=")将url分为两部分，取第二部分
 	var a = thisURL.split("=")[1].split("&")[0];
 	return a;
@@ -203,5 +203,5 @@ $('#td-disagree-submit').click(function(e) {
         },
     });
 	}
-	
+
 });

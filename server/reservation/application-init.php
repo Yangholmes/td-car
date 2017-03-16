@@ -30,7 +30,7 @@ for($i=0;$i<count($car);$i++){
                     ( `schedule-start` <= '".date('Y-m-d 00:00:00')."' and `schedule-end` >= '".date('Y-m-d 00:00:00', time()+2*24*60*60)."' )
                 )
                 and
-                ( `status` <> '1' or `status` <> '3' )";
+                ( `status` <> '2' )";
   $reservation = $carQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],null);
   $car[$i]['reservation'] =  $reservation ;
 }

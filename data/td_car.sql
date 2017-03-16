@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-03-14 14:55:52
+Date: 2017-03-16 19:05:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,11 +22,12 @@ DROP TABLE IF EXISTS `approval`;
 CREATE TABLE `approval` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
   `resid` varchar(255) NOT NULL,
+  `operateDt` datetime DEFAULT NULL,
   `sequence` int(32) NOT NULL,
   `userid` varchar(255) NOT NULL,
   `result` int(32) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for car
@@ -54,7 +55,7 @@ CREATE TABLE `cc` (
   `resid` varchar(255) NOT NULL,
   `userid` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for reservation
@@ -76,7 +77,7 @@ CREATE TABLE `reservation` (
   `remark` varchar(140) DEFAULT NULL,
   `status` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for user

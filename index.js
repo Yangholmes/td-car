@@ -361,6 +361,7 @@ var tdFormController = function(){
                       onSuccess : function() {},
                       onFail : function(err) {}
                   });
+                  location.reload(false);
                 }
                 else{
                   alert(data.errorMsg);

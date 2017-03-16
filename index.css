@@ -73,7 +73,7 @@ div.td-form-field input {
     margin: 0 .5em;
     /* label: 6em, padding: 1em */
     width: calc( 100% - 8em);
-    -webkit-user-select: none;
+    /*-webkit-user-select: none;*/
 }
 /* input style (end) */
 
