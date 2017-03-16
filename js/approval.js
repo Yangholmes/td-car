@@ -1,10 +1,10 @@
 $(document).ready(function(){
 	var param = getUrlParam();
 	if(param!=null || param!="")
-	{  	
+	{
 		getJson({"resid":param});
 	}
-});	
+});
 $.fn.setData = function(jsonValue){
   var obj = this;
   var findobj;
@@ -16,7 +16,7 @@ $.fn.setData = function(jsonValue){
   })
 }
 function getUrlParam(){
-	var thisURL = document.URL;   
+	var thisURL = document.URL;
 	//split("=")将url分为两部分，取第二部分
 	var a = thisURL.split("=")[1].split("&")[0];
 	return a;
@@ -62,12 +62,12 @@ function getJson(param)
 				{
 					$(".td-approval-container").setData(result);
 				}
-			
+
 				var html_resultinfo;
 				$.each(result.approval,function(i,item){
 					html_resultinfo='';
 					html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
-						item['approver'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
+						item['approver'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+
 						item['approver'].name + '</h2><span class="cd-date" id="cd-date-'+item['userid']+'">' + item['operateDt'] +
 						'</span><p class="approval-result" id="approval-result-'+item['userid']+'">'+item["result"] +
 						' </p><span class="approval-hidden">'+item['sequence']+'</span></div></div>';
@@ -90,7 +90,7 @@ function getJson(param)
 			}else{
 				alert("很遗憾！加载失败");
 			}
-			
+
 
 		},
 		error:function(xhr,textStatus){
@@ -116,11 +116,11 @@ $('#td-agree-submit').click(function(e) {
 	}else{
 		var sequence = $(appDiv[sign]).find(".approval-hidden")[0].textContent;
 		var time = $(appDiv[sign]).find(".cd-date")[0];
-		
+
 		var send={"sequence":sequence, "resid":getUrlParam(), "result":"1", "userid":time.id.slice(8)};
 		console.log(send);
-		
-		
+
+
 		$.ajax({
         url: '../server/approval/approve.php',
         type: "POST",
@@ -128,15 +128,15 @@ $('#td-agree-submit').click(function(e) {
         cache: false,
         success: function(data) {
             console.log(data);
-			if(!jsonResult.error){
-				var myDate = new Date();  
+			if(!data.error){
+				var myDate = new Date();
 				var mytime=myDate.toLocaleTimeString();     //获取当前时间
 				time.textContent=mytime;
 				$(appDiv[sign]).find(".approval-result")[0].textContent = "已同意";
 				$(appDiv[sign]).find(".approval-result").css("color","green");
 				$('.td-approval-button-div').css("display","none");
 			}else{
-				alert('修改状态失败！'+jsonResult.errorMsg);
+				alert('修改状态失败！'+data.errorMsg);
 			}
         },
         error: function() {
@@ -154,7 +154,7 @@ $('#td-agree-submit').click(function(e) {
         },
     });
 	}
-	
+
 });
 $('#td-disagree-submit').click(function(e) {
 	var appDiv=$("section>div");
@@ -172,11 +172,11 @@ $('#td-disagree-submit').click(function(e) {
 	}else{
 		var sequence = $(appDiv[sign]).find(".approval-hidden")[0].textContent;
 		var time = $(appDiv[sign]).find(".cd-date")[0];
-		
+
 		var send={"sequence":sequence, "resid":getUrlParam(), "result":"2", "userid":time.id.slice(8)};
 		console.log(send);
-		
-		
+
+
 		$.ajax({
         url: '../server/approval/approve.php',
         type: "POST",
@@ -184,15 +184,15 @@ $('#td-disagree-submit').click(function(e) {
         cache: false,
         success: function(data) {
             console.log(data);
-			if(!jsonResult.error){
-				var myDate = new Date();  
+			if(!data.error){
+				var myDate = new Date();
 				var mytime=myDate.toLocaleTimeString();     //获取当前时间
 				time.textContent=mytime;
 				$(appDiv[sign]).find(".approval-result")[0].textContent = "已拒绝";
 				$(appDiv[sign]).find(".approval-result").css("color","red");
 				$('.td-approval-button-div').css("display","none");
 			}else{
-				alert('修改状态失败！'+jsonResult.errorMsg);
+				alert('修改状态失败！'+data.errorMsg);
 			}
         },
         error: function() {
@@ -211,5 +211,5 @@ $('#td-disagree-submit').click(function(e) {
     });
 	}
 	console.log(sign);
-	
+
 });
