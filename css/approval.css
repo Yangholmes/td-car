@@ -25,7 +25,7 @@ body {
     font-size: 100%;
     width: 100%;
     height: auto;
-    background-color: rgba(224, 236, 247, 0.7);
+    background-color: #ececec;
 }
 
 
@@ -76,8 +76,8 @@ Main components
   top: 0;
   left: 18px;
   height: 100%;
-  width: 4px;
-  background: #d7e4ed;
+  width: 2px;
+  background: #fff;
 }
 @media only screen and (min-width: 1170px) {
   #cd-timeline {
@@ -167,7 +167,7 @@ Main components
   background: white;
   border-radius: 0.25em;
   padding: 1em;
-  box-shadow: 0 3px 0 #d7e4ed;
+  box-shadow: 0 3px 0 #dadada;
 }
 .cd-timeline-content:after {
   content: "";
@@ -310,7 +310,8 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 
 .td-approval-table-div{
 	width:100%;
-	background-color:rgba(245, 245, 245, .7);
+	background-color:#fff;
+	padding: 4px 0;
 }
 
 .td-approval-button-div{
