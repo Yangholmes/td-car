@@ -175,7 +175,7 @@ if($error == '0'){
   	"link"    => [
   					// "messageUrl" => "http://www.gdrtc.org/car/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
             "messageUrl" => SERVER_HOST."/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-            "picUrl" => $record['applicant']->avatar,
+            "picUrl" => "https://static.dingtalk.com/media/lALObKjV5M0Bo80Byw_459_419.png",
   					"title" => "用车审批",
   					"text" => object2array($record['applicant'])['name']."的用车申请需要您审批\n测试换行"
   				]
