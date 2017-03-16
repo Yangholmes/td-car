@@ -45,7 +45,7 @@ $aprQuery->selectDb(DB_DATABASE); $ccQuery->selectDb(DB_DATABASE); $resQuery->se
 $aprQuery->selectTable("approval"); $ccQuery->selectTable("cc"); $resQuery->selectTable("reservation"); $userQuery->selectTable("user");
 
 // 更新审批状态
-$condition = "resid="."'".$resid."'";
+$condition = "resid = '".$resid."' and userid = '".$userid."'";
 $apr = $aprQuery->update($record, $condition, null, null);
 
 // 查询申请人个人信息
