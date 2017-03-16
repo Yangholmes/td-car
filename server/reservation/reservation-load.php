@@ -41,7 +41,7 @@ $reservation[0]['approval'] = $approval;
 $resQuery->selectTable("car");
 $condition = " `carid` = '".$reservation[0]['car']."'";
 $car = $resQuery->simpleSelect(null,$condition,null,null);
-$reservation[0]['car'] = $car;
+$reservation[0]['car'] = $car[0];
 
 $result = [
   "records"  => $reservation,
