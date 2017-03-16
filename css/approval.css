@@ -369,3 +369,6 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
     margin-top: -40px;
     border-radius: 50%;
 }
+.approval-hidden{
+	display:none;
+}
