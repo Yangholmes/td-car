@@ -45,6 +45,7 @@ $aprQuery->selectDb(DB_DATABASE); $ccQuery->selectDb(DB_DATABASE); $resQuery->se
 $aprQuery->selectTable("approval"); $ccQuery->selectTable("cc"); $resQuery->selectTable("reservation"); $userQuery->selectTable("user");
 
 // 更新审批状态
+$record['operateDt'] = date("Y-m-d H:i:s");
 $condition = "resid = '".$resid."' and userid = '".$userid."'";
 $apr = $aprQuery->update($record, $condition, null, null);
 
@@ -78,22 +79,23 @@ else{
       					"messageUrl" => $messageUrl,
                 "picUrl" => IMAGE_ROOT."/icon/yeah.png",
       					"title" => "用车审批",
-      					"text" => "恭喜！\n您的用车申请顺利通过所有审批\n记得在".$reservation[0]['schedule-start']."准时出发哦~",
+      					"text" => "恭喜！您的用车申请顺利通过所有审批\n记得在".$reservation[0]['schedule-start']."准时出发哦~",
       				]
       ]);
       // send to cc
       $condition = "resid="."'".$resid."'";
       $cc = $ccQuery->simpleSelect(null, $condition, null, null);
-      for($i=0;$i<count($cc);$i++)
-        array_push( $touser, $cc[$i]['emplId'] );
-      // send to applicant
+      for($i=0;$i<count($cc);$i++){
+        array_push( $touser, $cc[$i]['userid'] );
+      }
+      // send to cc
       $respond = $msg->sendMsg([
       	"touser"  => implode('|', $touser),
       	"agentid" => "76647142",
       	"msgtype" => "link",
       	"link"    => [
       					"messageUrl" => $messageUrl,
-                "picUrl" => IMAGE_ROOT."/icon/yeah.png",
+                "picUrl" => $applicant['avatar'],
       					"title" => "[抄送]用车审批",
       					"text" => $applicant['name']."的用车申请已经通过了所有审批，特此抄送给您~",
       				]
@@ -109,7 +111,7 @@ else{
       	"msgtype" => "link",
       	"link"    => [
                       "messageUrl" => SERVER_HOST."/page/approval.html?resid=".$resid."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-                      "picUrl"     => "https://static.dingtalk.com/media/lALObKjV5M0Bo80Byw_459_419.png",
+                      "picUrl"     => $applicant['avatar'],
                       "title"      => "用车审批",
                       "text"       => $applicant['name']."的用车申请需要您审批\n测试换行"
       				       ]
