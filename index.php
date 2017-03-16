@@ -47,19 +47,19 @@
           </div>
         </div>
         <ul class="td-form-comb-text-list">
-          <li class="td-form-comb-text-item" id="td-usage-1">
+          <li class="td-form-comb-text-item" id="td-usage-0">
             <div class="td-form-comb-text-item-text">出差</div>
           </li>
-          <li class="td-form-comb-text-item" id="td-usage-2">
+          <li class="td-form-comb-text-item" id="td-usage-1">
             <div class="td-form-comb-text-item-text">接待</div>
           </li>
-          <li class="td-form-comb-text-item" id="td-usage-3">
+          <li class="td-form-comb-text-item" id="td-usage-2">
             <div class="td-form-comb-text-item-text">外勤</div>
           </li>
-          <li class="td-form-comb-text-item" id="td-usage-4">
+          <li class="td-form-comb-text-item" id="td-usage-3">
             <div class="td-form-comb-text-item-text">车辆维修</div>
           </li>
-          <li class="td-form-comb-text-item" id="td-usage-5">
+          <li class="td-form-comb-text-item" id="td-usage-4">
             <div class="td-form-comb-text-item-text">其他</div>
           </li>
         </ul>

@@ -295,56 +295,13 @@ div.td-form-img-picker .td-form-img-picker-touch:before {
 }
 /* td-form-img-picker (end) */
 
-/* td-form-approver-picker style (start) */
-div.td-form-approver-picker {
-    display: block;
-}
-
-div.td-form-approver-picker .td-form-approver-picker-item-avatar img {
-    width: 64px;
-    height: 64px;
-    display: block;
-    border-radius: 50%;
-}
-
-div.td-form-approver-picker li.td-form-approver-picker-item {
-    display: inline-block;
-    text-align: center;
-    margin: .5em 1em .5em .5em;
-}
-div.td-form-approver-picker li.td-form-approver-picker-item .td-form-approver-picker-item-avatar{
-  position: relative;
-}
-div.td-form-approver-picker .td-form-approver-picker-item-avatar:before {
-  position: absolute;
-  top: calc( 32px - .5em );
-  left: calc( 64px + .5em );
-  color: rgba(200, 200, 200, .7);
-}
-
-div.td-form-approver-picker div.td-form-approver-picker-add {
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    margin: .5em;
-    width: 62px;
-    height: 62px;
-    border: 1px solid rgba(200,200,200,.7);
-    border-radius: 50%;
-    text-align: center;
-}
-div.td-form-approver-picker div.td-form-approver-picker-add .td-form-approver-picker-add-icon{
-  line-height: 2em;
-  color: rgba(200,200,200,.7);
-  font-size: 2em;
-}
-/* td-form-approver-picker style (end) */
-
-/* td-form-cc-picker style (start) */
+/* td-form-approver-picker & td-form-cc-picker style (start) */
+div.td-form-approver-picker,
 div.td-form-cc-picker {
     display: block;
 }
 
+div.td-form-approver-picker .td-form-approver-picker-item-avatar img,
 div.td-form-cc-picker .td-form-cc-picker-item-avatar img {
     width: 64px;
     height: 64px;
@@ -352,14 +309,17 @@ div.td-form-cc-picker .td-form-cc-picker-item-avatar img {
     border-radius: 50%;
 }
 
-div.td-form-cc-picker li.td-form-cc-picker-item {
+div.td-form-approver-picker li.td-form-approver-picker-item,
+div.td-form-cc-picker li.td-form-cc-picker-item  {
     display: inline-block;
     text-align: center;
     margin: .5em 1em .5em .5em;
 }
-div.td-form-cc-picker li.td-form-cc-picker-item .td-form-cc-picker-item-avatar{
+div.td-form-approver-picker li.td-form-approver-picker-item .td-form-approver-picker-item-avatar,
+div.td-form-cc-picker li.td-form-cc-picker-item .td-form-cc-picker-item-avatar {
   position: relative;
 }
+div.td-form-approver-picker .td-form-approver-picker-item-avatar:before,
 div.td-form-cc-picker .td-form-cc-picker-item-avatar:before {
   position: absolute;
   top: calc( 32px - .5em );
@@ -367,6 +327,7 @@ div.td-form-cc-picker .td-form-cc-picker-item-avatar:before {
   color: rgba(200, 200, 200, .7);
 }
 
+div.td-form-approver-picker div.td-form-approver-picker-add,
 div.td-form-cc-picker div.td-form-cc-picker-add {
     display: inline-block;
     vertical-align: top;
@@ -378,12 +339,13 @@ div.td-form-cc-picker div.td-form-cc-picker-add {
     border-radius: 50%;
     text-align: center;
 }
-div.td-form-cc-picker div.td-form-cc-picker-add .td-form-cc-picker-add-icon{
+div.td-form-approver-picker div.td-form-approver-picker-add .td-form-approver-picker-add-icon,
+div.td-form-cc-picker div.td-form-cc-picker-add .td-form-cc-picker-add-icon {
   line-height: 2em;
   color: rgba(200,200,200,.7);
   font-size: 2em;
 }
-/* td-form-cc-picker style (end) */
+/* td-form-approver-picker & td-form-cc-picker style (end) */
 
 /* td-form-button style (start) */
 div.td-form-button {
