@@ -193,13 +193,14 @@ Main components
 }
 .cd-timeline-img img {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   position: relative;
   left: 50%;
   top: 50%;
-  margin-left: -12px;
-  margin-top: -12px;
+  margin-left: -20px;
+  margin-top: -20px;
+  border-radius: 50%;
 }
 .cd-timeline-img.cd-picture {
   background: #79abd2;

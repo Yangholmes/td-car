@@ -128,13 +128,14 @@ Main components
 }
 .cd-timeline-img img {
   display: block;
-  width: 24px;
-  height: 24px;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  margin-left: -12px;
-  margin-top: -12px;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+    border-radius: 50%;
 }
 .cd-timeline-img.cd-picture {
   background: #79abd2;
@@ -332,4 +333,39 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
     text-align: center;
     -webkit-user-select: none;
     margin: 0 auto;
+}
+/*td-apply name and picture*/
+.td-approval-apply{
+	height: 80px;
+    margin: 1em;
+}
+.td-apply-pic{
+	position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+	background: #79abd2;
+}
+.td-approval-apply>div{
+	display:inline-block;
+}
+.td-approval-apply #name{
+	font-size:2em;
+}
+.td-apply-name{
+	margin-left: 100px;
+    height: 80px;
+    line-height: 40px;
+}
+.td-apply-pic img {
+    display: block;
+    width: 80px;
+    height: 80px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    margin-left: -40px;
+    margin-top: -40px;
+    border-radius: 50%;
 }

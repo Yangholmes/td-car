@@ -47,7 +47,6 @@ $(document).ready(function(){
 						dataType: 'json',
 						cache: false,
 						success: function(data) {
-							console.log(data);
 								if(!data.error){
 									var html_resultinfo;
 									$.each(data["records"],function(i,item){

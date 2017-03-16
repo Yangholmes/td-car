@@ -10,31 +10,38 @@
 	</head>
 	<body>
 		<div class="td-approval-container">
+			<div class="td-approval-apply">
+				<div class="td-apply-pic">
+					<img id="applicant-avatar" alt="Picture" src="">
+				</div>
+				<div class="td-apply-name">
+					<div id="name"></div>
+					<div>申请</div>
+				</div>
+			</div>
+			<hr style="height:0px;border:2px solid #d7e4ed;"/>
 			<div  class="td-approval-table-div">
 				<table class="td-approval-table">
 					<tr>
-						<td class="table-left">审批编号：</td><td id="approvalId"></td>
-					</tr>
-					<tr>
-						<td class="table-left">用车事由：</td><td id="reason"></td>
+						<td class="table-left">用车事由：</td><td id="usage"></td>
 					</tr>
 					<tr>
 						<td class="table-left">司机：</td><td id="driver"></td>
 					</tr>
 					<tr>
-						<td class="table-left">随行人员：</td><td id="accompany"></td>
+						<td class="table-left">随行人员：</td><td id="accompanist"></td>
 					</tr>
 					<tr>
-						<td class="table-left">出发地点：</td><td id="start"></td>
+						<td class="table-left">出发地点：</td><td id="startpoint"></td>
 					</tr>
 					<tr>
-						<td class="table-left">目的地点：</td><td id="end"></td>
+						<td class="table-left">目的地点：</td><td id="endpoint"></td>
 					</tr>
 					<tr>
-						<td class="table-left">出发时刻：</td><td id="startTime"></td>
+						<td class="table-left">出发时刻：</td><td id="schedule-start"></td>
 					</tr>
 					<tr>
-						<td class="table-left">返回时刻：</td><td id="endTime"></td>
+						<td class="table-left">返回时刻：</td><td id="schedule-end"></td>
 					</tr>
 					<tr>
 						<td class="table-left">备注：</td><td id="remark"></td>
@@ -56,34 +63,7 @@
 			</div>
 			<hr style="height:0px;border:2px solid #d7e4ed;"/>
 			<section id="cd-timeline" class="cd-container">
-				<div class="cd-timeline-block">
-					<div class="cd-timeline-img cd-picture">
-						<img src="../img/cars-pics/car1488967630.gif" alt="Picture">
-					</div>
-					<div class="cd-timeline-content">
-						<h2>悟空</h2><span class="cd-date">2017.3.13 9:00</span>
-						<p>发起申请</p>
-
-					</div>
-				</div>
-				<div class="cd-timeline-block">
-					<div class="cd-timeline-img cd-picture">
-						<img src="../img/cars-pics/car1488967630.gif" alt="Picture">
-					</div>
-					<div class="cd-timeline-content">
-						<h2>悟净</h2><span class="cd-date">2017.3.13 9:00</span>
-						<p>已同意</p>
-					</div>
-				</div>
-				<div class="cd-timeline-block">
-					<div class="cd-timeline-img cd-picture">
-						<img src="../img/cars-pics/car1488967630.gif" alt="Picture">
-					</div>
-					<div class="cd-timeline-content">
-						<h2>悟能</h2><span class="cd-date">2017.3.13 9:00</span>
-						<p>待审批</p>
-					</div>
-				</div>
+				
 			</section>
 		</div>
 		<script src="../lib/jquery/jquery-3.1.1.js"></script>
