@@ -11,11 +11,11 @@ $(document).ready(function(){
 		$('body').html('');
 		window.close();
 	}
-	if(
+
 	var param = getUrlParam();
 	if(param!=null || param!="")
 	{
-		getJson({"resid":param},thisUser);
+		getJson({"resid":param},JSON.parse(thisUser).userid);
 	}
 });
 
@@ -109,6 +109,8 @@ function getJson(param,thisUser)
 				console.log("error");
 			}else{
 				var approvalId = $(appDiv[sign]).find(".cd-date")[0].id.slice(8);
+				console.log(approvalId+','+thisUser);
+				if(approvalId!=thisUser)
 				$('.td-approval-button-div').css("display","none");
 			}
 
@@ -188,7 +190,7 @@ $('#td-disagree-submit').click(function(e) {
 			}else{
 				alert('修改审批状态失败！'+data.errorMsg);
 			}
-			$("#td-mask").hide();     
+			$("#td-mask").hide();
         },
         error: function() {
             alert('很遗憾！审批失败！');
@@ -209,7 +211,7 @@ $('#td-disagree-submit').click(function(e) {
 });
 
 function getApproval(){
-	var appDiv=$("section>div");
+	 appDiv=$("section>div");
 	var sign=-1;
 	for(var i=0; i<appDiv.length; i++)
 	{
@@ -221,9 +223,9 @@ function getApproval(){
 	return sign;
 }
 
-function showMask(){     
-	$("#td-mask").css("height",$(document).height());     
-	$("#td-mask").css("width",$(document).width());     
+function showMask(){
+	$("#td-mask").css("height",$(document).height());
+	$("#td-mask").css("width",$(document).width());
 	$("#td-mask").show();
-	$("#td-mask img").show();	
+	$("#td-mask img").show();
 }
