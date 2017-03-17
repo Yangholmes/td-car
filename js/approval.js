@@ -115,10 +115,8 @@ $('#td-agree-submit').click(function(e) {
 	}else{
 		var sequence = $(appDiv[sign]).find(".approval-hidden")[0].textContent;
 		var time = $(appDiv[sign]).find(".cd-date")[0];
-
 		var send={"sequence":sequence, "resid":getUrlParam(), "result":"1", "userid":time.id.slice(8)};
-
-
+		showMask();
 		$.ajax({
         url: '../server/approval/approve.php',
         type: "POST",
@@ -127,17 +125,17 @@ $('#td-agree-submit').click(function(e) {
         success: function(data) {
 			if(!data.error){
 				var myDate = new Date();
-				var mytime=myDate.toLocaleTimeString();     //获取当前时间
-				time.textContent=mytime;
+				time.textContent=myDate.toLocaleTimeString();     //获取当前时间
 				$(appDiv[sign]).find(".approval-result")[0].textContent = "已同意";
 				$(appDiv[sign]).find(".approval-result").css("color","green");
 				$('.td-approval-button-div').css("display","none");
 			}else{
-				alert('修改状态失败！'+data.errorMsg);
+				alert('修改审批状态失败！'+data.errorMsg);
 			}
+			$("#td-mask").hide();
         },
         error: function() {
-            alert('很遗憾！修改失败！');
+            alert('很遗憾！审批失败！');
         },
         xhr: function () {
             var xhr = new window.XMLHttpRequest();
@@ -170,7 +168,7 @@ $('#td-disagree-submit').click(function(e) {
 		var time = $(appDiv[sign]).find(".cd-date")[0];
 
 		var send={"sequence":sequence, "resid":getUrlParam(), "result":"2", "userid":time.id.slice(8)};
-
+		showMask();
 		$.ajax({
         url: '../server/approval/approve.php',
         type: "POST",
@@ -179,17 +177,17 @@ $('#td-disagree-submit').click(function(e) {
         success: function(data) {
 			if(!data.error){
 				var myDate = new Date();
-				var mytime=myDate.toLocaleTimeString();     //获取当前时间
-				time.textContent=mytime;
+				time.textContent=myDate.toLocaleTimeString();     //获取当前时间
 				$(appDiv[sign]).find(".approval-result")[0].textContent = "已拒绝";
 				$(appDiv[sign]).find(".approval-result").css("color","red");
 				$('.td-approval-button-div').css("display","none");
 			}else{
-				alert('修改状态失败！'+data.errorMsg);
+				alert('修改审批状态失败！'+data.errorMsg);
 			}
+			$("#td-mask").hide();     
         },
         error: function() {
-            alert('很遗憾！修改失败！');
+            alert('很遗憾！审批失败！');
         },
         xhr: function () {
             var xhr = new window.XMLHttpRequest();
@@ -205,3 +203,9 @@ $('#td-disagree-submit').click(function(e) {
 	}
 
 });
+function showMask(){     
+	$("#td-mask").css("height",$(document).height());     
+	$("#td-mask").css("width",$(document).width());     
+	$("#td-mask").show();
+	$("#td-mask img").show();	
+}

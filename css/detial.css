@@ -394,3 +394,22 @@ div.td-form-img-picker .td-form-img-picker-touch:before {
     position: relative;
 	font-size:14px;
 }
+
+.td-mask{       
+	position: absolute; 
+	top: 0px; 
+	filter: alpha(opacity=60); 
+	background-color: #777;     
+	z-index: 10; 
+	left: 0px;     
+	opacity:0.5; 
+	-moz-opacity:0.5;    
+}  
+.td-mask img{
+	display:none;
+	position: fixed;
+    bottom: 50%;
+    left: 50%;
+    margin-left: -61px;
+    margin-bottom: -11px;
+}
