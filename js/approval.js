@@ -11,12 +11,11 @@ $(document).ready(function(){
 		$('body').html('');
 		window.close();
 	}
-
-	var param = JSON.parse(thisUser);
-	
-	if(param!="error")
+	if(
+	var param = getUrlParam();
+	if(param!=null || param!="")
 	{
-		getJson({"resid":param});
+		getJson({"resid":param},thisUser);
 	}
 });
 
@@ -30,7 +29,13 @@ $.fn.setData = function(jsonValue){
 	}
   })
 }
-function getJson(param)
+function getUrlParam(){
+	var thisURL = decodeURI( document.URL );
+	//split("=")将url分为两部分，取第二部分
+	var a = thisURL.split("=")[1].split("&")[0];
+	return a;
+}
+function getJson(param,thisUser)
 {
 	$.ajax({
 		url: '../server/reservation/reservation-load.php',
@@ -99,7 +104,13 @@ function getJson(param)
 			}else{
 				alert("很遗憾！加载失败");
 			}
-
+			var sign = getApproval();
+			if(sign == -1){
+				console.log("error");
+			}else{
+				var approvalId = $(appDiv[sign]).find(".cd-date")[0].id.slice(8);
+				$('.td-approval-button-div').css("display","none");
+			}
 
 		},
 		error:function(xhr,textStatus){
@@ -110,15 +121,7 @@ function getJson(param)
 	});
 }
 $('#td-agree-submit').click(function(e) {
-	var appDiv=$("section>div");
-	var sign=-1;
-	for(var i=0; i<appDiv.length; i++)
-	{
-		if($(appDiv[i]).find(".approval-result")[0].textContent == '未审批'){
-			sign = i;
-			break;
-		}
-	}
+	var sign = getApproval();
 	if(sign == -1){
 		console.log("error");
 	}else{
@@ -161,15 +164,7 @@ $('#td-agree-submit').click(function(e) {
 
 });
 $('#td-disagree-submit').click(function(e) {
-	var appDiv=$("section>div");
-	var sign=-1;
-	for(var i=0; i<appDiv.length; i++)
-	{
-		if($(appDiv[i]).find(".approval-result")[0].textContent == '未审批'){
-			sign = i;
-			break;
-		}
-	}
+	var sign = getApproval();
 	if(sign == -1){
 		console.log("error");
 	}else{
@@ -212,6 +207,20 @@ $('#td-disagree-submit').click(function(e) {
 	}
 
 });
+
+function getApproval(){
+	var appDiv=$("section>div");
+	var sign=-1;
+	for(var i=0; i<appDiv.length; i++)
+	{
+		if($(appDiv[i]).find(".approval-result")[0].textContent == '未审批'){
+			sign = i;
+			break;
+		}
+	}
+	return sign;
+}
+
 function showMask(){     
 	$("#td-mask").css("height",$(document).height());     
 	$("#td-mask").css("width",$(document).width());     
