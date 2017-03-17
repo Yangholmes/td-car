@@ -1,10 +1,24 @@
 $(document).ready(function(){
+
+	var thisUser = localStorage.getItem('thisUser');
+
+	console.log(thisUser);
+
+	if( !thisUser ){
+		window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
+	}
+	else if( thisUser == 'error' ){
+		$('body').html('');
+		window.close();
+	}
+
 	var param = getUrlParam();
 	if(param!=null || param!="")
 	{
 		getJson({"resid":param});
 	}
 });
+
 $.fn.setData = function(jsonValue){
   var obj = this;
   var findobj;

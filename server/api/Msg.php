@@ -79,19 +79,28 @@ class Msg{
 /**
  * test
  */
-/*
+
 $msg = new Msg(null);
 $respond = $msg->sendMsg([
 	"touser"  => "03424264076698",
 	"agentid" => "76417678",
-	"msgtype" => "link",
-	"link"    => [
-					"messageUrl" => "http://www.gdrtc.org/car/index.php",
-					"picUrl" => "",
-					"title" => "测试",
-					"text" => "测试"
+	"msgtype" => "oa",
+	"oa"    =>	[
+					"message_url" => "http://www.gdrtc.org/car/index.php",
+					"head" => [
+						"bgcolor" => "FFBBBB",
+						"text" => "头部标题", // 向普通会话发送时有效，向企业会话发送时会被替换为微应用的名字
+					],
+					"body" => [
+						"title" => "正文标题",
+						"content" => "大段文本",
+						"author" => "©通导研发  2017",
+						"image"=> "http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg",
+						"form" =>	[
+
+									],
+					],
 				]
 ]);
 
 echo $respond;
-*/
