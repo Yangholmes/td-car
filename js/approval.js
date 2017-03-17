@@ -12,8 +12,9 @@ $(document).ready(function(){
 		window.close();
 	}
 
-	var param = getUrlParam();
-	if(param!=null || param!="")
+	var param = JSON.parse(thisUser);
+	
+	if(param!="error")
 	{
 		getJson({"resid":param});
 	}
@@ -28,12 +29,6 @@ $.fn.setData = function(jsonValue){
 		findobj.textContent=ival;
 	}
   })
-}
-function getUrlParam(){
-	var thisURL = decodeURI( document.URL );
-	//split("=")将url分为两部分，取第二部分
-	var a = thisURL.split("=")[1].split("&")[0];
-	return a;
 }
 function getJson(param)
 {
