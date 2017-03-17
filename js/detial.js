@@ -40,6 +40,7 @@ $(document).ready(function(){
 				//console.log(aa);
 				var param = {"offset":$("section>div").length, "car":{"carid":carid}, "rowCount":"5"};
 				if(aa >= 64 && scrollT > 0){
+					showMask();
 					$.ajax({
 						url: '../server/reservation/history-load.php',
 						type: "POST",
@@ -47,24 +48,25 @@ $(document).ready(function(){
 						dataType: 'json',
 						cache: false,
 						success: function(data) {
-								if(!data.error){
-									var html_resultinfo;
-									$.each(data["records"],function(i,item){
-										html_resultinfo='';
-										html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
-											item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
-											item['applicant'].name + '</h2><p>起点：' + item['startpoint'] +
-											' 目的地：' +item["endpoint"] +' 用途：'+item['usage']+ '</p><p>约'+ item['schedule-start'] + '-' +item['schedule-end']+
-											'</p><span class="cd-date">借' + item['borrowt1'] + '-'+item['borrowt2']+
-											'</span><p>备注：'+item['remark']+'</p></div></div>';
-										$('.cd-container').append(html_resultinfo);//after方法:在每个匹配的元素之后插入内容。
-									});
-									if(data.records.length<5){
-										$("#pullTOLoad").text("加载完成，没有更多数据");
-									}
-								}else{
-									alert('加载失败！'+data.errorMsg);
+							if(!data.error){
+								var html_resultinfo;
+								$.each(data["records"],function(i,item){
+									html_resultinfo='';
+									html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
+										item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
+										item['applicant'].name + '</h2><p>起点：' + item['startpoint'] +
+										' 目的地：' +item["endpoint"] +' 用途：'+item['usage']+ '</p><p>约'+ item['schedule-start'] + '-' +item['schedule-end']+
+										'</p><span class="cd-date">借' + item['borrowt1'] + '-'+item['borrowt2']+
+										'</span><p>备注：'+item['remark']+'</p></div></div>';
+									$('.cd-container').append(html_resultinfo);//after方法:在每个匹配的元素之后插入内容。
+								});
+								if(data.records.length<5){
+									$("#pullTOLoad").text("加载完成，没有更多数据");
 								}
+							}else{
+								alert('加载失败！'+data.errorMsg);
+							}
+							$("#td-mask").hide();
 						},
 						error: function() {
 							alert('很遗憾！加载失败！');
@@ -137,8 +139,14 @@ $('#td-edit-submit').click(function(e) {
     });
 });
 function  getCarId(){
-	var thisURL = document.URL;   
+	var thisURL = decodeURI( document.URL );
 	//split("=")将url分为两部分，取第二部分
 	var showval= thisURL.split("=")[1];  	
 	return showval;
 }
+function showMask(){     
+	$("#td-mask").css("height",$(document).height());     
+	$("#td-mask").css("width",$(document).width());     
+	$("#td-mask").show();
+	$("#td-mask img").show();	
+}  
