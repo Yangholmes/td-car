@@ -1,4 +1,4 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -40,7 +40,7 @@ form {
     height: auto;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
 Modules - reusable parts of our design
 
@@ -58,9 +58,9 @@ Modules - reusable parts of our design
   clear: both;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-Main components 
+Main components
 
 -------------------------------- */
 
@@ -197,7 +197,7 @@ Main components
   border-radius: 0.25em;
 }
 .no-touch .cd-timeline-content .cd-read-more:hover {
-  background-color: #bac4cb;  
+  background-color: #bac4cb;
 }
 a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 .cd-timeline-content .cd-date {
@@ -301,11 +301,11 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 	text-align: justify;
     text-align-last: justify;
 	color: #888;
-	
+
 }
 .td-approval-table .fa-car{
 	color:rgba(80, 175, 250, 1);
-	
+
 }
 
 .td-approval-table-div{
@@ -334,6 +334,9 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
     text-align: center;
     -webkit-user-select: none;
     margin: 0 auto;
+}
+.td-button#td-disagree-submit{
+    color: red;
 }
 /*td-apply name and picture*/
 .td-approval-apply{
@@ -375,16 +378,16 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 }
 /*td-apply name and picture end*/
 
-.td-mask{       
-	position: absolute; 
-	top: 0px; 
-	filter: alpha(opacity=60); 
-	background-color: #777;     
-	z-index: 10; 
-	left: 0px;     
-	opacity:0.5; 
-	-moz-opacity:0.5;    
-}  
+.td-mask{
+	position: absolute;
+	top: 0px;
+	filter: alpha(opacity=60);
+	background-color: #777;
+	z-index: 10;
+	left: 0px;
+	opacity:0.5;
+	-moz-opacity:0.5;
+}
 .td-mask img{
 	display:none;
 	position: fixed;

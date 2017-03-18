@@ -14,11 +14,6 @@ require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
 require_once( __DIR__.'/../../server/api/Msg.php');
 
 /**
- * send Msg
- */
-$msg = new Msg(null);
-
-/**
  * recieve POST data
  */
 $record = $_POST;
@@ -28,10 +23,15 @@ $userid   = $record['userid'];
 $result   = $record['result'];
 $sequence = $record['sequence'];
 
-$touser = []; // 通知收信人
-$messageUrl = SERVER_HOST."/page/approval.html?resid=".$resid."&signature=".randomIdFactory(10); // 避免消息重复，url加上随机的特征码
-$picUrl = IMAGE_ROOT."/icon/yeah.png";
-$text = '';
+$touser = [];
+$msg = [
+  "title" => "有一条用车申请需要您的审批",
+  "touser" => [], // 通知收信人
+  "message_url" => SERVER_HOST."/page/approval.html?resid=".$resid."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
+  "image"=> "", // 图片
+  "rich" => "",
+  "content" => '',
+];
 
 /**
  * instance a new yangMysql class
@@ -46,7 +46,7 @@ $aprQuery->selectTable("approval"); $ccQuery->selectTable("cc"); $resQuery->sele
 
 // 更新审批状态
 $record['operateDt'] = date("Y-m-d H:i:s");
-$condition = "resid = '".$resid."' and userid = '".$userid."'";
+$condition = "resid = '".$resid."' and userid = '".$userid."' and sequence = '".$sequence."'";
 $apr = $aprQuery->update($record, $condition, null, null);
 
 // 查询申请人个人信息
@@ -57,7 +57,7 @@ $applicant = $userQuery->simpleSelect(null, $condition, null, null)[0];
 
 // 如果更新失败
 if( !$apr ){
-  $records  = null;
+  $records  = '';
   $error    = 1;
   $errorMsg = "审批失败！";
 }
@@ -71,51 +71,28 @@ else{
       $condition = "resid="."'".$resid."'";
       $resQuery->update(['status'=>'1'], $condition, null, null);
       // send to applicant
-      $respond = $msg->sendMsg([
-      	"touser"  => $applicant['emplId'],
-      	"agentid" => "76647142",
-      	"msgtype" => "link",
-      	"link"    => [
-      					"messageUrl" => $messageUrl,
-                "picUrl" => IMAGE_ROOT."/icon/yeah.png",
-      					"title" => "用车审批",
-      					"text" => "恭喜！您的用车申请顺利通过所有审批\n记得在".$reservation[0]['schedule-start']."准时出发哦~",
-      				]
-      ]);
+      $msg['title']  = '恭喜！您的用车申请通过了所有审批';
+      $msg['touser'] = [$applicant['emplId']];
+      $msg['rich'] = $applicant['name'];
+      $msg['content'] = "记得在".$reservation[0]['schedule-start']."准时出发哦~";
+
       // send to cc
       $condition = "resid="."'".$resid."'";
       $cc = $ccQuery->simpleSelect(null, $condition, null, null);
       for($i=0;$i<count($cc);$i++){
         array_push( $touser, $cc[$i]['userid'] );
       }
-      // send to cc
-      $respond = $msg->sendMsg([
-      	"touser"  => implode('|', $touser),
-      	"agentid" => "76647142",
-      	"msgtype" => "link",
-      	"link"    => [
-      					"messageUrl" => $messageUrl,
-                "picUrl" => $applicant['avatar'],
-      					"title" => "[抄送]用车审批",
-      					"text" => $applicant['name']."的用车申请已经通过了所有审批，特此抄送给您~",
-      				]
-      ]);
     }
     else{ // 存在下一个审批人，审批进入下一位审批人
       $condition = "emplId = '".$apr[0]['userid']."'";
       $user = $userQuery->simpleSelect(null, $condition, null, null);
       // send message
-      $respond = $msg->sendMsg([
-      	"touser"  => $apr[0]['userid'],
-      	"agentid" => "76647142",
-      	"msgtype" => "link",
-      	"link"    => [
-                      "messageUrl" => SERVER_HOST."/page/approval.html?resid=".$resid."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-                      "picUrl"     => $applicant['avatar'],
-                      "title"      => "用车审批",
-                      "text"       => $applicant['name']."的用车申请需要您审批\n测试换行"
-      				       ]
-      ]);
+      $msg['touser'] = [$apr[0]['userid']];
+      $msg['rich'] = $applicant['name'];
+      $msg['content'] = "出发地点：".$reservation[0]['startpoint']."\n".
+                        "目的地点：".$reservation[0]['endpoint']."\n".
+                        "预计出发：".$reservation[0]['schedule-start']."\n".
+                        "预计返回：".$reservation[0]['schedule-end'];
     }
   }
   else{ // 申请被拒绝
@@ -124,31 +101,40 @@ else{
     $aprQuery->update(['status'=>'2'], $condition, null, null);
 
     // send message
-    $respond = $msg->sendMsg([
-      "touser"  => $applicant['emplId'],
-      "agentid" => "76647142",
-      "msgtype" => "link",
-      "link"    => [
-              "messageUrl" => SERVER_HOST."/page/approval.html?resid=".$resid."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-              "picUrl" => IMAGE_ROOT."/icon/moue.png",
-              "title" => "用车审批",
-              "text" => "很遗憾！\n您的用车申请被拒绝了！\n",
-            ]
-    ]);
+    $msg['title']  = "很遗憾！您的用车申请被拒绝了！";
+    $msg['touser'] = [$applicant['emplId']];
+    $msg['rich'] = $applicant['name'];
+    $msg['content'] = "您可以尝试再申请一次~ 0.0";
 
   }
-  $records  = null;
+  $records  = '';
   $error    = 0;
-  $errorMsg = null;
+  $errorMsg = '';
 }
 
 // return to browser
 $result = [
-  "records"  => $record,
+  "records"  => $records,
   "error"    => $error,
-  "errorMsg" => $errorMsg
+  "errorMsg" => $errorMsg,
 ];
 echo json_encode( $result ); // 返回预约单单号
+
+/**
+ * send Msg
+ */
+$msg = new Msg(null);
+$respond = $msg->sendMsg($msg);
+// send msg to cc
+if( count($apr) == 0 ){
+  $msg['title']  = "[抄送]有一条用车申请通过审核了";
+  $msg['touser'] = $touser;
+  $msg['rich'] = $applicant['name'];
+  $msg['content'] = "请过目~";
+
+  $respond = $msg->sendMsg($msg);
+}
+
 
 /**
  * 随即编号生成器

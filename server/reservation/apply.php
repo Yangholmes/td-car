@@ -17,7 +17,8 @@ $currentTime = time(); // unused
  */
 $finalApprover = [
   "avatar" => "http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg",
-  "emplId" => "03401806572466",
+  // "emplId" => "03401806572466",
+  "emplId" => "03424264076698",
   "name"   => "卢威",
 ];
 
@@ -169,18 +170,16 @@ if($error == '0'){
    */
   $msg = new Msg(null);
   $respond = $msg->sendMsg([
-  	"touser"  => object2array($record['approver'][0])['emplId'],
-  	"agentid" => "76647142",
-  	"msgtype" => "link",
-  	"link"    => [
-  					// "messageUrl" => "http://www.gdrtc.org/car/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-            "messageUrl" => SERVER_HOST."/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
-            "picUrl" => object2array($record['applicant'])['avatar'],
-  					"title" => "用车审批",
-  					"text" => object2array($record['applicant'])['name']."的用车申请需要您审批"
-  				]
+    "title" => "有一条用车申请需要您的审批",
+    "touser" => [object2array($record['approver'][0])['emplId']],
+  	"message_url" => SERVER_HOST."/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10),
+  	"image"=> "", // 图片
+  	"rich" => object2array($record['applicant'])['name'],
+  	"content" =>  "出发地点：".$record['startpoint']."\n".
+                  "目的地点：".$record['endpoint']."\n".
+                  "预计出发：".$record['schedule-start']."\n".
+                  "预计返回：".$record['schedule-end'],
   ]);
-  // echo $respond;
 }
 
 /**

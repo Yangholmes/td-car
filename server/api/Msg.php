@@ -13,6 +13,24 @@ class Msg{
   private $accessToken;
   private $request;
   private $conversationMsg;
+  private $msg = [
+				 "touser"  => "",
+				 "agentid" => "76647142",
+				 "msgtype" => "oa",
+  				 "oa" =>	[
+								"message_url" => "",
+								"head" => [
+									"bgcolor" => "ff4da9eb",
+									"text" => "", // 向普通会话发送时有效，向企业会话发送时会被替换为微应用的名字
+								],
+								"body" => [
+									"content" => "",
+									"author" => "© 通导研发 ",
+									"image"=> "",
+									"rich" => [ "num" => "", "unit" => "的申请" ],
+								]
+							]
+				];
 
   /**
    * @param $accessToken: could be null.
@@ -48,24 +66,41 @@ class Msg{
   }
 
   /**
-   * @param $msg: must be a associate array
+   * @param $msg: must be a associate array[]
+   *
+   * @param touser: [],
+   * @param message_url: string,
+   * @param image: string,
+   * @param rich: string,
+   * @param content: string
    * Yangholmes
    */
   private function _corpMsgFilter($msg){
     if( !is_array($msg) )
       return false;
-    if( !is_string($msg["touser"]) || !is_string($msg["agentid"]) || !is_string($msg["msgtype"]) )
+    if( !is_array($msg["touser"]) || !is_string($msg["title"]) || !is_string($msg["image"]) || !is_string($msg["rich"]) || !is_string($msg["content"]) )
       return false;
-    $this->conversationMsg = json_encode($msg);
+
+    $this->msg['touser']                    = join( '|', $msg['touser'] );
+    $this->msg['oa']['message_url']         = $msg['message_url'];
+    $this->msg['oa']['body']['title']       = $msg['title'];
+    $this->msg['oa']['body']['image']       = $msg['image'];
+    $this->msg['oa']['body']['content']     = $msg['content'];
+    $this->msg['oa']['body']['rich']['num'] = $msg['rich'];
+
+    $this->conversationMsg = json_encode($this->msg);
     return true;
   }
 
   /**
    * @param $msg: must be a associate array
+   * touser, img, rich, content
+   * yangholmes
    */
   public function sendMsg($msg){
     if( !$this->_corpMsgFilter($msg) )
       return false;
+
     $url = OAPI_HOST."/message/send?access_token=".$this->accessToken;
     $this->request->set_url($url);
     $this->request->set_data($this->conversationMsg);
@@ -80,27 +115,14 @@ class Msg{
  * test
  */
 
-$msg = new Msg(null);
+/*$msg = new Msg(null);
 $respond = $msg->sendMsg([
-	"touser"  => "03424264076698",
-	"agentid" => "76417678",
-	"msgtype" => "oa",
-	"oa"    =>	[
-					"message_url" => "http://www.gdrtc.org/car/index.php",
-					"head" => [
-						"bgcolor" => "FFBBBB",
-						"text" => "头部标题", // 向普通会话发送时有效，向企业会话发送时会被替换为微应用的名字
-					],
-					"body" => [
-						"title" => "正文标题",
-						"content" => "大段文本",
-						"author" => "©通导研发  2017",
-						"image"=> "http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg",
-						"form" =>	[
-
-									],
-					],
-				]
+	"title" => "测试标题",
+	"touser"  => ["03424264076698"],
+	"message_url" => "http://www.gdrtc.org/car/page/car.html",
+	"image"=> "", // 图片
+	"rich" => "Tan Yini",
+	"content" => "2017-03-18 00:00:00\n2017-03-20 00:00:00",
 ]);
 
-echo $respond;
+echo $respond;*/

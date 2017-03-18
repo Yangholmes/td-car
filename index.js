@@ -353,7 +353,6 @@ var tdFormController = function(){
                 });
                 if( data.error == 0 ){
                   localStorage.setItem(data.records.resid, JSON.stringify(data.records));
-                  // window.location.href = 'page/approval.html?resid=' + data.records.resid;
                   dd.device.notification.alert({
                       message: "已经发送通知了~\n泡杯茶等领导审批吧！",
                       title: "恭喜！提交成功",//可传空
@@ -361,7 +360,8 @@ var tdFormController = function(){
                       onSuccess : function() {},
                       onFail : function(err) {}
                   });
-                  location.reload(false);
+                  window.location.href = 'page/approval.html?resid=' + data.records.resid;
+                  // location.reload(false);
                 }
                 else{
                   alert(data.errorMsg);
