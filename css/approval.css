@@ -66,8 +66,7 @@ Main components
 
 #cd-timeline {
   position: relative;
-  padding: 2em 0;
-  margin-bottom: 2em;
+  padding: 2em 0 4em 0;
 }
 #cd-timeline::before {
   /* this is the vertical line */
@@ -370,7 +369,7 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
     margin-top: -40px;
     border-radius: 50%;
 }
-.approval-hidden{
+.approval-sequence,.approval-userid{
 	display:none;
 }
 /*td-apply name and picture end*/
