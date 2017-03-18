@@ -17,14 +17,21 @@ box-shadow: #666 0px 0px 10px;
 h3 {font-size: 24px; font-weight: normal; margin: 10px 0 0; text-transform: uppercase;}
 h5 {font-size: 16px; font-weight: 300; margin: 0 0 15px; line-height: 22px;}
 p {font-size: 14px; font-weight: 300; line-height: 22px; padding: 0 30px; margin-bottom: 10px;}
-.social-touch button{display: inline-block; width:50px; height:50px; vertical-align: middle; margin: 0 2px; 
-	color: #66b8f3;
-    border: 3px solid #66baf6;
+.social-touch button{display: inline-block; width:50px; height:50px; vertical-align: middle; margin: 0 20px; 
     border-radius: 50%;
     line-height: 40px;
     font-size: 2em;
-	background-color:white;}
+	background-color:white;
+}
 
+.social-touch .fa-trash-o{
+	border: 3px solid #ff5e5e;
+	color: #ff5e5e;
+}
+.social-touch .fa-pencil{
+    border: 3px solid #66baf6;
+	color: #66b8f3;
+}
 
 /*= common css to all effects end =*/
 
