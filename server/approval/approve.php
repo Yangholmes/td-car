@@ -108,7 +108,7 @@ else{
 
   }
   $records  = '';
-  $error    = 0;
+  $error    = '0';
   $errorMsg = '';
 }
 
@@ -123,8 +123,8 @@ echo json_encode( $result ); // 返回预约单单号
 /**
  * send Msg
  */
-$msg = new Msg(null);
-$respond = $msg->sendMsg($msg);
+$newMsg = new Msg(null);
+$respond = $newMsg->sendMsg($msg);
 // send msg to cc
 if( count($apr) == 0 ){
   $msg['title']  = "[抄送]有一条用车申请通过审核了";
@@ -132,9 +132,8 @@ if( count($apr) == 0 ){
   $msg['rich'] = $applicant['name'];
   $msg['content'] = "请过目~";
 
-  $respond = $msg->sendMsg($msg);
+  $respond = $newMsg->sendMsg($msg);
 }
-
 
 /**
  * 随即编号生成器

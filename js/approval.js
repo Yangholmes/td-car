@@ -3,7 +3,7 @@ $(document).ready(function(){
 	var thisUser = localStorage.getItem('thisUser');
 
 	if( !thisUser ){
-		//window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
+		window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
 	}
 	else if( thisUser == 'error' ){
 		$('body').html('');
@@ -13,8 +13,8 @@ $(document).ready(function(){
 	var param = getUrlParam();
 	if(param!=null || param!="")
 	{
-		//getJson({"resid":param},JSON.parse(thisUser).userid);
-		getJson({"resid":param},"3");
+		getJson({"resid":param},JSON.parse(thisUser).userid);
+		// getJson({"resid":param},"3");
 	}
 });
 
