@@ -20,6 +20,23 @@ $(document).ready(function(){
 		var history = carjson.reservation;
 		var html_resultinfo;
 		$.each(history,function(i,item){
+			switch(item['usage']){
+				case "0":
+					item['usage']="出差";
+					break;
+				case "1":
+					item['usage']="接待";
+					break;
+				case "2":
+					item['usage']="外勤";
+					break;
+				case "3":
+					item['usage']="车辆维修";
+					break;
+				case "4":
+					item['usage']="其他";
+					break;
+			}
 			html_resultinfo='';
 			html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
 				item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
@@ -51,6 +68,23 @@ $(document).ready(function(){
 							if(!data.error){
 								var html_resultinfo;
 								$.each(data["records"],function(i,item){
+									switch(item['usage']){
+										case "0":
+											item['usage']="出差";
+											break;
+										case "1":
+											item['usage']="接待";
+											break;
+										case "2":
+											item['usage']="外勤";
+											break;
+										case "3":
+											item['usage']="车辆维修";
+											break;
+										case "4":
+											item['usage']="其他";
+											break;
+									}
 									html_resultinfo='';
 									html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
 										item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 

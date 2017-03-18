@@ -131,8 +131,6 @@ Main components
 
 #cd-timeline {
   position: relative;
-  /* padding: 2em 0; */
-  /* margin-bottom: 2em; */
 }
 #cd-timeline::before {
   /* this is the vertical line */
@@ -142,7 +140,7 @@ Main components
   left: 18px;
   height: 100%;
   width: 4px;
-  background: #d7e4ed;
+  background: #e6e6e6;
 }
 @media only screen and (min-width: 1170px) {
   #cd-timeline {
@@ -229,10 +227,10 @@ Main components
 .cd-timeline-content {
   position: relative;
   margin-left: 60px;
-  background: white;
+  background: rgba(232, 232, 232, 0.50);
   border-radius: 0.25em;
   padding: 1em;
-  box-shadow: 0 3px 0 #d7e4ed;
+  box-shadow: 0 3px 0 #e8e8e8;
 }
 .cd-timeline-content:after {
   content: "";
@@ -278,7 +276,7 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
   height: 0;
   width: 0;
   border: 7px solid transparent;
-  border-right: 7px solid white;
+  border-right: 7px solid #efefef;
 }
 @media only screen and (min-width: 768px) {
   .cd-timeline-content h2 {

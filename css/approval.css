@@ -25,7 +25,7 @@ body {
     font-size: 100%;
     width: 100%;
     height: auto;
-    background-color: #ececec;
+    background-color: rgba(245, 245, 245, .7);
 }
 
 
@@ -66,8 +66,7 @@ Main components
 
 #cd-timeline {
   position: relative;
-  padding: 2em 0;
-  margin-bottom: 2em;
+  padding: 2em 0 4em 0;
 }
 #cd-timeline::before {
   /* this is the vertical line */
@@ -77,7 +76,7 @@ Main components
   left: 18px;
   height: 100%;
   width: 2px;
-  background: #fff;
+  background: #e6e6e6;
 }
 @media only screen and (min-width: 1170px) {
   #cd-timeline {
@@ -164,10 +163,10 @@ Main components
 .cd-timeline-content {
   position: relative;
   margin-left: 60px;
-  background: white;
+  background: rgba(232, 232, 232, 0.50);
   border-radius: 0.25em;
   padding: 1em;
-  box-shadow: 0 3px 0 #dadada;
+  box-shadow: 0 3px 0 #e8e8e8;
 }
 .cd-timeline-content:after {
   content: "";
@@ -214,7 +213,7 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
   height: 0;
   width: 0;
   border: 7px solid transparent;
-  border-right: 7px solid white;
+  border-right: 7px solid rgba(232, 232, 232, 0.50);
 }
 @media only screen and (min-width: 768px) {
   .cd-timeline-content h2 {
@@ -312,6 +311,8 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 	width:100%;
 	background-color:#fff;
 	padding: 4px 0;
+	border-top: 1px solid rgb(216, 216, 216);
+	border-bottom: 1px solid rgb(216, 216, 216);
 }
 
 .td-approval-button-div{
@@ -373,7 +374,7 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
     margin-top: -40px;
     border-radius: 50%;
 }
-.approval-hidden{
+.approval-sequence,.approval-userid{
 	display:none;
 }
 /*td-apply name and picture end*/
