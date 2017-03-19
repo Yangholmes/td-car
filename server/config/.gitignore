@@ -1,0 +1,5 @@
+# Don not upload remote configuration.
+
+dd-config.xml
+
+server-config.php
