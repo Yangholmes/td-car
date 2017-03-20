@@ -172,7 +172,7 @@
     </script>
 
     <script src="http://g.alicdn.com/dingding/open-develop/1.0.0/dingtalk.js"></script>
-    <script src="./lib/jquery/jquery-3.1.1.js"></script>
+    <script src="./lib/jquery/jquery-3.1.1.min.js"></script>
     <script src="./js/dd-init.js"></script>
     <script src="./index.js"></script>
     <!-- script end -->
