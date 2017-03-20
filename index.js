@@ -33,7 +33,7 @@ var tdCarInit = function(){
         tdFormController();
       }
       else
-        alert('车辆初始化失败\n请重试');
+        $.td$.tdAlert('车辆初始化失败\n请重试');
     },
   });
 };
@@ -187,7 +187,7 @@ var tdFormController = function(){
             $(e.currentTarget).find('input').val(JSON.stringify(data[0]));
           },
           onFail: function(err) {
-            alert('你的通信录打不开。。。');
+            $.td$.tdAlert('你的通信录打不开。。。');
           }
         });
   });
@@ -229,7 +229,7 @@ var tdFormController = function(){
                 approverPickerList.before( newApprover );
             },
             onFail: function(err) {
-              alert('你的通信录打不开。。。');
+              $.tdAlert('你的通信录打不开。。。');
             }
         });
     });
@@ -276,7 +276,7 @@ var tdFormController = function(){
                 ccPickerList.before( newCc );
             },
             onFail: function(err) {
-              alert('你的通信录打不开。。。');
+              $.tdAlert('你的通信录打不开。。。');
             }
         });
     });
@@ -321,7 +321,7 @@ var tdFormController = function(){
           for( field of requiredFields ){
             if(!field.value){
               // todo
-              alert(
+              $.tdAlert(
                 $(field).prev('label').css('color', 'red').animate({opacity: 0}, 500, function(){
                   $(this).css({'opacity': '1', 'color': 'black'})
                 }).html() + "必填哦~"
@@ -364,7 +364,7 @@ var tdFormController = function(){
                   // location.reload(false);
                 }
                 else{
-                  alert(data.errorMsg);
+                  $.tdAlert(data.errorMsg);
                 }
               },
               error: function(respond, status, error) {
@@ -372,7 +372,7 @@ var tdFormController = function(){
                     onSuccess : function(result) {},
                     onFail : function(err) {}
                 });
-                alert('申请失败！T.T');
+                $.tdAlert('申请失败！T.T');
               },
           });
   });
