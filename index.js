@@ -10,7 +10,7 @@ $(function() {
  * _user    °
  * _car     √
  */
-var _car = {};
+var _car = [];
 
 /**
  * Initial all
@@ -23,7 +23,7 @@ var tdCarInit = function(){
     dataType: 'json',
     data: 'keyword=yangholmes',
     error: function(respond, status, error){
-      console.log(respond);
+      // console.log(respond);
     },
     success: function(data, status, respond){
       if( data.error == 0 ){
@@ -33,7 +33,7 @@ var tdCarInit = function(){
         tdFormController();
       }
       else
-        $.td$.tdAlert('车辆初始化失败\n请重试');
+        $.tdAlert('车辆初始化失败\n请重试');
     },
   });
 };
@@ -45,7 +45,7 @@ var tdFormView = function(){
   // iOS can not render fixed style correctly, so block it in iOS.
   if( /[Aa]ndroid/.test(navigator.userAgent) ){
     $('div.td-form-button').css('position', 'fixed').css('bottom', '0');
-    $('div.td-form-field:nth-last-child(2)').css('margin-bottom', 'calc( 3em + 1em )');
+    $('div.td-form-field:nth-last-child(2)').eq(-1).css('margin-bottom', 'calc( 3em + 1em )');
   };
 };
 
@@ -59,15 +59,15 @@ var tdFormData = function(car){
    */
   var list = $('ul.td-form-comb-img-text-list'),
       itemHtml = '<li class="td-form-comb-img-text-item"><div class="td-form-comb-img-text-item-img"><img src="" ></div><div class="td-form-comb-img-text-item-text"></div><div class="td-form-field-detail fa fa-hand-pointer-o"></div></li><div class="td-form-comb-img-text-item-detial" id=""><div class="td-car-info"><div>车牌号：<span class="td-car-info-plate-number"></span></div><div>座位数：<span class="td-car-info-seating"></span></div></div><table class="td-car-reservation"><tbody><tr><td class="td-car-reservation-data">近日已约</td><td class="td-car-reservation-time"></td></tr></tbody></table></div>';
-  for(var i=0; i<_car.length; i++){
-    var car = _car[i],
-        item = $(itemHtml),
+
+  _car.map(function(car, i, cars){
+    var item = $(itemHtml),
         recentRes = [];
 
     // recent reservation
-    for( var reservation of car.reservation ){
-      recentRes.push( reservation['schedule-start'] + "~" + reservation['schedule-end'] );
-    }
+    car.reservation.map(function(res){
+      recentRes.push( res['schedule-start'] + "~" + res['schedule-end'] );
+    });
 
     item.eq(0).attr('id', 'td-car-item-'+car.carid);
     item.eq(1).attr('id', 'td-car-detail-'+car.carid);
@@ -78,7 +78,7 @@ var tdFormData = function(car){
     item.find('.td-car-reservation-time').html(recentRes.join(' '));
 
     item.appendTo(list);
-  }
+  });
 
 }
 
@@ -171,25 +171,10 @@ var tdFormController = function(){
   $('.td-form-easy-picker').on('touchend', function(e) {
     if (touchMoving) return; //
     e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
-    dd.biz.contact.choose({
-          startWithDepartmentId: 0, //-1表示打开的通讯录从自己所在部门开始展示, 0表示从企业最上层开始，(其他数字表示从该部门开始:暂时不支持)
-          multiple: false, //是否多选： true多选 false单选； 默认true
-          users: [_user.userid], //默认选中的用户列表，userid；成功回调中应包含该信息
-          disabledUsers: [], // 不能选中的用户列表，员工userid
-          corpId: _config.corpId, //企业id
-          // max: , //人数限制，当multiple为true才生效，可选范围1-1500
-          limitTips: "挑太多啦！", //超过人数限制的提示语可以用这个字段自定义
-          isNeedSearch: true, // 是否需要搜索功能
-          title: "挑个人呗~", // 如果你需要修改选人页面的title，可以在这里赋值
-          local: "false", // 是否显示本地联系人，默认false
-          onSuccess: function(data) {
-            $(e.currentTarget).find('output').val(data[0].name);
-            $(e.currentTarget).find('input').val(JSON.stringify(data[0]));
-          },
-          onFail: function(err) {
-            $.td$.tdAlert('你的通信录打不开。。。');
-          }
-        });
+    contactChoose(0, false, [_user.userid], [], function(data) {
+      $(e.currentTarget).find('output').val(data[0].name);
+      $(e.currentTarget).find('input').val(JSON.stringify(data[0]));
+    });
   });
 
   /**
@@ -200,38 +185,26 @@ var tdFormController = function(){
     .find('ul div.td-form-approver-picker-add').on('touchend', function(e) {
       if (touchMoving) return; //
       e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
-      dd.biz.contact.choose({
-            startWithDepartmentId: 0, //-1表示打开的通讯录从自己所在部门开始展示, 0表示从企业最上层开始，(其他数字表示从该部门开始:暂时不支持)
-            multiple: false, //是否多选： true多选 false单选； 默认true
-            users: [], //默认选中的用户列表，userid；成功回调中应包含该信息
-            disabledUsers: [_user.userid], // 不能选中的用户列表，员工userid
-            corpId: _config.corpId, //企业id
-            // max: , //人数限制，当multiple为true才生效，可选范围1-1500
-            limitTips: "挑太多啦！", //超过人数限制的提示语可以用这个字段自定义
-            isNeedSearch: true, // 是否需要搜索功能
-            title: "挑个人呗~", // 如果你需要修改选人页面的title，可以在这里赋值
-            local: "false", // 是否显示本地联系人，默认false
-            onSuccess: function(data) {
-              console.log(data);
-                var approverPickerList = $(e.currentTarget).parents('.td-form-approver-picker').find('ul li#admin'),
-                    newApproverHtml = '<li class="td-form-approver-picker-item">' +
-                                      '<input type="hidden" class="td-form-input-hidden">' +
-                                      '<div class="td-form-approver-picker-item-avatar fa fa-arrow-right">' +
-                                      '<img src=' +
-                                      data[0].avatar +
-                                      '>' +
-                                      '</div>' +
-                                      '<div class="td-form-approver-picker-item-name">' +
-                                      data[0].name +
-                                      '</div></li>',
-                    newApprover = $(newApproverHtml);
-                newApprover.on('touchend', deleteApprover).find('input').val(JSON.stringify(data[0]));
-                approverPickerList.before( newApprover );
-            },
-            onFail: function(err) {
-              $.tdAlert('你的通信录打不开。。。');
-            }
-        });
+      contactChoose(0, false, [], [_user.userid], function(data) {
+        if(data[0].emplId == _user.userid){
+          $.tdAlert('不能够自己审批自己哦~');
+          return false;
+        }
+        var approverPickerList = $(e.currentTarget).parents('.td-form-approver-picker').find('ul li#admin'),
+            newApproverHtml = '<li class="td-form-approver-picker-item">' +
+                              '<input type="hidden" class="td-form-input-hidden">' +
+                              '<div class="td-form-approver-picker-item-avatar fa fa-arrow-right">' +
+                              '<img src=' +
+                              data[0].avatar +
+                              '>' +
+                              '</div>' +
+                              '<div class="td-form-approver-picker-item-name">' +
+                              data[0].name +
+                              '</div></li>',
+            newApprover = $(newApproverHtml);
+        newApprover.on('touchend', deleteApprover).find('input').val(JSON.stringify(data[0]));
+        approverPickerList.before( newApprover );
+      });
     });
   // delete
   var deleteApprover = function(e){
@@ -248,18 +221,11 @@ var tdFormController = function(){
     .find('ul div.td-form-cc-picker-add').on('touchend', function(e) {
       if (touchMoving) return; //
       e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
-      dd.biz.contact.choose({
-            startWithDepartmentId: 0, //-1表示打开的通讯录从自己所在部门开始展示, 0表示从企业最上层开始，(其他数字表示从该部门开始:暂时不支持)
-            multiple: false, //是否多选： true多选 false单选； 默认true
-            users: [], //默认选中的用户列表，userid；成功回调中应包含该信息
-            disabledUsers: [_user.userid], // 不能选中的用户列表，员工userid
-            corpId: _config.corpId, //企业id
-            // max: , //人数限制，当multiple为true才生效，可选范围1-1500
-            limitTips: "挑太多啦！", //超过人数限制的提示语可以用这个字段自定义
-            isNeedSearch: true, // 是否需要搜索功能
-            title: "挑个人呗~", // 如果你需要修改选人页面的title，可以在这里赋值
-            local: "false", // 是否显示本地联系人，默认false
-            onSuccess: function(data) {
+      contactChoose(0, false, [], [_user.userid], function(data) {
+                if(data[0].emplId == _user.userid){
+                  $.tdAlert('不能够抄送给自己哦~');
+                  return false;
+                }
                 var ccPickerList = $(e.currentTarget).parents('.td-form-cc-picker').find('ul div.td-form-cc-picker-add'),
                     newCcHtml = '<li class="td-form-cc-picker-item">' +
                                 '<input type="hidden" class="td-form-input-hidden">' +
@@ -274,11 +240,7 @@ var tdFormController = function(){
                     newCc = $(newCcHtml);
                 newCc.on('touchend', deleteCc).find('input').val(JSON.stringify(data[0]));
                 ccPickerList.before( newCc );
-            },
-            onFail: function(err) {
-              $.tdAlert('你的通信录打不开。。。');
-            }
-        });
+            });
     });
   // delete
   function deleteCc(e){
@@ -286,6 +248,30 @@ var tdFormController = function(){
     e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
     $(e.currentTarget).remove();
   }
+
+  /**
+   * dd.biz.contact.choose
+   */
+   function contactChoose(startWithDepartmentId, multiple, defaultUsers, disabledUsers, callback){
+     dd.biz.contact.choose({
+           startWithDepartmentId: startWithDepartmentId, //-1表示打开的通讯录从自己所在部门开始展示, 0表示从企业最上层开始，(其他数字表示从该部门开始:暂时不支持)
+           multiple: multiple, //是否多选： true多选 false单选； 默认true
+           users: defaultUsers, //默认选中的用户列表，userid；成功回调中应包含该信息
+           disabledUsers: disabledUsers, // 不能选中的用户列表，员工userid
+           corpId: _config.corpId, //企业id
+           // max: , //人数限制，当multiple为true才生效，可选范围1-1500
+           limitTips: "挑太多啦！", //超过人数限制的提示语可以用这个字段自定义
+           isNeedSearch: true, // 是否需要搜索功能
+           title: "挑个人呗~", // 如果你需要修改选人页面的title，可以在这里赋值
+           local: "false", // 是否显示本地联系人，默认false
+           onSuccess: function(data) {
+             callback(data);
+           },
+           onFail: function(err) {
+             $.tdAlert('非常抱歉！\n您的通信录打不开。。。');
+           }
+      });
+   }
 
   /**
    * upload event handler
@@ -387,7 +373,7 @@ var tdFormController = function(){
   });
 
   $('body').on('touchmove', function(e){
-    console.log(e);
+    // console.log(e);
   })
 
 };

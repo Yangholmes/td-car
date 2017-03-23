@@ -99,10 +99,10 @@ dd.ready(function() {
      * 导航栏设置
      */
     dd.biz.navigation.setMenu({
-        items: [{
+        items: [/*{
             "id": "1",
             "text": "我的历史",
-        },{
+        },*/{
             "id": "2",
             "text": "车的管理",
         },{
@@ -112,7 +112,7 @@ dd.ready(function() {
         onSuccess: function(data) {
           switch(data.id){
             case '1':
-              alert('即将推出\n敬请期待');
+              $.tdAlert('即将推出\n敬请期待');
               break;
             case '2': // open a new page in current page
               dd.biz.util.openLink({
