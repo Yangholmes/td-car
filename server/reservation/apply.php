@@ -168,7 +168,7 @@ if($error == '0'){
    * send Msg
    */
   $msg = new Msg(null);
-  $respond = $msg->sendMsg([
+  $toApprover = [
     "title" => "有一条用车申请需要您的审批",
     "touser" => [object2array($record['approver'][0])['emplId']],
   	"message_url" => SERVER_HOST."/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10),
@@ -178,7 +178,21 @@ if($error == '0'){
                   "目的地点：".$record['endpoint']."\n".
                   "预计出发：".$record['schedule-start']."\n".
                   "预计返回：".$record['schedule-end'],
-  ]);
+  ];
+  $toApplicant = [
+    "title" => "这是您的新申请",
+    "touser" => [$record['applicant']->emplId, '03424264076698'],
+  	"message_url" => SERVER_HOST."/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10),
+  	"image"=> "", // 图片
+  	"rich" => object2array($record['applicant'])['name'],
+  	"content" =>  "出发地点：".$record['startpoint']."\n".
+                  "目的地点：".$record['endpoint']."\n".
+                  "预计出发：".$record['schedule-start']."\n".
+                  "预计返回：".$record['schedule-end']."\n".
+                  ">>点击查看审批进度及详情>>",
+  ];
+  $respond = $msg->sendMsg($toApprover);
+  $respond = $msg->sendMsg($toApplicant);
 }
 
 /**
