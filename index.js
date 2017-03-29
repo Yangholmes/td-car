@@ -75,7 +75,7 @@ var tdFormData = function(car){
     item.find('.td-form-comb-img-text-item-text').html(car.model);
     item.find('.td-car-info-plate-number').html(car.plateNumber);
     item.find('.td-car-info-seating').html(car.seating);
-    item.find('.td-car-reservation-time').html(recentRes.join(' '));
+    item.find('.td-car-reservation-time').html(recentRes.length==0?'近日无约车记录':recentRes.join(' '));
 
     item.appendTo(list);
   });
