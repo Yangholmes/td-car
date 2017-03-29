@@ -13,6 +13,7 @@ class Msg{
   private $accessToken;
   private $request;
   private $conversationMsg;
+  // message template
   private $msg = [
 				 "touser"  => "",
 				 "agentid" => "76647142",
@@ -117,12 +118,12 @@ class Msg{
 
 /*$msg = new Msg(null);
 $respond = $msg->sendMsg([
-	"title" => "测试标题",
-	"touser"  => ["03424264076698"],
-	"message_url" => "http://www.gdrtc.org/car/page/car.html",
+	"title" => "这是您的新申请",
+	"touser"  => ["03402201307318"],
+	"message_url" => "http://www.gdrtc.org/car/page/approval.html?resid=9dJemYZp1I9YGtHgdSK4{1490316119}",
 	"image"=> "", // 图片
-	"rich" => "Tan Yini",
-	"content" => "2017-03-18 00:00:00\n2017-03-20 00:00:00",
+	"rich" => "",
+	"content" => "",
 ]);
 
 echo $respond;*/

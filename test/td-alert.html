@@ -22,11 +22,18 @@
   tdAlert('这是一条信息');
 
   function tdAlert(message){
+    message = filter(message);
+
+    if( $('.translucent-mask').length ){
+  		$('.translucent-mask').fadeIn();
+  		$('.message-box-frame').fadeIn().children('.message-box-msg').html(message);
+  		return true;
+  	}
     var mask = '<div class="translucent-mask"></div>',
         maskStyle = {
           width: '100%',
           height: '100%',
-          position: 'absolute',
+          position: 'fixed',
           top: 0,
           left: 0,
           background: 'rgba(128, 128, 128, .5)',
@@ -43,14 +50,14 @@
         messageBoxStyle = {
           width: 'calc( 100% - 60px )',
           height: 'auto',
-          position: 'absolute',
+          position: 'fixed',
           background: 'white',
           'z-index': 101,
           left: 'calc( 0px + 30px )',
           top: '30%',
           'border-radius': '5px',
           'box-shadow': 'rgb(125, 125, 125) 1px 1px 10px 0px',
-          'font-family': 'STHeitiSC-Medium  Microsoft Yahei',
+          'font-family': '"Microsoft Yahei", "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif',
         },
         $messageBox = $(messageBox);
     $messageBox.css(messageBoxStyle);
@@ -58,7 +65,10 @@
     var messageBoxMsg = '<div class="message-box-msg"></div>',
         messageBoxMsgStyle = {
           padding: '1em 1.5em',
-          'color': 'rgba(100, 100, 100, 1)'
+          'color': 'rgba(50, 50, 50, 1)',
+          'border-bottom': '1px solid rgba(150, 150, 150, .2)',
+          'max-height': '10em',
+          'overflow-y': 'scroll',
         },
         $messageBoxMsg = $(messageBoxMsg);
     $messageBoxMsg.html(message).css(messageBoxMsgStyle);
@@ -66,34 +76,37 @@
     var messageBoxConfirmBtn = '<div class="message-box-button">知道了</div>',
         messageBoxConfirmBtnStyle = {
           'text-align': 'center',
-          margin: '0.2em .2em',
+          padding: '0.2em .2em',
           height: '2em',
-          background: 'rgba(200, 200, 200, 0.2)',
           'line-height': '2em',
-          'border-radius': '3px',
-          'box-shadow': '0px 0px 3px 0px rgb(128, 128, 128)',
           '-webkit-user-select': 'none',
-          'color': 'rgba(0, 75, 200, .8)'
+          'color': 'rgba(13, 128, 226, 1)'
         },
         $messageBoxConfirmBtn = $(messageBoxConfirmBtn);
     $messageBoxConfirmBtn
     .css(messageBoxConfirmBtnStyle)
     .on('touchstart', function(e){
       $(e.currentTarget).css({
-          'box-shadow': 'inset 0px 0px 3px 1px rgba(120, 120, 120, 0.5)',
           background: 'rgba(200, 200, 200, 0.3)',
       });
     })
     .on('touchend', function(e){
       $(e.currentTarget).css({
-        'box-shadow': '0px 0px 3px 0px rgb(128, 128, 128)',
-        background: 'rgba(200, 200, 200, 0.2)',
+        background: '',
       })
       .parent('.message-box-frame').remove();
       $('.translucent-mask').remove();
     });
 
     $messageBox.append($messageBoxMsg).append($messageBoxConfirmBtn).appendTo($('body'));
+
+    /**
+     * message filter
+     */
+    function filter(message){
+      var msg = message.toString().replace(/(\n)/, '<br>');
+      return msg;
+    }
   }
 
 </script>

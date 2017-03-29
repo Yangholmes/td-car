@@ -9,7 +9,7 @@
     <title>通导用车</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="font/font-awesome-4.4.0/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="index.css">
+    <link type="text/css" rel="stylesheet" href="index.min.css">
     <link rel="icon" type="image/x-icon" href="img/icon/car.ico" />
 </head>
 
@@ -29,7 +29,7 @@
         <input type="hidden" class="td-form-input-hidden" name="car" required="required">
         <div class="td-form-comb-selected td-form-comb-img-text-selected">
           <div class="td-form-comb-item td-form-comb-img-text-item">
-            <span class=td-form-field-tips>请选择</span>
+            <span class="td-form-field-tips">请选择</span>
           </div>
         </div>
         <ul class="td-form-comb-img-text-list">
@@ -43,7 +43,7 @@
         <input type="hidden" class="td-form-input-hidden" name="usage" required="required">
         <div class="td-form-comb-selected td-form-comb-text-selected">
           <div class="td-form-comb-item td-form-comb-text-item">
-            <span class=td-form-field-tips>请选择</span>
+            <span class="td-form-field-tips">请选择</span>
           </div>
         </div>
         <ul class="td-form-comb-text-list">
@@ -71,7 +71,7 @@
         <label for="driver">司机</label>
         <input type="hidden" class="td-form-input-hidden" name="driver" required="required">
         <output class="td-form-easy-picker-selected" id="driver">
-          <span class=td-form-field-tips>请选择</span>
+          <span class="td-form-field-tips">请选择</span>
         </output>
       </div>
       <!-- driver -->
@@ -83,20 +83,26 @@
       </div>
       <!-- accompanist -->
 
-      <!-- startpoint -->
-      <div class="td-form-field" id="startpoint-input">
-        <label for="startpoint">出发地点</label>
-        <input type="text" placeholder="输入出发地点" id="startpoint" name="startpoint" required="required">
-      </div>
-      <!-- startpoint -->
+      <!-- startpoint & endpoint -->
+      <fieldset class="td-form-field-set">
+        <!-- startpoint -->
+        <div class="td-form-field" id="startpoint-input">
+          <label for="startpoint">出发地点</label>
+          <input type="text" placeholder="输入出发地点" id="startpoint" name="startpoint" required="required">
+        </div>
+        <!-- startpoint -->
 
-      <!-- endpoint -->
-      <div class="td-form-field" id="endpoint-input">
-        <label for="endpoint">目的地点</label>
-        <input type="text" placeholder="输入目的地" id="endpoint" name="endpoint" required="required">
-      </div>
-      <!-- endpoint -->
+        <!-- endpoint -->
+        <div class="td-form-field" id="endpoint-input">
+          <label for="endpoint">目的地点</label>
+          <input type="text" placeholder="输入目的地" id="endpoint" name="endpoint" required="required">
+        </div>
+        <!-- endpoint -->
+    </fieldset>
+    <!-- startpoint & endpoint -->
 
+    <!-- startpoint & endpoint -->
+    <fieldset class="td-form-field-set">
       <!-- schedule-start -->
       <div class="td-form-field td-form-datetime-picker" id="schedule-start-input">
         <label for="schedule-start">出发时刻</label>
@@ -110,6 +116,9 @@
         <input placeholder="请选择" id="schedule-end" name="schedule-end" required="required">
       </div>
       <!-- schedule-end -->
+    </fieldset>
+    <!-- startpoint & endpoint -->
+
 
       <!-- remark -->
       <div class="td-form-field td-form-textarea" id="remark-input">

@@ -38,8 +38,8 @@ div.td-form-field {
     height: auto;
     margin: .5em 0;
     padding: .5em .5em;
-    border-top: 1px solid rgba(100, 100, 100, .5);
-    border-bottom: 1px solid rgba(100, 100, 100, .5);
+    border-top: 1px solid rgba(100, 100, 100, .3);
+    border-bottom: 1px solid rgba(100, 100, 100, .3);
     display: flex;
     background-color: white;
     /*justify-content: center;*/
@@ -48,6 +48,22 @@ div.td-form-field {
 
 div.td-form-field:nth-last-child(2){
   /*margin-bottom: calc( 3em + 1em );*/
+}
+
+/*td-form-field-set*/
+.td-form-field-set{
+  margin: .5em 0;
+  border: none;
+  border-top: 1px solid rgba(100, 100, 100, .3);
+  border-bottom: 1px solid rgba(100, 100, 100, .3);
+}
+.td-form-field-set .td-form-field{
+  border: none;
+  border-bottom: 1px solid rgba(100, 100, 100, .3);
+  margin: 0;
+}
+.td-form-field-set .td-form-field:last-child{
+  border: none;
 }
 
 /* label style (start) */
