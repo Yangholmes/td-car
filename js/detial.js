@@ -37,6 +37,8 @@ $(document).ready(function(){
 					item['usage']="其他";
 					break;
 			}
+			if(!item['borrowt1']){item['borrowt1'] = "";}
+			if(!item['borrowt2']){item['borrowt2'] = "";}
 			html_resultinfo='';
 			html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
 				item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
@@ -85,6 +87,8 @@ $(document).ready(function(){
 											item['usage']="其他";
 											break;
 									}
+									if(!item['borrowt1']){item['borrowt1'] = "";}
+									if(!item['borrowt2']){item['borrowt2'] = "";}
 									html_resultinfo='';
 									html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
 										item['applicant'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+ 
@@ -98,12 +102,12 @@ $(document).ready(function(){
 									$("#pullTOLoad").text("加载完成，没有更多数据");
 								}
 							}else{
-								alert('加载失败！'+data.errorMsg);
+								$.tdAlert('加载失败！'+data.errorMsg);
 							}
 							$("#td-mask").hide();
 						},
 						error: function() {
-							alert('很遗憾！加载失败！');
+							$.tdAlert('很遗憾！加载失败！');
 						},
 						xhr: function () {
 							var xhr = new window.XMLHttpRequest();
@@ -122,7 +126,7 @@ $(document).ready(function(){
 			$("#pullTOLoad").text("加载完成，没有更多数据");
 		}
 	}else{
-		alert("读取数据失败！请返回重新尝试");
+		$.tdAlert("读取数据失败！请返回重新尝试");
 	}
 	storage.clear();
 });	
@@ -134,7 +138,7 @@ $('#td-edit-submit').click(function(e) {
 	for( field of requiredFields ){
 		if(!field.value){
 		  // todo
-		  alert(
+		  $.tdAlert(
 			$(field).prev('label').css('color', 'red').animate({opacity: 0}, 500, function(){
 			  $(this).css({'opacity': '1', 'color': 'black'})
 			}).html() + "必填哦~"
@@ -152,13 +156,13 @@ $('#td-edit-submit').click(function(e) {
         success: function(data) {
             var jsonResult = JSON.parse(data);
 			if(!jsonResult.error){
-				alert('恭喜！修改成功！');
+				$.tdAlert('恭喜！修改成功！');
 			}else{
-				alert('修改失败！'+jsonResult.errorMsg);
+				$.tdAlert('修改失败！'+jsonResult.errorMsg);
 			}
         },
         error: function() {
-            alert('很遗憾！修改失败！');
+            $.tdAlert('很遗憾！修改失败！');
         },
         xhr: function () {
             var xhr = new window.XMLHttpRequest();

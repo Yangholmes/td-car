@@ -36,13 +36,13 @@ $(document).ready(function() {
 						cache: false,
 						success: function(data) {
 							if(!data.error){
-								alert('恭喜！删除成功！');
+								$.tdAlert('恭喜！删除成功！');
 							}else{
-								alert('删除失败！'+data.errorMsg);
+								$.tdAlert('删除失败！'+data.errorMsg);
 							}
 						},
 						error: function() {
-							alert('很遗憾！删除失败！');
+							$.tdAlert('很遗憾！删除失败！');
 						},
 						xhr: function () {
 							var xhr = new window.XMLHttpRequest();
@@ -62,7 +62,7 @@ $(document).ready(function() {
 					window.location.href = 'detial.html?carid='+effectId;
 				});
 			}else{
-				alert('读取失败！');
+				$.tdAlert('读取失败！');
 			}
             
         },
@@ -77,7 +77,7 @@ $(document).ready(function() {
 function setLocalStorage (name, value)
 { 
     if(!window.localStorage){
-		alert("浏览器不支持localstorage");
+		$.tdAlert("浏览器不支持localstorage");
 	}else{
 		var storage=window.localStorage;
 		var d=JSON.stringify(value);

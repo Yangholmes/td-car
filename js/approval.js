@@ -14,7 +14,7 @@ $(document).ready(function(){
 	if(param!=null || param!="")
 	{
 		getJson({"resid":param},JSON.parse(thisUser).userid);
-		// getJson({"resid":param},"3");
+		//getJson({"resid":param},"3");
 	}
 });
 
@@ -85,7 +85,7 @@ function getJson(param,thisUser)
 					}
 				});
 			}else{
-				alert("很遗憾！加载失败");
+				$.tdAlert("很遗憾！加载失败");
 			}
 			var sign = getApproval();
 			if(sign == -1){
@@ -99,7 +99,7 @@ function getJson(param,thisUser)
 
 		},
 		error:function(xhr,textStatus){
-		alert("很遗憾！传送错误");
+		$.tdAlert("很遗憾！传送错误");
 		console.log(xhr);
 		console.log(textStatus);
 		}
@@ -140,12 +140,12 @@ function setApproval(appResult){
 					}
 					$('.td-approval-button-div').css("display","none");
 				}else{
-					alert('修改审批状态失败！'+data.errorMsg);
+					$.tdAlert('修改审批状态失败！'+data.errorMsg);
 				}
 				$("#td-mask").hide();
 			},
 			error: function() {
-				alert('很遗憾！审批失败！');
+				$.tdAlert('很遗憾！审批失败！');
 			},
 			xhr: function () {
 				var xhr = new window.XMLHttpRequest();

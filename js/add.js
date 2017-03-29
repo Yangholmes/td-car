@@ -2,7 +2,7 @@ $("#imageSrc").on("change", function(){
 	if (window.FileReader) {
 			var reader = new FileReader();
 	} else {
-			alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+			$.tdAlert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
 	}
 	// Get a reference to the fileList
 	var files = !!this.files ? this.files : [];
@@ -12,7 +12,7 @@ $("#imageSrc").on("change", function(){
 	if (!files.length){
 		//没有选择文件则要清空文件上一次load的文件域和预览的图片
 		preview.css("height","0");
-		alert("请选择文件！");
+		$.tdAlert("请选择文件！");
 		return;
 	}
     // Only proceed if the selected file is an image
@@ -30,14 +30,14 @@ $("#imageSrc").on("change", function(){
 		}else{
 			preview.css("height","0");
 			resetFileInput();
-			alert("图片大小限制在1M！");
+			$.tdAlert("图片大小限制在1M！");
 			return;
 		}
 
     }else{
 		preview.css("height","0");
 		resetFileInput();
-		alert("请选择图片！");
+		$.tdAlert("请选择图片！");
 		return;
 	}
 });
@@ -60,7 +60,7 @@ $('#td-add-submit').click(function(e) {
 	for( field of requiredFields ){
 		if(!field.value){
 		  // todo
-		  alert(
+		  $.tdAlert(
 			$(field).prev('label').css('color', 'red').animate({opacity: 0}, 500, function(){
 			  $(this).css({'opacity': '1', 'color': 'black'})
 			}).html() + "必填哦~"
@@ -78,13 +78,13 @@ $('#td-add-submit').click(function(e) {
         success: function(data) {
 			var jsonResult = JSON.parse(data);
 			if(!jsonResult.error){
-				alert('恭喜！添加成功！');
+				$.tdAlert('恭喜！添加成功！');
 			}else{
-				alert('添加失败！'+jsonResult.errorMsg);
+				$.tdAlert('添加失败！'+jsonResult.errorMsg);
 			}
         },
         error: function() {
-            alert('很遗憾！添加失败！');
+            $.tdAlert('很遗憾！添加失败！');
         },
         xhr: function () {
             var xhr = new window.XMLHttpRequest();

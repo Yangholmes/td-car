@@ -300,7 +300,7 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 	text-align: justify;
     text-align-last: justify;
 	color: #888;
-
+	min-width: 75px;
 }
 .td-approval-table .fa-car{
 	color:rgba(80, 175, 250, 1);
