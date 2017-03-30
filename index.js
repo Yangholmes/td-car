@@ -64,9 +64,14 @@ var tdFormData = function(car){
     var item = $(itemHtml),
         recentRes = [];
 
+    console.log(car);
+
     // recent reservation
     car.reservation.map(function(res){
-      recentRes.push( res['schedule-start'] + "~" + res['schedule-end'] );
+      recentRes.push( res['schedule-start'].replace(/^\d{4}-/, '') + " ~ " + res['schedule-end'].replace(/^\d{4}-/, '') );
+    });
+    car.suspend.map(function(res){
+      recentRes.push( res['schedule-start'].replace(/^\d{4}-/, '') + " ~ " + res['schedule-end'].replace(/^\d{4}-/, '') + "未归还" );
     });
 
     item.eq(0).attr('id', 'td-car-item-'+car.carid);
@@ -75,7 +80,7 @@ var tdFormData = function(car){
     item.find('.td-form-comb-img-text-item-text').html(car.model);
     item.find('.td-car-info-plate-number').html(car.plateNumber);
     item.find('.td-car-info-seating').html(car.seating);
-    item.find('.td-car-reservation-time').html(recentRes.length==0?'近日无约车记录':recentRes.join(' '));
+    item.find('.td-car-reservation-time').html(recentRes.length==0?'近日无约车记录':recentRes.join('<br>'));
 
     item.appendTo(list);
   });
