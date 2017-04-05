@@ -29,7 +29,7 @@ $resQuery  = new yangMysql(); // 申请表单
 $resQuery->selectTable("reservation");
 
 $record['returnDt'] = date("Y-m-d H:i:s");
-$record['status'] = '4';
+$record['status'] = '3';
 
 $condition = "resid= '".$record['resid']."'";
 $resQuery->update($record, $condition, null, null);
