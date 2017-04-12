@@ -31,7 +31,7 @@
     </remote>
 
     <local>
-      <url>http://192.168.4.211/dingding/td-car/index.php</url>
+      <url>http://192.168.4.103/dingding/td-car/index.php</url>
       <corpId>dingc4aebce85d94b448</corpId>
       <corpSecret>AfT88B9DO8MvVH36C102danRqMjfvvaokAvDH4bIcr77XAwfXN1YnUFEAf5jLY2C</corpSecret>
 

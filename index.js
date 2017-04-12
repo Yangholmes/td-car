@@ -26,7 +26,7 @@ var tdCarInit = function(){
       // console.log(respond);
     },
     success: function(data, status, respond){
-      if( data.error == 0 ){
+      if( data.error == '0' ){
         _car = data.records;
         tdFormView();
         tdFormData();
@@ -46,7 +46,7 @@ var tdFormView = function(){
   if( /[Aa]ndroid/.test(navigator.userAgent) ){
     $('div.td-form-button').css('position', 'fixed').css('bottom', '0');
     $('div.td-form-field:nth-last-child(2)').eq(-1).css('margin-bottom', 'calc( 3em + 1em )');
-  };
+  }
 };
 
 /**
@@ -80,7 +80,7 @@ var tdFormData = function(car){
     item.find('.td-form-comb-img-text-item-text').html(car.model);
     item.find('.td-car-info-plate-number').html(car.plateNumber);
     item.find('.td-car-info-seating').html(car.seating);
-    item.find('.td-car-reservation-time').html(recentRes.length==0?'近日无约车记录':recentRes.join('<br>'));
+    item.find('.td-car-reservation-time').html(recentRes.length===0?'近日无约车记录':recentRes.join('<br>'));
 
     item.appendTo(list);
   });

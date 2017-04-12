@@ -13,6 +13,11 @@ require_once( __DIR__.'/../../server/config/server-config.php');
 require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
 require_once( __DIR__.'/../../server/api/Msg.php');
 
+/**
+ * recieve POST data
+ */
+$record = $_POST;
+
 $resid = $record['resid'];
 
 $msg = [
@@ -25,30 +30,47 @@ $msg = [
   "content" => '',
 ];
 
-$resQuery  = new yangMysql(); // 申请表单
-$resQuery->selectTable("reservation");
+if( $record['userid'] != '03401806572466' ){
+  $result = [
+    "records"  => $record,
+    "error"    => 1,
+    "errorMsg" => '您没有权限执行这个操作!',
+  ];
+}
+else{
+  $record = array_diff_key($record, ["userid"=>'']);
 
-$record['returnDt'] = date("Y-m-d H:i:s");
-$record['status'] = '3';
+  $resQuery = new yangMysql(); $userQuery = new yangMysql();
+  $resQuery->selectTable("reservation");
+  $userQuery->selectTable("user");
 
-$condition = "resid= '".$record['resid']."'";
-$resQuery->update($record, $condition, null, null);
+  $record['returnDt'] = date("Y-m-d H:i:s");
+  $record['status'] = '3';
 
-// send to applicant
-$msg['touser'] = [$applicant['emplId']];
-$msg['rich'] = $applicant['name'];
-$msg['content'] = "下次再来哦~";
+  $condition = "resid= '".$record['resid']."'";
+  $resQuery->update($record, $condition, null, null);
 
-// return to browser
-$result = [
-  "records"  => $records,
-  "error"    => 0,
-  "errorMsg" => '',
-];
+  $reservation = $resQuery->simpleSelect(null, $condition, null, null);
+  $applicant = $userQuery->simpleSelect(null, "emplId = '".$reservation[0]['applicant']."'", null, null);
+
+  // send to applicant
+  $msg['touser'] = [$applicant[0]['emplId']];
+  $msg['rich'] = $applicant[0]['name'];
+  $msg['content'] = "下次再来哦~";
+
+  $result = [
+    "records"  => $record,
+    "error"    => 0,
+    "errorMsg" => '',
+  ];
+
+  /**
+   * send Msg
+   */
+  $newMsg = new Msg(null);
+}
+
 echo json_encode( $result ); // 返回预约单单号
 
-/**
- * send Msg
- */
-$newMsg = new Msg(null);
-$respond = $newMsg->sendMsg($msg);
+if(isset($newMsg))
+  $respond = $newMsg->sendMsg($msg);
