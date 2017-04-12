@@ -398,3 +398,6 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
     margin-left: -61px;
     margin-bottom: -11px;
 }
+.td-return-div{
+	display:none;
+}

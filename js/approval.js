@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	var thisUser = localStorage.getItem('thisUser');
-
+	
 	if( !thisUser ){
 		window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
 	}
@@ -13,12 +13,12 @@ $(document).ready(function(){
 	var param = getUrlParam();
 	if(param!=null || param!="")
 	{
-		getJson({"resid":param},JSON.parse(thisUser).userid);
-		//getJson({"resid":param},"3");
+		userId = JSON.parse(thisUser).userid;
+		getJson({"resid":param});
 	}
 });
 
-function getJson(param,thisUser)
+function getJson(param)
 {
 	$.ajax({
 		url: '../server/reservation/reservation-load.php',
@@ -28,10 +28,10 @@ function getJson(param,thisUser)
 		dataType: 'json',
 		cache: false,
 		success: function(data) {
-			console.log(data);
 			if(data.error==0){
 				var result = data.records[0];
-				if(result.status!="0") {$('.td-approval-button-div').css("display","none");}
+				if(result.status!="0") {$('.td-approval-submit').css("display","none");}
+				if(result.status == "1") {$('.td-return-div').css("display","block");}
 				switch(result.usage){
 					case "0":
 						result.usage="出差";
@@ -89,12 +89,11 @@ function getJson(param,thisUser)
 			}
 			var sign = getApproval();
 			if(sign == -1){
-				console.log("error!no approver!");
+				console.log("error!no approver or have pass!");
 			}else{
 				var approvalId = $(appDiv[sign]).find(".approval-userid")[0].textContent;
-				console.log(approvalId+','+thisUser);
-				if(approvalId!=thisUser)
-				$('.td-approval-button-div').css("display","none");
+				if(approvalId!=userId)
+				$('.td-approval-submit').css("display","none");
 			}
 
 		},
@@ -120,7 +119,7 @@ function setApproval(appResult){
 	}else{
 		var sequence = $(appDiv[sign]).find(".approval-sequence")[0].textContent;
 		var time = $(appDiv[sign]).find(".cd-date")[0];
-		var send={"sequence":sequence, "resid":getUrlParam(), "result":appResult, "userid":$(appDiv[sign]).find(".approval-userid")[0].textContent};
+		var send={"sequence":sequence, "resid":getUrlParam(), "result":appResult, "userid":userId};
 		showMask();
 		$.ajax({
 			url: '../server/approval/approve.php',
@@ -138,7 +137,7 @@ function setApproval(appResult){
 						$(appDiv[sign]).find(".approval-result")[0].textContent = "已拒绝";
 						$(appDiv[sign]).find(".approval-result").css("color","red");
 					}
-					$('.td-approval-button-div').css("display","none");
+					$('.td-approval-submit').css("display","none");
 				}else{
 					$.tdAlert('修改审批状态失败！'+data.errorMsg);
 				}
@@ -173,6 +172,39 @@ function getApproval(){
 	}
 	return sign;
 }
+
+$('#td-return-car').click(function(e) {
+	var send={"resid":getUrlParam(), "userid":userId};
+	showMask();
+	$.ajax({
+			url: '../server/return/return.php',
+			type: "POST",
+			data: send,
+			cache: false,
+			success: function(data) {
+				if(!data.error){
+					$('.td-return-div').css("display","none");
+					$.tdAlert('还车成功！');
+				}else{
+					$.tdAlert('还车失败！'+data.errorMsg);
+				}
+				$("#td-mask").hide();
+			},
+			error: function() {
+				$.tdAlert('很遗憾！还车失败！');
+			},
+			xhr: function () {
+				var xhr = new window.XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function (e) {
+					console.log(e.lengthComputable);
+					if (e.lengthComputable) {
+					  100 * e.loaded / e.total;
+					}
+				}, false);
+				return xhr;
+			},
+		});
+});
 
 $.fn.setData = function(jsonValue){
   var obj = this;
