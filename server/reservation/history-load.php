@@ -8,8 +8,8 @@ require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
  */
 $record = $_POST;
 
-$offset = $record['offset'] ? $record['offset'] : 0;
-$rowCount = $record['rowCount'] ? $record['rowCount'] : 1;
+$offset = isset( $record['offset'] ) ? $record['offset'] : 0;
+$rowCount = isset( $record['rowCount'] ) ? $record['rowCount'] : 1;
 $car = $record['car'];
 
 $resQuery = new yangMysql(); // instantiation
