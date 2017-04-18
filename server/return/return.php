@@ -75,5 +75,4 @@ else{
 echo json_encode( $result ); // 返回预约单单号
 
 if(isset($newMsg))
-  // $respond = $newMsg->sendMsg($msg);
-;
+  $respond = $newMsg->sendMsg($msg);
