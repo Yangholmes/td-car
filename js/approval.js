@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	var thisUser = localStorage.getItem('thisUser');
-	
+
 	if( !thisUser ){
 	window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
 	}
@@ -192,7 +192,7 @@ $('#td-return-car').on('touchend',function(e) {
 						$('#td-return-car')[0].textContent = JSON.parse(data).records.returnDt;
 						$.tdAlert('还车成功！');
 					}else{
-						$.tdAlert('还车失败！'+data.errorMsg);
+						$.tdAlert('还车失败！'+ JSON.parse(data).errorMsg);
 					}
 					$("#td-mask").hide();
 				},
