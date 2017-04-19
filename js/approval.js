@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
 	var thisUser = localStorage.getItem('thisUser');
-
+	
 	if( !thisUser ){
-		window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
+	window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
 	}
 	else if( thisUser == 'error' ){
 		$('body').html('');
@@ -28,10 +28,15 @@ function getJson(param)
 		dataType: 'json',
 		cache: false,
 		success: function(data) {
+			console.log(data);
 			if(data.error==0){
 				var result = data.records[0];
-				if(result.status!="0") {$('.td-approval-submit').css("display","none");}
-				if(result.status == "1") {$('.td-return-div').css("display","block");}
+				resStatus = result.status;
+				if(resStatus!="0") {
+					$('.td-approval-submit').css("display","none");
+					if(resStatus == "1") {$('.td-return-div').css("display","block");}
+					else if(resStatus == "3") {$('.td-return-div').css("display","block");$('#td-return-car')[0].textContent = result.returnDt;}
+				}
 				switch(result.usage){
 					case "0":
 						result.usage="出差";
@@ -173,38 +178,39 @@ function getApproval(){
 	return sign;
 }
 
-$('#td-return-car').click(function(e) {
-	var send={"resid":getUrlParam(), "userid":userId};
-	showMask();
-	$.ajax({
-			url: '../server/return/return.php',
-			type: "POST",
-			data: send,
-	    dataType: 'json',
-			cache: false,
-			success: function(data) {
-				if(data.error == 0){
-					$('.td-return-div').css("display","none");
-					$.tdAlert('还车成功！');
-				}else{
-					$.tdAlert('还车失败！'+data.errorMsg);
-				}
-				$("#td-mask").hide();
-			},
-			error: function() {
-				$.tdAlert('很遗憾！还车失败！');
-			},
-			xhr: function () {
-				var xhr = new window.XMLHttpRequest();
-				xhr.upload.addEventListener("progress", function (e) {
-					console.log(e.lengthComputable);
-					if (e.lengthComputable) {
-					  100 * e.loaded / e.total;
+$('#td-return-car').on('touchend',function(e) {
+	if(resStatus != "3"){
+		var send={"resid":getUrlParam(), "userid":userId};
+		showMask();
+		$.ajax({
+				url: '../server/return/return.php',
+				type: "POST",
+				data: send,
+				cache: false,
+				success: function(data) {
+					if(JSON.parse(data).error == 0){
+						$('#td-return-car')[0].textContent = JSON.parse(data).records.returnDt;
+						$.tdAlert('还车成功！');
+					}else{
+						$.tdAlert('还车失败！'+data.errorMsg);
 					}
-				}, false);
-				return xhr;
-			},
-		});
+					$("#td-mask").hide();
+				},
+				error: function() {
+					$.tdAlert('很遗憾！还车失败！');
+				},
+				xhr: function () {
+					var xhr = new window.XMLHttpRequest();
+					xhr.upload.addEventListener("progress", function (e) {
+						console.log(e.lengthComputable);
+						if (e.lengthComputable) {
+						  100 * e.loaded / e.total;
+						}
+					}, false);
+					return xhr;
+				},
+			});
+		}
 });
 
 $.fn.setData = function(jsonValue){

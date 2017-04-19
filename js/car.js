@@ -21,41 +21,44 @@ $(document).ready(function() {
 					$('.row').append(html_resultinfo); //after方法:在每个匹配的元素之后插入内容。
 					setLocalStorage("car"+item['carid'], item);
 				});
-				
+
 				$('.fa-trash-o').click(function(e) {
-					var effectId = (e.target.id).slice(14);
-					var carid = {"carid":effectId};
-					$.ajax({
-						url: '../server/car-management/car-delete.php',
-						type: "POST",
-						data: carid,
-						dataType: 'json',
-						//这两个参数是传送form的
-						// processData: false, // 告诉jQuery不要去处理发送的数据
-						// contentType : false, //必须false才会自动加上正确的Content-Type
-						cache: false,
-						success: function(data) {
-							if(!data.error){
-								$.tdAlert('恭喜！删除成功！');
-							}else{
-								$.tdAlert('删除失败！'+data.errorMsg);
-							}
-						},
-						error: function() {
-							$.tdAlert('很遗憾！删除失败！');
-						},
-						xhr: function () {
-							var xhr = new window.XMLHttpRequest();
-							xhr.upload.addEventListener("progress", function (e) {
-								console.log(e.lengthComputable);
-								if (e.lengthComputable) {
-								  100 * e.loaded / e.total;
-								}
-							}, false);
-							return xhr;
-						},
-					});
-					$('.effect-' + effectId).remove();
+          if(confirm("真的要删除吗?")){
+            var effectId = (e.target.id).slice(14);
+  					var carid = {"carid":effectId};
+  					$.ajax({
+  						url: '../server/car-management/car-delete.php',
+  						type: "POST",
+  						data: carid,
+  						dataType: 'json',
+  						//这两个参数是传送form的
+  						// processData: false, // 告诉jQuery不要去处理发送的数据
+  						// contentType : false, //必须false才会自动加上正确的Content-Type
+  						cache: false,
+  						success: function(data) {
+  							if(!data.error){
+  								$.tdAlert('恭喜！删除成功！');
+  							}else{
+  								$.tdAlert('删除失败！'+data.errorMsg);
+  							}
+  						},
+  						error: function() {
+  							$.tdAlert('很遗憾！删除失败！');
+  						},
+  						xhr: function () {
+  							var xhr = new window.XMLHttpRequest();
+  							xhr.upload.addEventListener("progress", function (e) {
+  								console.log(e.lengthComputable);
+  								if (e.lengthComputable) {
+  								  100 * e.loaded / e.total;
+  								}
+  							}, false);
+  							return xhr;
+  						},
+  					});
+  					$('.effect-' + effectId).remove();
+          }
+
 				});
 				$('.fa-pencil').click(function(e) {
 					var effectId = (e.target.id).slice(12);
@@ -64,7 +67,7 @@ $(document).ready(function() {
 			}else{
 				$.tdAlert('读取失败！');
 			}
-            
+
         },
         error: function(xhr, textStatus) {
             console.log('错误');
@@ -75,7 +78,7 @@ $(document).ready(function() {
 });
 
 function setLocalStorage (name, value)
-{ 
+{
     if(!window.localStorage){
 		$.tdAlert("浏览器不支持localstorage");
 	}else{
@@ -84,4 +87,3 @@ function setLocalStorage (name, value)
 		storage.setItem(name,d);
 	}
 }
-
