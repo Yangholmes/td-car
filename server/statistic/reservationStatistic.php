@@ -21,22 +21,26 @@ require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
 /**
  * recieve POST data
  */
-$key = $_POST;
+$car 			= $_POST['car'] 			? $_POST['car'] 				: '%';
+$applicant 		= $_POST['applicant'] 		? '%'.$_POST['applicant'].'%' 	: '%';
+$driver 		= $_POST['driver'] 			? '%'.$_POST['driver'].'%' 		: '%';
+$accompanist 	= $_POST['accompanist']		? '%'.$_POST['accompanist'].'%'	: '%';
+$fuzzyName		= $_POST['fuzzyName']		? '%'.$_POST['fuzzyName'].'%' 	: '%';
+$month 			= $_POST['month']			? $_POST['month']		 		: '';
 
-$car = $key['car'] == '' ? '%' : $key['car'];
-$applicant = $key['applicant'] == '' ? '%' : '%'.$key['applicant'].'%';
-$driver = $key['driver'] == '' ? '%' : '%'.$key['driver'].'%';
-$accompanist = $key['accompanist'] == '' ? '%' : '%'.$key['accompanist'].'%';
+$month 		= new DateTime($month);
+$dateUp 	= $month->format('Y-m-10');
+$month		= $month->add(new DateInterval('P1M')); // 增加一个月, P represent 'period', If the duration contains time elements, that portion of the specification is preceded by the letter T.
+$dataFloor 	= $month->format('Y-m-10');
 
 $resQuery = new yangMysql(); // instantiation
-// $resQuery->getCharset(); //test queryCharset()
 $resQuery->selectDb(DB_DATABASE); //
 $resQuery->selectTable("reservation");
 
 $condition = "
 				SELECT
 				r.`id`				AS `id`,
-				r.`createDt`		AS 'createDt',
+				r.`createDt`		AS `createDt`,
 				r.`startpoint`		AS `startpoint` ,
 				r.`endpoint` 		AS `endpoint` ,
 				r.`schedule-start` 	AS `schedule-start` ,
@@ -61,6 +65,8 @@ $condition = "
 				r.`driver` = ud.`emplId` AND ud.`name` like '$driver'
 				AND
 				( r.`accompanist` like '$accompanist' OR r.`accompanist`is NULL )
+				AND
+				( r.`schedule-start` >= '$dateUp' AND r.`schedule-end` < '$dataFloor' )
 			";
 
 // echo $condition;

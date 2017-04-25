@@ -13,7 +13,6 @@ require_once( __DIR__.'/../../server/config/server-config.php');
 require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
 
 $carQuery = new yangMysql(); // instantiation
-// $carQuery->getCharset(); //test queryCharset()
 $carQuery->selectDb(DB_DATABASE); //
 $carQuery->selectTable("car");
 $car = $carQuery->simpleSelect(null,null,null,null);
@@ -21,26 +20,63 @@ $car = $carQuery->simpleSelect(null,null,null,null);
 $carQuery->selectTable("reservation");
 for($i=0;$i<count($car);$i++){
   // 近两日预约状况
-  $condition = "( `car` = '".$car[$i]['carid']."' )
-                and
-                (
-                    ( `schedule-start` between '".date('Y-m-d H:i:s')."' and '".date('Y-m-d 00:00:00', time()+2*24*60*60)."' )
-                    or
-                    ( `schedule-end` between '".date('Y-m-d H:i:s')."' and '".date('Y-m-d 00:00:00', time()+2*24*60*60)."' )
-                    or
-                    ( `schedule-start` <= '".date('Y-m-d H:i:s')."' and `schedule-end` >= '".date('Y-m-d 00:00:00', time()+2*24*60*60)."' )
-                )
-                and
-                ( `status` <> '2' )";
-  $reservation = $carQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],null);
+  $condition = "
+                SELECT 
+                r.`id`        AS `id`,
+                r.`createDt`    AS `createDt`,
+                r.`startpoint`    AS `startpoint` ,
+                r.`endpoint`    AS `endpoint` ,
+                r.`schedule-start`  AS `schedule-start` ,
+                r.`schedule-end`  AS `schedule-end` ,
+                u.`name`      AS `applicant`,
+                r.`accompanist`   AS `accompanist`,
+                r.`returnDt`    AS `returnDt`,
+                r.`status` AS `status`
+                FROM
+                  `reservation` AS r
+                    INNER JOIN `user` AS u ON r.applicant = u.emplId
+                WHERE
+                  ( `car` = '".$car[$i]['carid']."' )
+                  and
+                  (
+                      ( `schedule-start` between '".date('Y-m-d H:i:s')."' and '".date('Y-m-d 00:00:00', time()+2*24*60*60)."' )
+                      or
+                      ( `schedule-end` between '".date('Y-m-d H:i:s')."' and '".date('Y-m-d 00:00:00', time()+2*24*60*60)."' )
+                      or
+                      ( `schedule-start` <= '".date('Y-m-d H:i:s')."' and `schedule-end` >= '".date('Y-m-d 00:00:00', time()+2*24*60*60)."' )
+                  )
+                  and
+                  ( `status` <> '2' )
+                ";
+
+  // $reservation = $carQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],null);
+  $reservation = $carQuery->query($condition);
   $car[$i]['reservation'] =  $reservation ;
   // 逾期未归还
-  $condition = "( `car` = '".$car[$i]['carid']."' )
-                and
-                ( `schedule-end` < '".date('Y-m-d H:i:s')."' )
-                and
-                ( `status` = 1 )";
-  $reservation = $carQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],null);
+  $condition = "
+                SELECT 
+                r.`id`        AS `id`,
+                r.`createDt`    AS `createDt`,
+                r.`startpoint`    AS `startpoint` ,
+                r.`endpoint`    AS `endpoint` ,
+                r.`schedule-start`  AS `schedule-start` ,
+                r.`schedule-end`  AS `schedule-end` ,
+                u.`name`      AS `applicant`,
+                r.`accompanist`   AS `accompanist`,
+                r.`returnDt`    AS `returnDt`,
+                r.`status` AS `status`
+                FROM
+                  `reservation` AS r
+                    INNER JOIN `user` AS u ON r.applicant = u.emplId
+                WHERE
+                  ( `car` = '".$car[$i]['carid']."' )
+                  and
+                  ( `schedule-end` < '".date('Y-m-d H:i:s')."' )
+                  and
+                  ( `status` = 1 )
+                ";
+  // $reservation = $carQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],null);
+  $reservation = $carQuery->query($condition);
   $car[$i]['suspend'] =  $reservation ;
 }
 

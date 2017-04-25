@@ -58,7 +58,34 @@ var tdFormData = function(car){
    * init td-form-comb-img-text data
    */
   var list = $('ul.td-form-comb-img-text-list'),
-      itemHtml = '<li class="td-form-comb-img-text-item"><div class="td-form-comb-img-text-item-img"><img src="" ></div><div class="td-form-comb-img-text-item-text"></div><div class="td-form-field-detail fa fa-hand-pointer-o"></div></li><div class="td-form-comb-img-text-item-detial" id=""><div class="td-car-info"><div>车牌号：<span class="td-car-info-plate-number"></span></div><div>座位数：<span class="td-car-info-seating"></span></div></div><table class="td-car-reservation"><tbody><tr><td class="td-car-reservation-data">近日已约</td><td class="td-car-reservation-time"></td></tr></tbody></table></div>';
+      itemHtml = `
+                  <li class="td-form-comb-img-text-item">
+                    <div class="td-form-comb-img-text-item-img">
+                      <img src="" >
+                    </div>
+                    <div class="td-form-comb-img-text-item-text">
+                    </div>
+                    <!-- 点击查看详情按钮 -->
+                    <div class="td-form-field-detail fa fa-hand-pointer-o">
+                    </div>
+                  </li>
+                  <div class="td-form-comb-img-text-item-detial" id="">
+                    <div class="td-car-info">
+                      <div>车牌号：<span class="td-car-info-plate-number"></span>
+                      </div>
+                      <div>座位数：<span class="td-car-info-seating"></span>
+                      </div>
+                    </div>
+                    <table class="td-car-reservation">
+                      <tbody>
+                        <tr>
+                          <td class="td-car-reservation-data">近日已约</td>
+                          <td class="td-car-reservation-time"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  `;
 
   _car.map(function(car, i, cars){
     var item = $(itemHtml),
@@ -68,10 +95,10 @@ var tdFormData = function(car){
 
     // recent reservation
     car.reservation.map(function(res){
-      recentRes.push( res['schedule-start'].replace(/^\d{4}-/, '') + " ~ " + res['schedule-end'].replace(/^\d{4}-/, '') );
+      recentRes.push( res.applicant + res['schedule-start'].replace(/^\d{4}-/, '') + "<span style='color:red'>~</span>" + res['schedule-end'].replace(/^\d{4}-/, '') );
     });
     car.suspend.map(function(res){
-      recentRes.push( res['schedule-start'].replace(/^\d{4}-/, '') + " ~ " + res['schedule-end'].replace(/^\d{4}-/, '') + "未归还" );
+      recentRes.push( res.applicant + res['schedule-start'].replace(/^\d{4}-/, '') + "<span style='color:red'>~</span>" + res['schedule-end'].replace(/^\d{4}-/, '') + " 未还" );
     });
 
     item.eq(0).attr('id', 'td-car-item-'+car.carid);
@@ -164,7 +191,7 @@ var tdFormController = function(){
       $('body').addClass('fixed');
     }
     else{
-      this.addClass('popup').fadeOut(200);
+      this.addClass('popup').fadeOut(450);
       $('.transparent-mask').addClass('popup').hide();
       $('body').removeClass('fixed');
     }
@@ -372,7 +399,7 @@ var tdFormController = function(){
    * mask
    */
   $('.transparent-mask').on('touchend', function(e) {
-      $('.popup').fadeOut(200);
+      $('.popup').fadeOut(450);
       $('body').removeClass('fixed');
       preventMoving = false;
   });
