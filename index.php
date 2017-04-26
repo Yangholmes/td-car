@@ -184,7 +184,7 @@
     <script src="./lib/jquery/jquery-3.1.1.min.js"></script>
     <script src="./js/dd-init.js"></script>
     <script src="./index.min.js"></script>
-    <script src="./lib/jquery/message.min.js"></script>
+    <!-- <script src="./lib/jquery/message.min.js"></script> -->
     <!-- script end -->
 </body>
 
