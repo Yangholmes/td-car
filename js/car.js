@@ -23,41 +23,44 @@ $(document).ready(function() {
 				});
 
 				$('.fa-trash-o').click(function(e) {
-          if(confirm("真的要删除吗?")){
-            var effectId = (e.target.id).slice(14);
-  					var carid = {"carid":effectId};
-  					$.ajax({
-  						url: '../server/car-management/car-delete.php',
-  						type: "POST",
-  						data: carid,
-  						dataType: 'json',
-  						//这两个参数是传送form的
-  						// processData: false, // 告诉jQuery不要去处理发送的数据
-  						// contentType : false, //必须false才会自动加上正确的Content-Type
-  						cache: false,
-  						success: function(data) {
-  							if(!data.error){
-  								$.tdAlert('恭喜！删除成功！');
-  							}else{
-  								$.tdAlert('删除失败！'+data.errorMsg);
-  							}
-  						},
-  						error: function() {
-  							$.tdAlert('很遗憾！删除失败！');
-  						},
-  						xhr: function () {
-  							var xhr = new window.XMLHttpRequest();
-  							xhr.upload.addEventListener("progress", function (e) {
-  								console.log(e.lengthComputable);
-  								if (e.lengthComputable) {
-  								  100 * e.loaded / e.total;
-  								}
-  							}, false);
-  							return xhr;
-  						},
-  					});
-  					$('.effect-' + effectId).remove();
-          }
+          $.tdConfirm("真的要删除吗?",function(i){
+            if(i){
+              var effectId = (e.target.id).slice(14);
+    					var carid = {"carid":effectId};
+    					$.ajax({
+    						url: '../server/car-management/car-delete.php',
+    						type: "POST",
+    						data: carid,
+    						dataType: 'json',
+    						//这两个参数是传送form的
+    						// processData: false, // 告诉jQuery不要去处理发送的数据
+    						// contentType : false, //必须false才会自动加上正确的Content-Type
+    						cache: false,
+    						success: function(data) {
+    							if(!data.error){
+    								$.tdAlert('恭喜！删除成功！');
+    							}else{
+    								$.tdAlert('删除失败！'+data.errorMsg);
+    							}
+    						},
+    						error: function() {
+    							$.tdAlert('很遗憾！删除失败！');
+    						},
+    						xhr: function () {
+    							var xhr = new window.XMLHttpRequest();
+    							xhr.upload.addEventListener("progress", function (e) {
+    								console.log(e.lengthComputable);
+    								if (e.lengthComputable) {
+    								  100 * e.loaded / e.total;
+    								}
+    							}, false);
+    							return xhr;
+    						},
+    					});
+    					$('.effect-' + effectId).remove();
+            }
+          });
+
 
 				});
 				$('.fa-pencil').click(function(e) {
