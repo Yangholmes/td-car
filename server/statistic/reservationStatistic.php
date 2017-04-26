@@ -25,19 +25,20 @@ $car 			= $_POST['car'] 			? $_POST['car'] 				: '%';
 $applicant 		= $_POST['applicant'] 		? '%'.$_POST['applicant'].'%' 	: '%';
 $driver 		= $_POST['driver'] 			? '%'.$_POST['driver'].'%' 		: '%';
 $accompanist 	= $_POST['accompanist']		? '%'.$_POST['accompanist'].'%'	: '%';
-$fuzzyName		= $_POST['fuzzyName']		? '%'.$_POST['fuzzyName'].'%' 	: '%';
+$fuzzyName		= $_POST['fuzzyName']		? '%'.$_POST['fuzzyName'].'%' 	: NULL;
 $month 			= $_POST['month']			? $_POST['month']		 		: '';
 
 $month 		= new DateTime($month);
-$dateUp 	= $month->format('Y-m-10');
-$month		= $month->add(new DateInterval('P1M')); // 增加一个月, P represent 'period', If the duration contains time elements, that portion of the specification is preceded by the letter T.
-$dataFloor 	= $month->format('Y-m-10');
+$dateFloor 	= $month->format('Y-m-26');
+$month		= $month->sub(new DateInterval('P1M')); // 减少一个月, P represent 'period', If the duration contains time elements, that portion of the specification is preceded by the letter T.
+$dateUp 	= $month->format('Y-m-26');
 
 $resQuery = new yangMysql(); // instantiation
 $resQuery->selectDb(DB_DATABASE); //
 $resQuery->selectTable("reservation");
 
-$condition = "
+$condition = !$fuzzyName ? 
+			"
 				SELECT
 				r.`id`				AS `id`,
 				r.`createDt`		AS `createDt`,
@@ -66,7 +67,39 @@ $condition = "
 				AND
 				( r.`accompanist` like '$accompanist' OR r.`accompanist`is NULL )
 				AND
-				( r.`schedule-start` >= '$dateUp' AND r.`schedule-end` < '$dataFloor' )
+				( r.`schedule-start` >= '$dateUp' AND r.`schedule-end` < '$dateFloor' )
+			" : "
+				SELECT
+				r.`id`				AS `id`,
+				r.`createDt`		AS `createDt`,
+				r.`startpoint`		AS `startpoint` ,
+				r.`endpoint` 		AS `endpoint` ,
+				r.`schedule-start` 	AS `schedule-start` ,
+				r.`schedule-end` 	AS `schedule-end` ,
+				c.`model` 			AS `car`,
+				ua.`name` 			AS `applicant`,
+				ud.`name` 			AS `driver`,
+				r.`accompanist`		AS `accompanist`,
+				r.`returnDt`		AS `returnDt`
+				FROM 
+					reservation AS r 
+						INNER JOIN `user` 	AS ua 	ON r.applicant = ua.emplId
+						INNER JOIN `car` 	AS c 	ON r.car = c.carid
+						INNER JOIN `user` 	AS ud 	ON r.driver = ud.`emplId`
+				WHERE
+				r.`status` = 3
+				AND
+				c.`carid` like '$car'
+				AND
+				(
+					r.`applicant` = ua.`emplId` AND ua.`name` like '$fuzzyName'
+					OR
+					r.`driver` = ud.`emplId` AND ud.`name` like '$fuzzyName'
+					OR
+					( r.`accompanist` like '$fuzzyName' )
+				)
+				AND
+				( r.`schedule-start` >= '$dateUp' AND r.`schedule-end` < '$dateFloor' )
 			";
 
 // echo $condition;
