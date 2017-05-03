@@ -1,10 +1,10 @@
 <?php
 
-header("Access-Control-Allow-Origin:*");
-// header("Access-Control-Allow-Credentials: true"); 
+header("Access-Control-Allow-Origin:*"); // cross domain
+// header("Access-Control-Allow-Credentials: true");
 // header('Access-Control-Allow-Headers: X-Requested-With');
 // header('Access-Control-Allow-Headers: Content-Type');
-// header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT'); 
+// header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
 
 /**
  * set timezone
@@ -21,23 +21,23 @@ require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
 /**
  * recieve POST data
  */
-$car 			= $_POST['car'] 			? $_POST['car'] 				: '%';
+$car 					= $_POST['car'] 					? $_POST['car'] 				: '%';
 $applicant 		= $_POST['applicant'] 		? '%'.$_POST['applicant'].'%' 	: '%';
-$driver 		= $_POST['driver'] 			? '%'.$_POST['driver'].'%' 		: '%';
+$driver 			= $_POST['driver'] 				? '%'.$_POST['driver'].'%' 		: '%';
 $accompanist 	= $_POST['accompanist']		? '%'.$_POST['accompanist'].'%'	: '%';
-$fuzzyName		= $_POST['fuzzyName']		? '%'.$_POST['fuzzyName'].'%' 	: NULL;
-$month 			= $_POST['month']			? $_POST['month']		 		: '';
+$fuzzyName		= $_POST['fuzzyName']			? '%'.$_POST['fuzzyName'].'%' 	: NULL;
+$month 				= $_POST['month']					? $_POST['month']		 		: '';
 
-$month 		= new DateTime($month);
+$month 			= new DateTime($month);
 $dateFloor 	= $month->format('Y-m-26');
-$month		= $month->sub(new DateInterval('P1M')); // 减少一个月, P represent 'period', If the duration contains time elements, that portion of the specification is preceded by the letter T.
-$dateUp 	= $month->format('Y-m-26');
+$month			= $month->sub(new DateInterval('P1M')); // 减少一个月, P represent 'period', If the duration contains time elements, that portion of the specification is preceded by the letter T.
+$dateUp 		= $month->format('Y-m-26');
 
 $resQuery = new yangMysql(); // instantiation
 $resQuery->selectDb(DB_DATABASE); //
 $resQuery->selectTable("reservation");
 
-$condition = !$fuzzyName ? 
+$condition = !$fuzzyName ?
 			"
 				SELECT
 				r.`id`				AS `id`,
@@ -51,8 +51,8 @@ $condition = !$fuzzyName ?
 				ud.`name` 			AS `driver`,
 				r.`accompanist`		AS `accompanist`,
 				r.`returnDt`		AS `returnDt`
-				FROM 
-					reservation AS r 
+				FROM
+					reservation AS r
 						INNER JOIN `user` 	AS ua 	ON r.applicant = ua.emplId
 						INNER JOIN `car` 	AS c 	ON r.car = c.carid
 						INNER JOIN `user` 	AS ud 	ON r.driver = ud.`emplId`
@@ -81,8 +81,8 @@ $condition = !$fuzzyName ?
 				ud.`name` 			AS `driver`,
 				r.`accompanist`		AS `accompanist`,
 				r.`returnDt`		AS `returnDt`
-				FROM 
-					reservation AS r 
+				FROM
+					reservation AS r
 						INNER JOIN `user` 	AS ua 	ON r.applicant = ua.emplId
 						INNER JOIN `car` 	AS c 	ON r.car = c.carid
 						INNER JOIN `user` 	AS ud 	ON r.driver = ud.`emplId`
@@ -106,6 +106,6 @@ $condition = !$fuzzyName ?
 
 $res = $resQuery->query($condition);
 
-sleep(1); // 假装网络很卡
+// sleep(1); // 假装网络很卡
 
 echo json_encode( $res );
