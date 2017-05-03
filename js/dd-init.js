@@ -116,7 +116,7 @@ dd.ready(function() {
               break;
             case '2': // open a new page in current page
               dd.biz.util.openLink({
-                url: 'http://192.168.4.197/dingding/td-car/page/car.html' + '?userid=' + _user.userid,
+                url: './page/car.html' + '?userid=' + _user.userid,
                 onSuccess : function(result) {},
                 onFail : function() {}
               });
@@ -124,7 +124,7 @@ dd.ready(function() {
               break;
             case '3':
               dd.biz.util.openLink({
-                url: 'http://192.168.4.197/dingding/td-car/page/car-add.html' + '?userid=' + _user.userid,
+                url: './page/car-add.html' + '?userid=' + _user.userid,
                 onSuccess : function(result) {},
                 onFail : function() {}
               });

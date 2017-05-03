@@ -336,7 +336,7 @@ var tdFormController = function(){
           formData = new FormData(form[0]),
           requiredFields = form.find('*[required]');
 
-          for( field of requiredFields ){
+          for( let field of requiredFields ){
             if(!field.value){
               // todo
               $.tdAlert(
