@@ -110,21 +110,26 @@ dd.ready(function() {
             "text": "添加车辆",
         }],
         onSuccess: function(data) {
+          // $.tdAlert(_user.name);
           switch(data.id){
             case '1':
               $.tdAlert('即将推出\n敬请期待');
               break;
             case '2': // open a new page in current page
               dd.biz.util.openLink({
-                url: './page/car.html' + '?userid=' + _user.userid,
+                url: 'http://www.gdrtc.org/car/page/car.html' + '?userid=' + _user.userid,
                 onSuccess : function(result) {},
                 onFail : function() {}
               });
               // window.location.href = 'page/car.html' + '?userid=' + _user.userid, 'carManager';
               break;
             case '3':
+              if( !_user.admin_level ){
+                $.tdAlert('这个操作需要管理员权限');
+                return false;
+              }
               dd.biz.util.openLink({
-                url: './page/car-add.html' + '?userid=' + _user.userid,
+                url: 'http://www.gdrtc.org/car/page/car-add.html' + '?userid=' + _user.userid,
                 onSuccess : function(result) {},
                 onFail : function() {}
               });
@@ -134,7 +139,9 @@ dd.ready(function() {
               break;
           }
         },
-        onFail: function(err) {}
+        onFail: function(err) {
+          $.tdAlert(err);
+        }
     });
 
     /**
@@ -145,5 +152,5 @@ dd.ready(function() {
 
 dd.error(function(err) {
     console.log('错误信息: ' + JSON.stringify(err));
-    alert('错误信息: ' + JSON.stringify(err));
+    $.tdAlert('错误信息: ' + JSON.stringify(err));
 });

@@ -67,7 +67,11 @@ $condition = !$fuzzyName ?
 				AND
 				( r.`accompanist` like '$accompanist' OR r.`accompanist`is NULL )
 				AND
-				( r.`schedule-start` >= '$dateUp' AND r.`schedule-end` < '$dateFloor' )
+				(
+					( r.`schedule-start` >= '$dateUp' AND r.`schedule-start` < '$dateFloor' )
+					OR
+					( r.`schedule-end` >= '$dateUp' AND r.`schedule-end` < '$dateFloor' )
+				)
 			" : "
 				SELECT
 				r.`id`				AS `id`,
@@ -99,10 +103,16 @@ $condition = !$fuzzyName ?
 					( r.`accompanist` like '$fuzzyName' )
 				)
 				AND
-				( r.`schedule-start` >= '$dateUp' AND r.`schedule-end` < '$dateFloor' )
+				(
+					( r.`schedule-start` >= '$dateUp' AND r.`schedule-start` < '$dateFloor' )
+					OR
+					( r.`schedule-end` >= '$dateUp' AND r.`schedule-end` < '$dateFloor' )
+				)
 			";
 
 // echo $condition;
+
+$condition = iconv("utf-8", "gbk", $condition );
 
 $res = $resQuery->query($condition);
 
