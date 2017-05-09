@@ -15,13 +15,14 @@ require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
 $carQuery = new yangMysql(); // instantiation
 $carQuery->selectDb(DB_DATABASE); //
 $carQuery->selectTable("car");
-$car = $carQuery->simpleSelect(null,null,null,null);
+$condition = " `disable` <> 1 "; // 筛除停用车辆
+$car = $carQuery->simpleSelect(null,$condition,null,null);
 
 $carQuery->selectTable("reservation");
 for($i=0;$i<count($car);$i++){
   // 近两日预约状况
   $condition = "
-                SELECT 
+                SELECT
                 r.`id`        AS `id`,
                 r.`createDt`    AS `createDt`,
                 r.`startpoint`    AS `startpoint` ,
@@ -54,7 +55,7 @@ for($i=0;$i<count($car);$i++){
   $car[$i]['reservation'] =  $reservation ;
   // 逾期未归还
   $condition = "
-                SELECT 
+                SELECT
                 r.`id`        AS `id`,
                 r.`createDt`    AS `createDt`,
                 r.`startpoint`    AS `startpoint` ,
