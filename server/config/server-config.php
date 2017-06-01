@@ -4,7 +4,7 @@
 define("OAPI_HOST", "https://oapi.dingtalk.com");
 
 // this app server host
-define("SERVER_HOST", "http://192.168.4.211/dingding/td-car");
+define("SERVER_HOST", "http://192.168.4.16/dingding/td-car");
 // define("SERVER_HOST", "http://www.gdrtc.org");
 
 // image path

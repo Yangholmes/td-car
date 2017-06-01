@@ -222,7 +222,7 @@ var tdFormController = function(){
           $.tdAlert('不能够自己审批自己哦~');
           return false;
         }
-        var approverPickerList = $(e.currentTarget).parents('.td-form-approver-picker').find('ul li#admin'),
+        var approverPickerList = $(e.currentTarget).parents('.td-form-approver-picker').find('ul div.td-form-approver-picker-add'),
             newApproverHtml = '<li class="td-form-approver-picker-item">' +
                               '<input type="hidden" class="td-form-input-hidden">' +
                               '<div class="td-form-approver-picker-item-avatar fa fa-arrow-right">' +
@@ -240,10 +240,13 @@ var tdFormController = function(){
     });
   // delete
   var deleteApprover = function(e){
+    console.log(e);
     if (touchMoving) return; //
     e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
     $(e.currentTarget).remove();
-  }
+  };
+  // delete default approver
+  $('ul.td-form-approver-picker-list li').on('touchend', deleteApprover);
 
   /**
    * td-form-cc-picker
@@ -336,7 +339,7 @@ var tdFormController = function(){
           formData = new FormData(form[0]),
           requiredFields = form.find('*[required]');
 
-          for( let field of requiredFields ){
+          for( var field of requiredFields ){
             if(!field.value){
               // todo
               $.tdAlert(
@@ -346,6 +349,11 @@ var tdFormController = function(){
               );
               return false;
             }
+          }
+
+          if($('ul.td-form-approver-picker-list li').length == 0){
+            $.tdAlert('至少选择一位审批人');
+            return false;
           }
 
           $.ajax({

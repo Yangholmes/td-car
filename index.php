@@ -133,6 +133,7 @@
         <input type="hidden" class="td-form-input-hidden" name="approver">
         <ul class="td-form-approver-picker-list">
           <li class="td-form-approver-picker-item" id="admin">
+            <input type="hidden" class="td-form-input-hidden" value="{&quot;name&quot;:&quot;卢威&quot;,&quot;avatar&quot;:&quot;http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg&quot;,&quot;emplId&quot;:&quot;03401806572466&quot;}">
             <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
               <img src="http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg">
             </div>

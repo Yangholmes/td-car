@@ -68,7 +68,19 @@ $('#td-add-submit').click(function(e) {
 		  return false;
 		}
 	}
-    $.ajax({
+
+	let y = new yang();
+	y.ajax('../server/car-management/car-add.php', {
+		type: "POST",
+		data: formData,
+		processData: false, // 告诉jQuery不要去处理发送的数据
+		contentType : false, //必须false才会自动加上正确的Content-Type
+		progress: {
+			uploadProgress: ()=>{ console.log(arguments) },
+			downloadProgress: ()=>{ console.log(arguments) }
+		}
+	}).then( (res)=>{ console.log(res) }, (res)=>{ console.log(res) } );
+  /*  $.ajax({
         url: '../server/car-management/car-add.php',
         type: "POST",
         data: formData,
@@ -96,5 +108,5 @@ $('#td-add-submit').click(function(e) {
             }, false);
             return xhr;
         },
-    });
+    });*/
 });

@@ -15,12 +15,12 @@ $currentTime = time(); // unused
 /**
  * 最终审批人
  */
-$finalApprover = [
-  "avatar" => "http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg",
-  // "emplId" => "03401806572466",
-  "emplId" => "03424264076698",
-  "name"   => "卢威",
-];
+// $finalApprover = [
+//   "avatar" => "http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg",
+//   // "emplId" => "03401806572466",
+//   "emplId" => "03424264076698",
+//   "name"   => "卢威",
+// ];
 
 /**
  * require libs
@@ -39,7 +39,7 @@ $record['approver']  = json_decode( $record['approver'] );
 $record['cc']        = json_decode( $record['cc'] );
 $record['applicant'] = json_decode( $record['applicant'] );
 // 插入最终审批人
-array_push($record['approver'], $finalApprover);
+// array_push($record['approver'], $finalApprover);
 
 $record['car']       = preg_replace('/(td-car-item-)(\d*)$/', '$2', $record['car']);
 $record['usage']     = preg_replace('/(td-usage-)(\d*)$/',    '$2', $record['usage']);
