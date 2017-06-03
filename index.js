@@ -1,4 +1,4 @@
-;
+/* jshint esversion: 6 */
 
 $(function() {
   tdCarInit();
@@ -42,7 +42,7 @@ var tdCarInit = function(){
  * UI control view
  */
 var tdFormView = function(){
-  // iOS can not render fixed style correctly, so block it in iOS.
+  // iOS(Safari) can not render fixed style correctly, so block it in iOS(Safari).
   if( /[Aa]ndroid/.test(navigator.userAgent) ){
     $('div.td-form-button').css('position', 'fixed').css('bottom', '0');
     $('div.td-form-field:nth-last-child(2)').eq(-1).css('margin-bottom', 'calc( 3em + 1em )');
