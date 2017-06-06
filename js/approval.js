@@ -122,46 +122,52 @@ function setApproval(appResult){
 	if(sign == -1){
 		console.log("error!no approver!");
 	}else{
-		var sequence = $(appDiv[sign]).find(".approval-sequence")[0].textContent;
-		var time = $(appDiv[sign]).find(".cd-date")[0];
-		var send={"sequence":sequence, "resid":getUrlParam(), "result":appResult, "userid":userId};
-		showMask();
-		$.ajax({
-			url: '../server/approval/approve.php',
-			type: "POST",
-			data: send,
-			cache: false,
-			success: function(data) {
-				if(!data.error){
-					var myDate = new Date();
-					time.textContent=myDate.toLocaleTimeString();     //获取当前时间
-					if(appResult == "1"){
-						$(appDiv[sign]).find(".approval-result")[0].textContent = "已同意";
-						$(appDiv[sign]).find(".approval-result").css("color","green");
-					}else{
-						$(appDiv[sign]).find(".approval-result")[0].textContent = "已拒绝";
-						$(appDiv[sign]).find(".approval-result").css("color","red");
-					}
-					$('.td-approval-submit').css("display","none");
-				}else{
-					$.tdAlert('修改审批状态失败！'+data.errorMsg);
-				}
-				$("#td-mask").hide();
-			},
-			error: function() {
-				$.tdAlert('很遗憾！审批失败！');
-			},
-			xhr: function () {
-				var xhr = new window.XMLHttpRequest();
-				xhr.upload.addEventListener("progress", function (e) {
-					console.log(e.lengthComputable);
-					if (e.lengthComputable) {
-					  100 * e.loaded / e.total;
-					}
-				}, false);
-				return xhr;
-			},
-		});
+		$.tdPrompt("",function(i){
+			console.log(i);
+			if(i){
+				var sequence = $(appDiv[sign]).find(".approval-sequence")[0].textContent;
+				var time = $(appDiv[sign]).find(".cd-date")[0];
+				var send={"sequence":sequence, "resid":getUrlParam(), "result":appResult, "userid":userId};
+				showMask();
+				$.ajax({
+					url: '../server/approval/approve.php',
+					type: "POST",
+					data: send,
+					cache: false,
+					success: function(data) {
+						if(!data.error){
+							var myDate = new Date();
+							time.textContent=myDate.toLocaleTimeString();     //获取当前时间
+							if(appResult == "1"){
+								$(appDiv[sign]).find(".approval-result")[0].textContent = "已同意";
+								$(appDiv[sign]).find(".approval-result").css("color","green");
+							}else{
+								$(appDiv[sign]).find(".approval-result")[0].textContent = "已拒绝";
+								$(appDiv[sign]).find(".approval-result").css("color","red");
+							}
+							$('.td-approval-submit').css("display","none");
+						}else{
+							$.tdAlert('修改审批状态失败！'+data.errorMsg);
+						}
+						$("#td-mask").hide();
+					},
+					error: function() {
+						$.tdAlert('很遗憾！审批失败！');
+					},
+					xhr: function () {
+						var xhr = new window.XMLHttpRequest();
+						xhr.upload.addEventListener("progress", function (e) {
+							console.log(e.lengthComputable);
+							if (e.lengthComputable) {
+							  100 * e.loaded / e.total;
+							}
+						}, false);
+						return xhr;
+					},
+				});
+			}
+		},'审批意见','请输入审批意见（可以为空）');
+
 	}
 }
 
