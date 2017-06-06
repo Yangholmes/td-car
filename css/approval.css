@@ -8,7 +8,6 @@ Primary style
     padding: 0;
 }
 html * {
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -200,10 +199,16 @@ Main components
 }
 a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 .cd-timeline-content .cd-date {
-  width:50%;
-  float: right;
   padding: .5em 0;
   opacity: .7;
+}
+.cd-timeline-content .cd-timeline-name{
+  display: -webkit-box;
+  -webkit-box-pack: justify;
+  box-pack: justify;
+}
+.cd-timeline-content .approval-comment{
+  overflow-wrap: break-word;
 }
 .cd-timeline-content::before {
   content: '';

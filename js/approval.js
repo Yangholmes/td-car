@@ -65,13 +65,17 @@ function getJson(param)
 				}
 
 				var html_resultinfo;
+				var html_commentcss;
 				$.each(result.approval,function(i,item){
-					html_resultinfo='';
+					html_resultinfo='';console.log(item["comment"]);
+					if(item["comment"]!=null){html_commentcss='style="display:block"'}
+					else{html_commentcss='style="display:none"';}
+					console.log(html_commentcss);
 					html_resultinfo += '<div class="cd-timeline-block"><div class="cd-timeline-img cd-picture"><img src="'+
-						item['approver'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><h2>'+
-						item['approver'].name + '</h2><span class="cd-date">' + item['operateDt'] +
-						'</span><p class="approval-result" id="approval-result-'+i+'">'+item["result"] +
-						' </p><span class="approval-sequence">'+item['sequence']+'</span><span class="approval-userid">'+
+						item['approver'].avatar+'" alt="Picture"></div><div class="cd-timeline-content"><div class="cd-timeline-name"><h2>'+
+						item['approver'].name + '</h2><div><span class="cd-date">' + item['operateDt'] +
+						'</span></div></div><p class="approval-result" id="approval-result-'+i+'">'+item["result"] +
+						'</p><p class="approval-comment"'+html_commentcss+'>'+item["comment"]+'</p><span class="approval-sequence">'+item['sequence']+'</span><span class="approval-userid">'+
 						item['userid']+'</span></div></div>';
 					$('.cd-container').append(html_resultinfo);//after方法:在每个匹配的元素之后插入内容。
 					var setResult = $('#approval-result-'+i);
@@ -122,12 +126,12 @@ function setApproval(appResult){
 	if(sign == -1){
 		console.log("error!no approver!");
 	}else{
-		$.tdPrompt("",function(i){
-			console.log(i);
+		$.tdPrompt("",function(i,comment){
+			console.log(comment);
 			if(i){
 				var sequence = $(appDiv[sign]).find(".approval-sequence")[0].textContent;
 				var time = $(appDiv[sign]).find(".cd-date")[0];
-				var send={"sequence":sequence, "resid":getUrlParam(), "result":appResult, "userid":userId};
+				var send={"sequence":sequence, "resid":getUrlParam(), "result":appResult, "userid":userId, "comment":comment};
 				showMask();
 				$.ajax({
 					url: '../server/approval/approve.php',
@@ -144,6 +148,10 @@ function setApproval(appResult){
 							}else{
 								$(appDiv[sign]).find(".approval-result")[0].textContent = "已拒绝";
 								$(appDiv[sign]).find(".approval-result").css("color","red");
+							}
+							if(comment){
+								$(appDiv[sign]).find(".approval-comment").css("display","block")
+								$(appDiv[sign]).find(".approval-comment")[0].textContent = comment;
 							}
 							$('.td-approval-submit').css("display","none");
 						}else{
