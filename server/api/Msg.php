@@ -118,12 +118,15 @@ class Msg{
 
 /*$msg = new Msg(null);
 $respond = $msg->sendMsg([
-	"title" => "这是您的新申请",
-	"touser"  => ["03402201307318"],
-	"message_url" => "http://www.gdrtc.org/car/page/approval.html?resid=9dJemYZp1I9YGtHgdSK4{1490316119}",
+	"title" => "有一条用车申请需要您的审批",
+	"touser"  => ["03401806572466", "03424264076698"],
+	"message_url" => "http://www.gdrtc.org/car/page/approval.html?resid=o4nDzipENvF53dzsK4Nw%7B1496645809%7D&signature=aE2v8phFmy%7B1496645809%7D",
 	"image"=> "", // 图片
-	"rich" => "",
-	"content" => "",
+	"rich" => "方淑斐",
+	"content" => 	"出发地点："."公司"."\n".
+	                "目的地点："."广州东站"."\n".
+	                "预计出发："."2017-06-06 09:30:00"."\n".
+	                "预计返回："."2017-06-06 20:00:00"
 ]);
 
 echo $respond;*/
