@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * require Auth api
+ */
+ require_once( __DIR__.'/../../server/api/Auth.php');
+
+/**
+ * Yangholmes 2017-03-03
+ */
 class User{
 
   private $request;
