@@ -117,14 +117,14 @@ dd.ready(function() {
               break;
             case '2': // open a new page in current page
               dd.biz.util.openLink({
-                url: 'http://www.gdrtc.org/car/page/car.html' + '?userid=' + _user.userid,
+                url: 'http://www.gdrtc.org/car/page/car.html',
                 onSuccess : function(result) {},
                 onFail : function() {}
               });
               // window.location.href = 'page/car.html' + '?userid=' + _user.userid, 'carManager';
               break;
             case '3':
-              if( !_user.admin_level ){
+              if( _user.admin_level == '0' ){
                 $.tdAlert('这个操作需要管理员权限');
                 return false;
               }
