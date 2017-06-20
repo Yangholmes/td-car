@@ -99,10 +99,10 @@ dd.ready(function() {
      * 导航栏设置
      */
     dd.biz.navigation.setMenu({
-        items: [/*{
+        items: [{
             "id": "1",
             "text": "我的历史",
-        },*/{
+        },{
             "id": "2",
             "text": "车的管理",
         },{
@@ -113,7 +113,11 @@ dd.ready(function() {
           // $.tdAlert(_user.name);
           switch(data.id){
             case '1':
-              $.tdAlert('即将推出\n敬请期待');
+            dd.biz.util.openLink({
+              url: 'http://www.gdrtc.org/car/page/personal-history.html',
+              onSuccess : function(result) {},
+              onFail : function() {}
+            });
               break;
             case '2': // open a new page in current page
               dd.biz.util.openLink({
@@ -152,5 +156,5 @@ dd.ready(function() {
 
 dd.error(function(err) {
     console.log('错误信息: ' + JSON.stringify(err));
-    $.tdAlert('错误信息: ' + JSON.stringify(err));
+    $.tdAlert('错误信息: ' + '钉钉验证失败，请重试');
 });

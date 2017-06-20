@@ -7,6 +7,7 @@ $(document).ready(function(){
 	}
 	else if( thisUser == 'error' ){
 		$('body').html('');
+		window.localStorage.removeItem('thisUser');
 		window.close();
 	}
 
@@ -25,7 +26,6 @@ function getJson(param)
 		dataType: 'json',
 		type: "POST",
 		data: param,
-		dataType: 'json',
 		cache: false,
 		success: function(data) {
 			console.log(data);
