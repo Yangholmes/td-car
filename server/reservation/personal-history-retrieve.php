@@ -2,51 +2,27 @@
 
 require_once( __DIR__.'/../../server/config/server-config.php');
 require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
-require_once( __DIR__.'/../../server/api/Auth.php');
-require_once( __DIR__.'/../../server/api/Dept.php');
 
 /**
  * recieve POST data
  */
 $user = $_POST['user'];
-$department = $_POST['department'];
+$offset = $_POST['offset'];
 
 /**
  * response data
  */
 $response = [
-  'department' => [],
-  'reservationSum' => '',
   'reservation' => [],
 ];
 
 /**
- * 获取部门信息
- * @var Dept
- */
-$dept = new Dept();
-$auth = new Auth(1); $accessToken = $auth->get_acess_token();
-
-for($i=0;$i<count($department);$i++){
-  $department[$i] = $dept->getDepartment( $accessToken, $department[$i]);
-  $department[$i] = json_decode($department[$i])->name;
-}
-
-/**
- * 获取预约单总数
+ * 获取5条预约单
  * @var yangMysql
  */
 $resQuery = new yangMysql(); // instantiation
 $resQuery->selectDb(DB_DATABASE); //
 
-$resQuery->selectTable("reservation");
-$condition = "SELECT count(id) FROM `reservation` WHERE `applicant`='$user'";
-$reservationSum = $resQuery->query($condition)[0]['count(id)'];
-
-/**
- * 获取前五条预约单
- * @var string
- */
 $condition = "
       SELECT
         r.`id`				AS `id`,
@@ -68,12 +44,11 @@ $condition = "
           INNER JOIN `user` 	AS ud 	ON r.driver = ud.`emplId`
       WHERE
       `applicant`='$user'
-      LIMIT 5 OFFSET 0
+      LIMIT 5 OFFSET $offset
 ";
+
 $reservation = $resQuery->query($condition);
 
-$response['department'] = $department;
-$response['reservationSum'] = $reservationSum;
 $response['reservation'] = $reservation;
 
 echo json_encode($response);

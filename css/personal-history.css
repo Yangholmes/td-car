@@ -76,3 +76,7 @@ main.reservation-info li .reservation-info-detail label {
   display: inline-block;
   width: 5em;
 }
+ul.reservation-list div.pull-up-tip p{
+  margin: 1em 0;
+  text-align: center;
+}
