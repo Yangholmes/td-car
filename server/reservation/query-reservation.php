@@ -11,12 +11,8 @@ require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
 $record = $_POST;
 
 $car = $record['car'];
-$date = $record['date'];
-
-$date = new DateTime($date);
-$dateUp = $date->format('Y-m-d');
-$date = $date->add( new DateInterval('P1D') );
-$dateDown = $date->format('Y-m-d');
+$startDate = $record['startDate'];
+$endDate = $record['endDate'];
 
 $resQuery = new yangMysql(); // instantiation
 $resQuery->selectDb(DB_DATABASE); //
@@ -44,9 +40,9 @@ $condition = "
 				r.`car` = '$car'
 				AND
 				(
-					(r.`schedule-start` >= '$dateUp' AND r.`schedule-start` <= '$dateDown')
+					(r.`schedule-start` >= '$startDate' AND r.`schedule-start` <= '$endDate')
 					OR
-					(r.`returnDt` >= '$dateUp' AND r.`returnDt` <= '$dateDown')
+					(r.`returnDt` >= '$startDate' AND r.`returnDt` <= '$endDate')
 				)
 				";
 
