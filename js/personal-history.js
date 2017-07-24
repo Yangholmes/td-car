@@ -116,6 +116,7 @@ var scrollToLoad = function() {
 
   $('main').on('touchmove', function(e){
     if(loadmoreEnable && loadmoreMoveEnable){
+        e.preventDefault();
         deltaY = e.changedTouches[0].clientY - positionY;
         $('ul.reservation-list').css('transform', 'translateY(' + deltaY + 'px)');
     }

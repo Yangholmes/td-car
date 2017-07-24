@@ -121,7 +121,7 @@ dd.ready(function() {
               break;
             case '2': // open a new page in current page
               dd.biz.util.openLink({
-                url: 'http://www.gdrtc.org/car/page/car.html',
+                url: 'http://192.168.4.16/dingding/td-car/page/car.html',
                 onSuccess : function(result) {},
                 onFail : function() {}
               });

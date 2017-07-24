@@ -18,8 +18,8 @@ $carQuery->selectTable("car");
 $condition = " `disable` <> 1 "; // 筛除停用车辆
 $car = $carQuery->simpleSelect(null,$condition,null,null);
 
-$carQuery->selectTable("reservation");
 for($i=0;$i<count($car);$i++){
+$carQuery->selectTable("reservation");
   // 近两日预约状况
   $condition = "
                 SELECT
@@ -79,6 +79,24 @@ for($i=0;$i<count($car);$i++){
   // $reservation = $carQuery->simpleSelect(null,$condition,['`schedule-start`', 'ASC'],null);
   $reservation = $carQuery->query($condition);
   $car[$i]['suspend'] =  $reservation ;
+
+  $carQuery->selectTable("carStatus");
+  // 车辆状态
+  $condition = "
+                SELECT
+                  *,
+                  MAX(id)
+                AS
+                  `id`
+                FROM
+                  `carStatus`
+                WHERE
+                  `car` = '".$car[$i]['carid']."'
+                HAVING
+                  MAX(id)
+                ";
+  $carStatus = $carQuery->query($condition);
+  $car[$i]['carStatus'] = $carStatus;
 }
 
 $result = [

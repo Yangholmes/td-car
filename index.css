@@ -273,7 +273,8 @@ div.td-form-comb-img-text .td-form-comb-img-text-item .td-form-field-detail:acti
   display: none;
   font-size: .75em;
 }
-.td-car-info {
+.td-car-info,
+.td-car-status {
     display: flex;
     justify-content: space-around;
 }

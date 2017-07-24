@@ -76,6 +76,12 @@ var tdFormData = function(car){
                       <div>座位数：<span class="td-car-info-seating"></span>
                       </div>
                     </div>
+                    <div class="td-car-status">
+                      <div>剩余油量：<span class="td-car-status-fuel-indicator"></span>
+                      </div>
+                      <div>粤通卡余额：<span class="td-car-status-unitollGD"></span>
+                      </div>
+                    </div>
                     <table class="td-car-reservation">
                       <tbody>
                         <tr>
@@ -107,6 +113,8 @@ var tdFormData = function(car){
     item.find('.td-form-comb-img-text-item-text').html(car.model);
     item.find('.td-car-info-plate-number').html(car.plateNumber);
     item.find('.td-car-info-seating').html(car.seating);
+    item.find('.td-car-status-fuel-indicator').html(car.carStatus[0].fuelIndicator);
+    item.find('.td-car-status-unitollGD').html(car.carStatus[0].unitollGD);
     item.find('.td-car-reservation-time').html(recentRes.length===0?'近日无约车记录':recentRes.join('<br>'));
 
     item.appendTo(list);
