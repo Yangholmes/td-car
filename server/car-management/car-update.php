@@ -8,6 +8,8 @@ require_once( __DIR__.'/../../server/lib/yang-lib/yang-class-mysql.php');
  */
 $record = $_POST;
 $image = $_FILES['imageSrc'];
+$carInfo = ['carid', 'plateNumber', 'brand', 'imageSrc', 'model', 'seating', 'level', 'gearbox', 'gasoline'];
+$carStatusInfo = ['fuelIndicator', 'unitollGD', 'carid', 'reservation', 'damageType', 'damageDetails'];
 
 if( $image['name'] ){
   $imageName = 'car'.time().substr( $image['name'], strrpos($image['name'],'.') ); // 重新命名图片
@@ -17,15 +19,33 @@ if( $image['name'] ){
 
 $carQuery = new yangMysql(); // instantiation
 $carQuery->selectDb(DB_DATABASE); //
-$carQuery->selectTable("car");
 
 // 数据安全检查
 carFilter($record);
 
-$condition = "carid="."'".$record['carid']."'";
-$car = $carQuery->update($record, $condition, null, null);
+// 分离车辆信息和车辆状态信息
+foreach ($carInfo as &$value) {
+  if( isset($record[$value]) )
+    $car[$value] = $record[$value];
+}
+unset($value);
+foreach ($carStatusInfo as &$value) {
+  if( isset($record[$value]) )
+    $carStatus[$value] = $record[$value];
+  else
+    $carStatus[$value] = 0;
+}
+unset($value);
 
-$result = $car ?  [
+// update car
+$carQuery->selectTable("car");
+$condition = "carid="."'".$car['carid']."'";
+$result = $carQuery->update($car, $condition, null, null);
+// update car status
+$carQuery->selectTable("carStatus");
+$result = $carQuery->insert($carStatus);
+
+$result = $result ?  [
                     "records" => $record,
                     "error" => 0,
                     "errorMsg" => ""
@@ -40,6 +60,9 @@ echo json_encode( $result );
 /**
  * data filter
  */
-function carFilter(&$car){
-
+function carFilter(&$record){
+  foreach ($record as &$value) {
+    $value = trim($value);
+  }
+  unset($value);
 }

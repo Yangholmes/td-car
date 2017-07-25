@@ -91,7 +91,7 @@ $carQuery->selectTable("reservation");
                 FROM
                   `carStatus`
                 WHERE
-                  `car` = '".$car[$i]['carid']."'
+                  `carid` = '".$car[$i]['carid']."'
                 HAVING
                   MAX(id)
                 ";

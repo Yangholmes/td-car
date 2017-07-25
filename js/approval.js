@@ -1,9 +1,10 @@
 $(document).ready(function(){
 
-	var thisUser = localStorage.getItem('thisUser');
+	// 用户信息
+	var thisUser = 0 ? localStorage.getItem('thisUser') :  '{"orderInDepts":"{6530723:69618531977482488}","position":"","remark":"","department":[6530723],"tel":"","unionid":"RKdLWiSoLRTaNx2yUDbmsZgiEiE","userid":"03424264076698","isSenior":false,"dingId":"$:LWCP_v1:$XjVQJF2K1NNTChUngjLuCA==","workPlace":"","isBoss":false,"name":"梁弘扬","orgEmail":"yangholmes@exmail.qq.com","errmsg":"ok","stateCode":"86","avatar":"http://static.dingtalk.com/media/lADOp1YGhs0Bn80Bng_414_415.jpg","errcode":0,"jobnumber":"03424264076698","isLeaderInDepts":"{6530723:false}","email":"","roles":[{"id":100092577,"name":"子管理员","groupName":"默认"}],"active":true,"isAdmin":true,"isHide":false,"mobile":"17098907535","openId":"RKdLWiSoLRTaNx2yUDbmsZgiEiE","deviceId":"45378c72524764608444090bdf41b850","admin_level":2,"emplId":"03424264076698"}';
 
 	if( !thisUser ){
-	window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
+		window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
 	}
 	else if( thisUser == 'error' ){
 		$('body').html('');
@@ -28,9 +29,8 @@ function getJson(param)
 		data: param,
 		cache: false,
 		success: function(data) {
-			console.log(data);
 			if(data.error==0){
-				var result = data.records[0];
+				var result = data.records.reservation[0];
 				resStatus = result.status;
 				if(resStatus!="0") {
 					$('.td-approval-submit').css("display","none");

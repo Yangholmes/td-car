@@ -58,5 +58,8 @@ echo json_encode( $result );
  * data filter
  */
 function carFilter(&$car){
-
+  foreach ($car as &$value) {
+    $value = trim($value);
+  }
+  unset($value);
 }

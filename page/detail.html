@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="../font/font-awesome-4.4.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="../css/detial.css">
+	<link rel="icon" type="image/x-icon" href="../img/icon/car.ico" />
+
+	<title>通导用车</title>
+</head>
+
+<body>
+	<div class="td-detial-container">
+		<form id="td-detial-form">
+			<div class="td-form-field">
+				<label for="plateNumber">车牌号</label>
+				<input id="plateNumber" name="plateNumber" type="text" maxlength="8" required="required">
+				<input type="hidden" id="carid" name="carid"/>
+			</div>
+			<div class="td-form-field">
+				<label for="brand">品牌</label>
+				<input id="brand" name="brand" type="text" required="required">
+			</div>
+			<div class="td-form-field">
+				<label for="model">型号</label>
+				<input id="model" name="model" type="text" required="required">
+			</div>
+			<div class="td-form-field">
+				<label for="seating">座位数</label>
+				<input id="seating" name="seating" type="text" required="required">
+			</div>
+			<div class="td-form-field">
+				<label for="level">级别</label>
+				<input id="level" name="level" type="text" required="required">
+			</div>
+			<div class="td-form-field">
+				<label for="gearbox">变速箱</label>
+				<input id="gearbox" name="gearbox" type="text" required="required">
+			</div>
+			<div class="td-form-field">
+				<label for="gasoline">汽油型号</label>
+				<input id="gasoline" name="gasoline" type="text" required="required">
+			</div>
+			<div class="td-form-field">
+				<label for="fuel-indicator">剩余油量</label>
+				<input id="fuel-indicator" name="fuelIndicator" type="text" required="required">
+			</div>
+			<div class="td-form-field">
+				<label for="unitollGD">羊城通余额</label>
+				<input id="unitollGD" name="unitollGD" type="text" required="required">
+			</div>
+			<div class="td-form-field td-form-img-picker">
+				<label for="carImage">汽车图片</label>
+				<input type="file" name="imageSrc" accept="image/*" id ="imageSrc"/>
+				<div class="td-form-img-picker-touch fa fa-camera"></div>
+				<img id="td-form-field-preview" />
+			</div>
+			<div class="td-form-field td-form-button">
+				<div class="td-button" id="td-edit-submit">提交修改</div>
+			</div>
+		</form>
+		<section id="cd-timeline" class="cd-container">
+			<!-- 动态加载用车记录 -->
+		</section>
+		<span id="pullTOLoad">上拉加载更多......</span>
+	</div>
+	<div id="td-mask" class="td-mask"><img src="../img/loading.gif"></div>
+	<script src="../lib/jquery/jquery-3.1.1.min.js"></script>
+	<script src="../js/add.min.js"></script>
+	<script src="../js/detail.min.js"></script>
+</body>
+
+</html>

@@ -65,7 +65,7 @@ $(document).ready(function() {
 				});
 				$('.fa-pencil').click(function(e) {
 					var effectId = (e.target.id).slice(12);
-					window.location.href = 'detial.html?carid='+effectId;
+					window.location.href = 'detail.html?carid='+effectId;
 				});
 			}else{
 				$.tdAlert('读取失败！');
