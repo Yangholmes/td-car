@@ -189,9 +189,9 @@ function  getCarId(){
 	var showval= thisURL.split("=")[1];
 	return showval;
 }
-function showMask(){
-	$("#td-mask").css("height",$(document).height());
-	$("#td-mask").css("width",$(document).width());
-	$("#td-mask").show();
-	$("#td-mask img").show();
+function showMask() {
+    $("#td-mask").css("height", $(document).height());
+    $("#td-mask").css("width", $(document).width());
+    $("#td-mask").show();
+    $("#td-mask i.fa").show();
 }

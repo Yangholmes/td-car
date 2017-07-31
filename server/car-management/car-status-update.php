@@ -25,7 +25,7 @@ dataFilter($record);
 
 // update car status
 $carStatusQuery->selectTable("carStatus");
-$result = $carStatusQuery->insert($carStatus);
+$result = $carStatusQuery->insert($record);
 
 $result = $result ?  [
                     "records" => $record,

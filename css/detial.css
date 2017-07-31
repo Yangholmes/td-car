@@ -1,4 +1,4 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -105,7 +105,7 @@ div.td-form-button {
 
 
 /* td-form-button style (end) */
-/* -------------------------------- 
+/* --------------------------------
 
 Modules - reusable parts of our design
 
@@ -123,9 +123,9 @@ Modules - reusable parts of our design
   clear: both;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-Main components 
+Main components
 
 -------------------------------- */
 
@@ -259,7 +259,7 @@ Main components
   border-radius: 0.25em;
 }
 .no-touch .cd-timeline-content .cd-read-more:hover {
-  background-color: #bac4cb;  
+  background-color: #bac4cb;
 }
 a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 .cd-timeline-content .cd-date {
@@ -393,21 +393,19 @@ div.td-form-img-picker .td-form-img-picker-touch:before {
 	font-size:14px;
 }
 
-.td-mask{       
-	position: absolute; 
-	top: 0px; 
-	filter: alpha(opacity=60); 
-	background-color: #777;     
-	z-index: 10; 
-	left: 0px;     
-	opacity:0.5; 
-	-moz-opacity:0.5;    
-}  
-.td-mask img{
+.td-mask{
+	position: absolute;
+	top: 0px;
+	background-color: rgba(10, 0, 0, 0.498039);
+	z-index: 10;
+	left: 0px;
+}
+.td-mask i.fa{
 	display:none;
 	position: fixed;
-    bottom: 50%;
-    left: 50%;
-    margin-left: -61px;
-    margin-bottom: -11px;
+  bottom: 50%;
+  left: 50%;
+  margin-left: -21px;
+  margin-bottom: -21px;
+  color: white;
 }

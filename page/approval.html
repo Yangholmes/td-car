@@ -46,9 +46,9 @@
 					<tr>
 						<td class="table-left">备注：</td><td id="remark"></td>
 					</tr>
-					<tr>
-						<td class="table-left fa fa-car">车辆明细</td>
-					</tr>
+				</table>
+				<div class="table-left fa fa-car table-detial-head">车辆明细</div>
+				<table class="td-detial-table">
 					<tr>
 						<td class="table-left">车牌号：</td><td id="plateNumber"></td>
 					</tr>
@@ -68,7 +68,45 @@
 
 			</section>
 		</div>
-		<div id="td-mask" class="td-mask"><img src="../img/loading.gif"></div>
+		<div id="td-mask" class="td-mask">
+			<i class="fa fa-spinner fa-pulse fa-3x"></i>
+			<div id="mask-return-div">
+				<div class="return-title-div">填写申请<button class="close pull-right" type="button" id="return-title-close">×</button></div>
+				<form id="mask-return-form">
+					<div class="return-form-field">
+						<label for="fuelIndicator">剩余油量</label>
+						<select id="fuelIndicator" name="fuelIndicator" type="text" maxlength="8" required="required" class="form-control">
+							<option value ="100">100%</option>
+						  <option value ="80">80%</option>
+							<option value ="50">50%</option>
+							<option value ="30">30%</option>
+							<option value ="20">低于20%</option>
+						</select>
+					</div>
+					<div class="return-form-field">
+						<label for="unitollGD">粤通卡余额</label>
+						<input id="unitollGD" name="unitollGD" type="text" required="required" class="form-control">
+					</div>
+					<div class="return-form-field">
+						<label for="damageType">车辆状况</label>
+						<select id="damageType" name="damageType" type="text" required="required" class="form-control">
+							<option value ="0">无</option>
+						  <option value ="1">车身损伤（包括外观，内饰）</option>
+						  <option value="2">损伤零部件（损伤动力制动系统等）</option>
+							<option value="3">设备损坏（例如空调）</option>
+							<option value="4">其他</option>
+						</select>
+					</div>
+					<div class="return-form-field">
+						<label for="damageDetails">车辆损坏详情</label>
+						<textarea id="damageDetails" name="damageDetails" rows="3" class="form-control"></textarea>
+					</div>
+					<div class="return-form-button">
+						<button type="submit" id="td-return-submit">确认</button>
+					</div>
+				</form>
+			</div>
+		</div>
 		<script src="../lib/jquery/jquery-3.1.1.min.js"></script>
 		<script src="../js/approval.js"></script>
 	</body>

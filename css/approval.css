@@ -295,21 +295,20 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
   }
 }
 
-.td-approval-table{
+.td-approval-table, .td-detial-table,.table-detial-head{
 	margin-left:20px;
 	color: #000;
 	font-size: .9em;
 }
 
-.td-approval-table .table-left{
+.table-left{
 	text-align: justify;
-    text-align-last: justify;
+  text-align-last: justify;
 	color: #888;
 	min-width: 75px;
 }
-.td-approval-table .fa-car{
+.table-detial-head.fa-car{
 	color:rgba(80, 175, 250, 1);
-
 }
 
 .td-approval-table-div{
@@ -388,20 +387,89 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 .td-mask{
 	position: absolute;
 	top: 0px;
-	filter: alpha(opacity=60);
-	background-color: #777;
+	background-color: rgba(10, 0, 0, 0.498039);
 	z-index: 10;
 	left: 0px;
-	opacity:0.5;
-	-moz-opacity:0.5;
 }
-.td-mask img{
+.td-mask i.fa{
 	display:none;
 	position: fixed;
-    bottom: 50%;
-    left: 50%;
-    margin-left: -61px;
-    margin-bottom: -11px;
+  bottom: 50%;
+  left: 50%;
+  margin-left: -21px;
+  margin-bottom: -21px;
+  color: white;
+}
+
+.td-mask #mask-return-div{
+  display: none;
+  height: auto;
+  position: relative;
+  background: white;
+  z-index: 11;
+  border-radius: 5px;
+  box-shadow: rgb(125, 125, 125) 1px 1px 10px 0px;
+  padding: 20px;
+  margin: 30px;
+}
+.td-mask .return-form-field{
+  min-width: 0;
+  margin: 0;
+  margin-bottom: 5px;
+  border: 0;
+}
+.td-mask .form-control{
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #55595c;
+  background-color: #fff;
+  border: .0625rem solid #ccc;
+  border-radius: .25rem;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.td-mask .return-form-field label{
+  margin-bottom: .5rem;
+  display: inline-block;
+}
+.td-mask .return-title-div{
+  font-size: 1.3rem;
+  color: #525252;
+  margin-bottom: 10px;
+}
+.td-mask .return-form-button{
+  text-align: center;
+}
+.td-mask button{
+  padding: .375rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  vertical-align: middle;
+  border: .0625rem solid transparent;
+  border-radius: .25rem;
+  color: white;
+  background-color: rgba(80, 175, 250, 1);
+}
+.return-form-field select{
+  height : 2.4rem;
+}
+button.close {
+  padding: 0;
+  background: 0 0;
+  border: 0;
+  float: right;
+  color: black;
+  font-size: 1.2em;
+  line-height: 1;
+}
+#damageDetails-lable{
+  color:red;
+  display:none;
 }
 .td-return-div{
 	display: none;
