@@ -32,11 +32,29 @@ $msg = [
   "content" => '',
 ];
 
+$carStatusQuery = new yangMysql();
+$carStatusQuery->selectTable("carstatus");
+$condition = "SELECT *
+              FROM reservation, carstatus
+              WHERE
+              reservation.resid = '".$record['resid']."'
+              AND
+              carstatus.reservation = reservation.id";
+$carStatus = $carStatusQuery->query($condition);
+
 if( $record['userid'] != '03401806572466' ){
+// if( $record['userid'] != '03424264076698' ){
   $result = [
     "records"  => $record,
     "error"    => 1,
     "errorMsg" => '您没有权限执行这个操作!',
+  ];
+}
+else if ( !count($carStatus) ){
+  $result = [
+    "records"  => $record,
+    "error"    => 2,
+    "errorMsg" => '车辆归还信息未填写！',
   ];
 }
 else{

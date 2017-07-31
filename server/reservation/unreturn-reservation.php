@@ -20,6 +20,7 @@ $resQuery->selectTable("reservation");
 
 $condition = "
 				SELECT
+					r.`id`				AS `id`,
 					r.`resid`			AS `resid`,
 					r.`startpoint`		AS `startpoint` ,
 					r.`endpoint` 		AS `endpoint` ,
@@ -32,7 +33,7 @@ $condition = "
 					ua.`avatar`			AS `avatar`,
 					ud.`name` 			AS `driver`
 				FROM
-					reservation AS r 
+					reservation AS r
 					INNER JOIN `user` 	AS ua 	ON r.applicant = ua.emplId
 					INNER JOIN `car` 	AS c 	ON r.car = c.carid
 					INNER JOIN `user` 	AS ud 	ON r.driver = ud.`emplId`
