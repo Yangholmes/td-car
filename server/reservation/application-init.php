@@ -80,7 +80,7 @@ $carQuery->selectTable("reservation");
   $reservation = $carQuery->query($condition);
   $car[$i]['suspend'] =  $reservation ;
 
-  $carQuery->selectTable("carStatus");
+  $carQuery->selectTable("carstatus");
   // 车辆状态
   $condition = "
                 SELECT
@@ -89,7 +89,7 @@ $carQuery->selectTable("reservation");
                 AS
                   `id`
                 FROM
-                  `carStatus`
+                  `carstatus`
                 WHERE
                   `carid` = '".$car[$i]['carid']."'
                 HAVING

@@ -77,9 +77,9 @@ var tdFormData = function(car){
                       </div>
                     </div>
                     <div class="td-car-status">
-                      <div>剩余油量：<span class="td-car-status-fuel-indicator"></span>
+                      <div>剩余油量：<span class="td-car-status-fuel-indicator"></span>%
                       </div>
-                      <div>粤通卡余额：<span class="td-car-status-unitollGD"></span>
+                      <div>粤通卡余额：<span class="td-car-status-unitollGD"></span>元
                       </div>
                     </div>
                     <table class="td-car-reservation">
