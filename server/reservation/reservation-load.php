@@ -48,14 +48,14 @@ $car = $resQuery->simpleSelect(null,$condition,null,null);
 $reservation[0]['car'] = $car[0];
 
 // 查询车辆状态
-$resQuery->selectTable("carStatus");
+$resQuery->selectTable("carstatus");
 $condition = "SELECT
                 *,
                 MAX(id)
               AS
                 `id`
               FROM
-                `carStatus`
+                `carstatus`
               WHERE
                 `reservation` = '".$reservation[0]['id']."'
               HAVING
