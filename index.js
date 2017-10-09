@@ -1,7 +1,22 @@
 /* jshint esversion: 6 */
 
 $(function() {
-  tdCarInit();
+  var thisUser = localStorage.getItem('thisUser');
+
+  if( !thisUser ){
+  window.location.href = 'http://www.gdrtc.org/dd-verification/index.php';
+  }
+  else if( thisUser == 'error' ){
+    $('body').html('');
+    window.localStorage.removeItem('thisUser');
+    window.close();
+  }
+
+  if (thisUser) {
+      var userId = JSON.parse(thisUser).userid;
+      tdCarInit({"userId": userId});
+  }
+
 });
 
 /**
@@ -15,13 +30,13 @@ var _car = [];
 /**
  * Initial all
  */
-var tdCarInit = function(){
+var tdCarInit = function(userId){
   $.ajax({
     // url: 'server/car-management/car-load.php',
     url: 'server/reservation/application-init.php',
-    method: 'GET',
+    method: 'POST',
     dataType: 'json',
-    data: 'keyword=yangholmes',
+    data: userId,
     error: function(respond, status, error){
       // console.log(respond);
     },
@@ -31,6 +46,9 @@ var tdCarInit = function(){
         tdFormView();
         tdFormData();
         tdFormController();
+      }else if(data.error == '2'){
+        $.tdAlert(data.errorMsg);
+        $("#canot-operate-mask").show();
       }
       else
         $.tdAlert('车辆初始化失败\n请重试');
@@ -57,41 +75,8 @@ var tdFormData = function(car){
   /**
    * init td-form-comb-img-text data
    */
-  var list = $('ul.td-form-comb-img-text-list'),
-      itemHtml = `
-                  <li class="td-form-comb-img-text-item">
-                    <div class="td-form-comb-img-text-item-img">
-                      <img src="" >
-                    </div>
-                    <div class="td-form-comb-img-text-item-text">
-                    </div>
-                    <!-- 点击查看详情按钮 -->
-                    <div class="td-form-field-detail fa fa-hand-pointer-o">
-                    </div>
-                  </li>
-                  <div class="td-form-comb-img-text-item-detial" id="">
-                    <div class="td-car-info">
-                      <div>车牌号：<span class="td-car-info-plate-number"></span>
-                      </div>
-                      <div>座位数：<span class="td-car-info-seating"></span>
-                      </div>
-                    </div>
-                    <div class="td-car-status">
-                      <div>剩余油量：<span class="td-car-status-fuel-indicator"></span>%
-                      </div>
-                      <div>粤通卡余额：<span class="td-car-status-unitollGD"></span>元
-                      </div>
-                    </div>
-                    <table class="td-car-reservation">
-                      <tbody>
-                        <tr>
-                          <td class="td-car-reservation-data">近日已约</td>
-                          <td class="td-car-reservation-time"></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  `;
+  var list = $('ul.td-form-comb-img-text-list');
+  var itemHtml = '<li class="td-form-comb-img-text-item"><div class="td-form-comb-img-text-item-img"><img src="" ></div><div class="td-form-comb-img-text-item-text"></div><!-- 点击查看详情按钮 --><div class="td-form-field-detail fa fa-hand-pointer-o"></div></li><div class="td-form-comb-img-text-item-detial" id=""><div class="td-car-info"><div>车牌号：<span class="td-car-info-plate-number"></span></div><div>座位数：<span class="td-car-info-seating"></span></div></div><div class="td-car-status"><div>剩余油量：<span class="td-car-status-fuel-indicator"></span>%</div><div>粤通卡余额：<span class="td-car-status-unitollGD"></span>元</div></div><table class="td-car-reservation"><tbody><tr><td class="td-car-reservation-data">近日已约</td><td class="td-car-reservation-time"></td></tr></tbody></table></div>';
 
   _car.map(function(car, i, cars){
     var item = $(itemHtml),
@@ -211,7 +196,8 @@ var tdFormController = function(){
   $('.td-form-easy-picker').on('touchend', function(e) {
     if (touchMoving) return; //
     e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
-    contactChoose(0, false, [_user.userid], [], function(data) {
+    contactChoose(0, false, [], [], function(data) {
+      console.log(data);
       $(e.currentTarget).find('output').val(data[0].name);
       $(e.currentTarget).find('input').val(JSON.stringify(data[0]));
     });
@@ -387,15 +373,9 @@ var tdFormController = function(){
                 });
                 if( data.error == 0 ){
                   localStorage.setItem(data.records.resid, JSON.stringify(data.records));
-                  $.tdAlert('恭喜，提交成功！', () => {
-                    dd.biz.util.openLink({
-                      url: 'http://www.gdrtc.org/car/page/approval.html?resid='  + data.records.resid,
-                      onSuccess : function(result) {},
-                      onFail : function() {}
-                    })
-                  });
+                  $.tdAlert('恭喜，提交成功！', alertFun(data) );
                   // window.location.href = 'page/approval.html?resid=' + data.records.resid;
-                  // location.reload(false);
+                  window.location.reload();
                 }
                 else{
                   $.tdAlert(data.errorMsg);
@@ -410,7 +390,13 @@ var tdFormController = function(){
               },
           });
   });
-
+var alertFun = function(data){
+  dd.biz.util.openLink({
+    url: 'http://www.gdrtc.org/car/page/approval.html?resid='  + data.records.resid,
+    onSuccess : function(result) {},
+    onFail : function() {}
+  })
+}
   /**
    * mask
    */

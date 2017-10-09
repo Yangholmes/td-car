@@ -31,14 +31,22 @@ function getJson(param) {
                 resStatus = result.status;
                 carStatus = data.records.carStatus;
                 reservation = result.id;
-                //status代表申请表状态 0为审批中，1为审批全部通过，2为有审批人没同意，申请表被拒绝，3为已经用完车还了显示归还时间状态
-                if (resStatus != "0") {
-                    $('.td-approval-submit').css("display", "none");
-                    if (resStatus == "1") {
-                        $('.td-return-div').css("display", "block");
+                var applicantId = result.applicant.emplId;
+                //status代表申请表状态 0为审批中，1为审批全部通过，2为有审批人没同意，申请表被拒绝，3为已经用完车还了显示归还时间状态, 4为已撤销
+                if (resStatus == "0") {
+                  if(userId == applicantId){//只有当前用户是申请人才能撤销
+                    $('.td-revoke-div').css("display", "block");
+                  }
+                }else{
+                  $('.td-approval-submit').css("display", "none");
+                  if (resStatus == "1") {
+                      $('.td-return-div').css("display", "block");
                     } else if (resStatus == "3") {
                         $('.td-return-div').css("display", "block");
                         $('#td-return-car')[0].textContent = result.returnDt;
+                    }else if (resStatus == "4") {
+                        $('.td-revoke-div').css("display", "block");
+                        $('#td-revoke-res')[0].textContent = "已撤销";
                     }
                 }
                 switch (result.usage) {
@@ -115,7 +123,37 @@ $('#td-agree-submit').click(function(e) {
 $('#td-disagree-submit').click(function(e) {
     setApproval("2");
 });
-
+$('#td-revoke-res').click(function(e) {
+  if (resStatus == "0"){
+    $.tdConfirm("真的要撤销吗?",function(i){
+      if(i){
+        showMask();
+        var resIdParam = {"reservationId":reservation};
+        $.ajax({
+          url: '../server/reservation/reservation-revoke.php',
+          type: "POST",
+          data: resIdParam,
+          dataType: 'json',
+          cache: false,
+          success: function(data) {
+            if(!data.error){
+              $.tdAlert('恭喜！撤销成功！');
+              $('#td-revoke-res')[0].textContent = "已撤销";
+              resStatus = 4;
+            }else{
+              $.tdAlert('撤销失败！'+data.errorMsg);
+            }
+            $("#td-mask").hide();
+          },
+          error: function() {
+            $.tdAlert('很遗憾！撤销失败！');
+            $("#td-mask").hide();
+          },
+        });
+      }
+    });
+  }
+});
 function setApproval(appResult) {
     var sign = getApproval();
     if (sign == -1) {
@@ -186,27 +224,32 @@ $('#td-return-car').on('touchend', function(e) {
     if (resStatus != "3") {
         //有carStatus时是已经还完车之后，有车辆状态纪录了
         if (carStatus.length>0) {
-          var send = {"resid": getUrlParam(), "userid": userId};
-          showMask();
-          $.ajax({
-              url: '../server/return/return.php',
-              type: "POST",
-              data: send,
-              cache: false,
-              success: function(data) {
-                  if (JSON.parse(data).error == 0) {
-                      $('#td-return-car')[0].textContent = JSON.parse(data).records.returnDt;
-                      $.tdAlert('还车成功！');
-                  } else {
-                      $.tdAlert('还车失败！' + JSON.parse(data).errorMsg);
-                  }
-                  $("#td-mask").hide();
-              },
-              error: function(xhr, textStatus) {
-                  $.tdAlert("很遗憾！还车失败！");
-                  console.log(xhr);console.log(textStatus);
-              },
-          });
+          if(userId == '03401806572466'){//姐姐才能完成还车
+            var send = {"resid": getUrlParam(), "userid": userId};
+            showMask();
+            $.ajax({
+                url: '../server/return/return.php',
+                type: "POST",
+                data: send,
+                cache: false,
+                success: function(data) {
+                    if (JSON.parse(data).error == 0) {
+                        $('#td-return-car')[0].textContent = JSON.parse(data).records.returnDt;
+                        $.tdAlert('确认还车成功！');
+                    } else {
+                        $.tdAlert('确认还车失败！' + JSON.parse(data).errorMsg);
+                    }
+                    $("#td-mask").hide();
+                },
+                error: function(xhr, textStatus) {
+                    $.tdAlert("很遗憾！还车失败！");
+                    console.log(xhr);console.log(textStatus);
+                },
+            });
+          }else{
+            $.tdAlert("您已经还完车了哦，请等待管理员确认！");
+          }
+
         }//如果纪录不存在，则显示还车申请表单
 				else {
           showMask();

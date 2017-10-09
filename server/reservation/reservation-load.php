@@ -49,17 +49,13 @@ $reservation[0]['car'] = $car[0];
 
 // 查询车辆状态
 $resQuery->selectTable("carstatus");
-$condition = "SELECT
-                *,
-                MAX(id)
-              AS
-                `id`
-              FROM
-                `carstatus`
-              WHERE
-                `reservation` = '".$reservation[0]['id']."'
-              HAVING
-                MAX(id)";
+$condition = "
+              SELECT * from `carstatus`
+              WHERE id=(
+                SELECT MAX(id)
+                FROM `carstatus`
+                WHERE `reservation` = '".$reservation[0]['id']."')
+                ";
 $carStatus = $resQuery->query($condition);
 
 $records['reservation'] = $reservation;

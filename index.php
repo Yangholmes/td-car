@@ -132,6 +132,13 @@
         <label for="">审批人</label>
         <input type="hidden" class="td-form-input-hidden" name="approver">
         <ul class="td-form-approver-picker-list">
+          <li class="td-form-approver-picker-item" id="liurong">
+            <input type="hidden" class="td-form-input-hidden" value="{&quot;name&quot;:&quot;刘荣&quot;,&quot;avatar&quot;:&quot;http://static.dingtalk.com/media/lADOCshBgM0C7s0C7g_750_750.jpg&quot;,&quot;emplId&quot;:&quot;03402113147517&quot;}">
+            <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
+              <img src="http://static.dingtalk.com/media/lADOCshBgM0C7s0C7g_750_750.jpg">
+            </div>
+            <div class="td-form-approver-picker-item-name">刘荣</div>
+          </li>
           <li class="td-form-approver-picker-item" id="admin">
             <input type="hidden" class="td-form-input-hidden" value="{&quot;name&quot;:&quot;卢威&quot;,&quot;avatar&quot;:&quot;http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg&quot;,&quot;emplId&quot;:&quot;03401806572466&quot;}">
             <div class="td-form-approver-picker-item-avatar fa fa-arrow-right">
@@ -166,7 +173,11 @@
     </form>
     <!-- 用车申请表单(结束) -->
   </div>
-
+  <!-- canot-operate mask (start) -->
+  <div id="canot-operate-mask">
+    <div class = "canot-operate-tip">当前不可操作</div>
+  </div>
+  <!-- canot-operate mask (end) -->
   <!-- transparent mask (start) -->
   <div class="transparent-mask">
   </div>
@@ -176,7 +187,7 @@
     <script>
       var _config =
         <?php
-          $auth = new Auth(1);  // debug: 1表示本地调试；0表示远程服务器。使用本地调试时，请注意修改config文件
+          $auth = new Auth(0);  // debug: 1表示本地调试；0表示远程服务器。使用本地调试时，请注意修改config文件
           echo json_encode($auth->get_signature());
         ?>
     </script>
