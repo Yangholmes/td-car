@@ -55,7 +55,7 @@ echo json_encode( $result );
 // 消息模板
 $msg = [
   "title" => "有一条新的完成用车申请",
-  "touser" => ['03424264076698'], // 通知收信人
+  "touser" => ['0607666063848651', '03413921065005'], // 通知收信人
   "message_url" => SERVER_HOST."/page/approval.html?resid=".$resid."&signature=".randomIdFactory(10), // 避免消息重复，url加上随机的特征码
   "image"=> "", // 图片
   "rich" => $applicant,
@@ -63,6 +63,7 @@ $msg = [
                 "粤通卡余额：".$record['unitollGD']."元\n".
                 "车况：".["无", "车身损伤（包括外观，内饰）", "损伤零部件（损伤动力制动系统等）", "设备损坏（例如空调）", "其他"][$record['damageType']]."\n",
 ];
+
 /**
  * send Msg
  */

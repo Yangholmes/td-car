@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="../font/font-awesome-4.4.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="../css/car-history.min.css">
+	<link rel="icon" type="image/x-icon" href="../img/icon/car.ico" />
+
+	<title>还车记录</title>
+</head>
+
+<body>
+	<div class="td-form-field td-form-comb td-form-comb-img-text" id="car-comb">
+		<label for="">车辆选择</label>
+		<div class="td-form-comb-selected td-form-comb-img-text-selected" id="selected-car">
+			<div class="td-form-comb-item td-form-comb-img-text-item">
+				<span class="td-form-field-tips">请选择</span>
+			</div>
+		</div>
+		<ul class="td-form-comb-img-text-list">
+		</ul>
+	</div>
+	<div id="td-history-container">
+		<div class="timeline-title-div"><hr/><span class="timeline-title">未还车</span></div>
+		<div class="cd-timeline cd-container">
+
+		</div>
+		<div class="timeline-title-div"><hr/><span class="timeline-title">已还车</span></div>
+		<section class="cd-timeline cd-container">
+			<!-- 动态加载用车记录 -->
+		</section>
+		<div class="loader"><span id="pullTOLoad" >上拉加载更多......</span></div>
+	</div>
+	<!-- transparent mask (start) -->
+	<div class="transparent-mask">
+	</div>
+		<!-- transparent mask (end) -->
+	<div id="td-mask" class="td-mask"><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
+	<script src="../lib/jquery/jquery-3.1.1.min.js"></script>
+	<script src="../js/car-history.min.js"></script>
+</body>
+
+</html>

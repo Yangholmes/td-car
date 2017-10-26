@@ -36,12 +36,10 @@ dd.config({
         'biz.navigation.setRight'
     ]
 }); // jsapi permission
-
 /**
  * 钉钉入口
  */
 dd.ready(function() {
-
     /**
      * 容器
      */
@@ -108,6 +106,9 @@ dd.ready(function() {
         },{
             "id": "3",
             "text": "添加车辆",
+        },{
+            "id": "4",
+            "text": "还车记录",
         }],
         onSuccess: function(data) {
           // $.tdAlert(_user.name);
@@ -120,8 +121,12 @@ dd.ready(function() {
             });
               break;
             case '2': // open a new page in current page
+              if( _user.admin_level == '0' ){
+                $.tdAlert('这个操作需要管理员权限');
+                return false;
+              }
               dd.biz.util.openLink({
-                url: 'http://192.168.4.16/dingding/td-car/page/car.html',
+                url: 'http://www.gdrtc.org/car/page/car.html',
                 onSuccess : function(result) {},
                 onFail : function() {}
               });
@@ -139,6 +144,13 @@ dd.ready(function() {
               });
               // window.location.href = 'page/car-add.html' + '?userid=' + _user.userid;
               break;
+              case '4':
+                dd.biz.util.openLink({
+                  url: 'http://www.gdrtc.org/car/page/car-history.html',
+                  onSuccess : function(result) {},
+                  onFail : function() {}
+                });
+                break;
             default:
               break;
           }

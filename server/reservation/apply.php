@@ -15,12 +15,11 @@ $currentTime = time(); // unused
 /**
  * 最终审批人
  */
-// $finalApprover = [
-//   "avatar" => "http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg",
-//   // "emplId" => "03401806572466",
-//   "emplId" => "03424264076698",
-//   "name"   => "卢威",
-// ];
+$finalApprover = [
+  "avatar" => "http://static.dingtalk.com/media/lADOC8otZ8ylzKU_165_165.jpg",
+  "emplId" => "03401806572466",
+  "name"   => "卢威",
+];
 
 /**
  * require libs
@@ -74,8 +73,7 @@ $condition = "( `car` = '".$record['car']."' )
       					or
       					( `schedule-start` <= '".$record['schedule-start']."' and `schedule-end`>='".$record['schedule-end']."' )
               )
-              and
-              ( `status` <> '2' )";
+              and `status` between 0 and 1";
 
 $res = $resQuery->simpleSelect(null, $condition, null, null ); // 查询时刻表
 $conflict = count($res);
@@ -182,7 +180,7 @@ if($error == '0'){
   ];
   $toApplicant = [
     "title" => "这是您的新申请",
-    "touser" => [$record['applicant']->emplId, '03424264076698'],
+    "touser" => [$record['applicant']->emplId, '0607666063848651'],
   	"message_url" => SERVER_HOST."/page/approval.html?resid=".$record['resid']."&signature=".randomIdFactory(10),
   	"image"=> "", // 图片
   	"rich" => object2array($record['applicant'])['name'],

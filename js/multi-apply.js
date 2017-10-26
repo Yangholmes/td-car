@@ -1,6 +1,4 @@
-/* jshint esversion: 6 */
-
-$(function() {
+$(document).ready(function() {
   var thisUser = localStorage.getItem('thisUser');
 
   if( !thisUser ){
@@ -17,17 +15,10 @@ $(function() {
       // var userId = '0607666063848651';
       tdCarInit({"userId": userId});
   }
-
 });
 
-/**
- * super global variables
- * _config  °
- * _user    °
- * _car     √
- */
 var _car = [];
-
+var formJsons = [];
 /**
  * Initial all
  */
@@ -44,7 +35,6 @@ var tdCarInit = function(userId){
     success: function(data, status, respond){
       if( data.error == '0' ){
         _car = data.records;
-        tdFormView();
         tdFormData();
         tdFormController();
       }else if(data.error == '2'){
@@ -60,18 +50,25 @@ var tdCarInit = function(userId){
 /**
  * UI control view
  */
-var tdFormView = function(){
-  // iOS(Safari) can not render fixed style correctly, so block it in iOS(Safari).
-  if( /[Aa]ndroid/.test(navigator.userAgent) ){
-    $('div.td-form-button').css('position', 'fixed').css('bottom', '0');
-    $('div.td-form-field:nth-last-child(2)').eq(-1).css('margin-bottom', 'calc( 3em + 1em )');
-  }
-};
+ var showAddBtn = function(){
+   $('.add-button').show();
+   $('body').css("overflow","auto");
+ }
 
 /**
  * UI control data
  */
 var tdFormData = function(car){
+  $('.add-button').on('touchend', function(e) {
+      $('#volet_clos').slideDown();
+      $('.add-button').hide();
+      $('body').css("overflow","hidden");
+  });
+
+  $('.cancel-button').on('touchend', function(e) {
+      $('#volet_clos').slideUp('nomal', showAddBtn());
+
+  });
 
   /**
    * init td-form-comb-img-text data
@@ -82,8 +79,6 @@ var tdFormData = function(car){
   _car.map(function(car, i, cars){
     var item = $(itemHtml),
         recentRes = [];
-
-    console.log(car);
 
     // recent reservation
     car.reservation.map(function(res){
@@ -159,11 +154,28 @@ var tdFormController = function(){
   $('.td-form-comb ul li').on('touchend', function(e) {
     if (touchMoving) return; //
     e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
+    var selectedId = e.currentTarget.id;
+    //car和usage的id位置不一样。例如用途td-usage-2和车辆选择td-car-item-97，id一个是item[2],一个是item[3]
+    var item = selectedId.split('-');
+
+    //限制用户一辆车只能选一次
+    if(item[1] == 'car'){
+      var carId = item[3];
+      for(var index = 0; index< formJsons.length; index++){
+        if(formJsons[index].car == carId){
+          $.tdAlert('这辆车你已经选过了哦');
+          return;
+        }
+      }
+    }
+
     var selectedDiv = $(e.currentTarget).parent('ul').prev('.td-form-comb-selected').find('.td-form-comb-item'),
-        selectedCtx = $(e.currentTarget).html(),
-        selectedId = e.currentTarget.id;
+        selectedCtx = $(e.currentTarget).html();
     selectedDiv.html(selectedCtx).attr('id', selectedId).find('.td-form-field-detail').removeClass('fa fa-hand-pointer-o');
-    $(e.currentTarget).parent('ul').prevAll('input').val(selectedId);
+    if(item[1] == 'car'){
+      $(e.currentTarget).parent('ul').prevAll('input').val(item[3]);
+    }else{$(e.currentTarget).parent('ul').prevAll('input').val(item[2]);}
+
     // $('.popup').removeClass('popup');
     popup.call($(e.currentTarget).parent('ul'));
     preventMoving = false;
@@ -212,11 +224,11 @@ var tdFormController = function(){
     .find('ul div.td-form-approver-picker-add').on('touchend', function(e) {
       if (touchMoving) return; //
       e.stopPropagation(); // Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
-      contactChoose(0, false, [], [_user.userid], function(data) {
-        if(data[0].emplId == _user.userid){
-          $.tdAlert('不能够自己审批自己哦~');
-          return false;
-        }
+      contactChoose(0, false, [], [], function(data) {
+        // if(data[0].emplId == _user.userid){
+        //   $.tdAlert('不能够自己审批自己哦~');
+        //   return false;
+        // }
         var approverPickerList = $(e.currentTarget).parents('.td-form-approver-picker').find('ul div.td-form-approver-picker-add'),
             newApproverHtml = '<li class="td-form-approver-picker-item">' +
                               '<input type="hidden" class="td-form-input-hidden">' +
@@ -321,7 +333,42 @@ var tdFormController = function(){
   /**
    * td-form-field td-form-button
    */
-  $('.td-form-button .td-button').on('touchstart', function(e) {
+   var serializeForm=function(form){
+        var parts={},
+            field=null,
+            i,
+            len,
+            j,
+            optLen,
+            option,
+            optValue;
+        for(i = 0, len = form.elements.length;i<len;i++){
+            field=form.elements[i];
+            switch (field.type){
+                case 'select-one':
+                case 'select-multiple':
+                    break;
+                case undefined: //字段集
+                case 'file':
+                case 'submit':
+                case 'reset':
+                case 'button':
+                    break;
+                case 'radio':
+                case 'checkbox':
+                    if(!field.checked){
+                        break;
+                    }
+                default :
+                    if(field.name.length){
+                        parts[field.name]=field.value;
+                    }
+            }
+        }
+        return JSON.stringify(parts);
+    }
+
+  $('.td-form-button .td-button').on('touchend', function(e) {
       $('.td-form-approver-picker').trigger('upload');
       $('.td-form-cc-picker').trigger('upload');
       $('input#applicant').val( JSON.stringify({
@@ -346,69 +393,119 @@ var tdFormController = function(){
             }
           }
 
-          if($('ul.td-form-approver-picker-list li').length == 0){
-            $.tdAlert('至少选择一位审批人');
-            return false;
+          var formJson = $.parseJSON(serializeForm(form[0]));
+          formJsons.push(formJson);
+          formJson.carName = $('.td-form-comb-img-text-item-text')[0].innerHTML;
+          formJson.driverName = $('#driver')[0].value;
+          var usageName = '';
+          switch (formJson.usage) {
+            case "0": usageName = '出差'; break;
+            case "1": usageName = '接待'; break;
+            case "2": usageName = '外勤'; break;
+            case "3": usageName = '车辆维修'; break;
+            case "4": usageName = '其他'; break;
           }
+          //用车辆id当作table的id，作为删除时依据
+          var htmlParam = '<div class="td-table-div" id="table-'+formJson.car+'"><table class="td-approval-table">'+
+          '<tr><td class="table-left">车辆：</td><td>'+formJson.carName+'</td></tr>'+
+          '<tr><td class="table-left">用车事由：</td><td>'+usageName+'</td></tr>'+
+  				'<tr><td class="table-left">司机：</td><td>'+formJson.driverName+'</td></tr>'+
+  				'<tr><td class="table-left">随行人员：</td><td>'+formJson.accompanist+'</td></tr>'+
+  				'<tr><td class="table-left">出发地点：</td><td>'+formJson.startpoint+'</td></tr>'+
+  				'<tr><td class="table-left">目的地点：</td><td>'+formJson.endpoint+'</td></tr>'+
+  				'<tr><td class="table-left">出发时刻：</td><td>'+formJson['schedule-start']+'</td></tr>'+
+  				'<tr><td class="table-left">返回时刻：</td><td>'+formJson['schedule-end']+'</td></tr>'+
+  				'<tr><td class="table-left">备注：</td><td>'+formJson.remark+'</td></tr>'+
+    			'</table><button class="fa fa-trash-o app-delete"></button></div>';
+          $('#has-apply').append(htmlParam);
+          $('#volet_clos').slideUp('nomal', showAddBtn());
 
-          $.ajax({
-              url: 'server/reservation/apply.php',
-              type: "POST",
-              data: formData,
-              dataType: 'json',
-              processData: false, // 告诉jQuery不要去处理发送的数据
-              contentType : false, // 必须false才会自动加上正确的Content-Type
-              cache: false,
-              beforeSend: function(){
-                dd.device.notification.showPreloader({
-                  text: "正在使劲提交申请...", //loading显示的字符，空表示不显示文字
-                  showIcon: true, //是否显示icon，默认true
-                  onSuccess : function(result) {},
-                  onFail : function(err) {}
-              })
-              },
-              success: function(data, status, respond) {
-                dd.device.notification.hidePreloader({
-                    onSuccess : function(result) {},
-                    onFail : function(err) {}
-                });
-                if( data.error == 0 ){
-                  localStorage.setItem(data.records.resid, JSON.stringify(data.records));
-                  $.tdAlert('恭喜，提交成功！', alertFun(data) );
-                  // window.location.href = 'page/approval.html?resid=' + data.records.resid;
-                  window.location.reload();
-                }
-                else{
-                  $.tdAlert(data.errorMsg);
-                }
-              },
-              error: function(respond, status, error) {
-                dd.device.notification.hidePreloader({
-                    onSuccess : function(result) {},
-                    onFail : function(err) {}
-                });
-                $.tdAlert('申请失败！T.T');
-              },
-          });
-  });
-var alertFun = function(data){
-  dd.biz.util.openLink({
-    url: 'http://www.gdrtc.org/car/page/approval.html?resid='  + data.records.resid,
-    onSuccess : function(result) {},
-    onFail : function() {}
-  })
-}
-  /**
-   * mask
-   */
-  $('.transparent-mask').on('touchend', function(e) {
-      $('.popup').fadeOut(450);
-      $('body').removeClass('fixed');
-      preventMoving = false;
+          resetForm(form[0]);
   });
 
-  $('body').on('touchmove', function(e){
-    // console.log(e);
-  })
+  var resetForm = function(form){
+    form.reset();
+    $('form').find('.td-form-comb-selected').children().remove();
+//两个默认选择框要还原。一个是车辆，一个是用途。他们class不一样
+    var htmlParam = '<div class="td-form-comb-item td-form-comb-text-item"><span class="td-form-field-tips">请选择</span></div>';
+    var htmlParam2 = '<div class="td-form-comb-item td-form-comb-img-text-item"><span class="td-form-field-tips">请选择</span></div>';
+    $('#selected-car').append(htmlParam2);
+    $('#selected-usage').append(htmlParam);
+
+    $('form').find('input[type=hidden]').attr("value",'');
+  }
+
 
 };
+//动态生成的节点直接绑定监听没用，需要绑到父节点或body等现有的
+$("body").on('touchend','.app-delete',function(e){
+  var parent = $(e.currentTarget).parent('div')[0];
+  var carId = parent.id.split("-")[1];
+  for(var i=0; i<formJsons.length; i++){
+    if(formJsons[i].car == carId){
+      formJsons.splice(i, 1);
+      break;
+    }
+  }
+  parent.remove();
+});
+$("#submit-all").on('touchend', function(e){
+  console.log(formJsons);
+  if(formJsons.length>0){
+    if($('ul.td-form-approver-picker-list li').length == 0){
+      $.tdAlert('至少选择一位审批人');
+      return false;
+    }
+    var approvers = [];
+    $('ul.td-form-approver-picker-list input').each(function(){
+        approvers.push(this.value);
+    });
+    var fromData={'formData':formJsons, 'approvers':approvers};
+    var ccs = [];//一点要先初始化
+    if($('ul.td-form-cc-picker-list li').length > 0){
+      $('ul.td-form-cc-picker-list input').each(function(){
+          ccs.push(this.value);
+      });
+    }
+    fromData.ccs = ccs;
+    $.ajax({
+        url: 'server/reservation/multi-apply.php',
+        type: "POST",
+        data: JSON.stringify(fromData),
+        dataType: 'json',
+        processData: false, // 告诉jQuery不要去处理发送的数据
+        contentType: "application/json; charset=utf-8",// 必须false才会自动加上正确的Content-Type
+        cache: false,
+        beforeSend: function(){
+          dd.device.notification.showPreloader({
+            text: "正在使劲提交申请...", //loading显示的字符，空表示不显示文字
+            showIcon: true, //是否显示icon，默认true
+            onSuccess : function(result) {},
+            onFail : function(err) {}
+        })
+        },
+        success: function(data, status, respond) {
+          dd.device.notification.hidePreloader({
+              onSuccess : function(result) {},
+              onFail : function(err) {}
+          });
+          if( data.error == 0 ){
+            $.tdAlert('恭喜，提交成功！');
+            window.location.reload();
+          }
+          else{
+            $.tdAlert(data.errorMsg);
+          }
+        },
+        error: function(respond, status, error) {
+          dd.device.notification.hidePreloader({
+              onSuccess : function(result) {},
+              onFail : function(err) {}
+          });
+          $.tdAlert('申请失败！T.T');
+        },
+    });
+  }else{
+    $.tdAlert('请新增申请再提交~');
+  }
+});

@@ -10,10 +10,10 @@ $(document).ready(function() {
     	window.localStorage.removeItem('thisUser');
     	window.close();
     }
-
     var param = getUrlParam();
     if (param != null || param != "") {
         userId = JSON.parse(thisUser).userid;
+        // userId = '0607666063848651';
         getJson({"resid": param});
     }
 });
@@ -224,7 +224,7 @@ $('#td-return-car').on('touchend', function(e) {
     if (resStatus != "3") {
         //有carStatus时是已经还完车之后，有车辆状态纪录了
         if (carStatus.length>0) {
-          if(userId == '03401806572466'){//姐姐才能完成还车
+          if(userId == '03401806572466'||userId == '03402113147517'){//姐姐或者刘荣才能完成确认还车
             var send = {"resid": getUrlParam(), "userid": userId};
             showMask();
             $.ajax({

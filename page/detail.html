@@ -6,15 +6,15 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="stylesheet" href="../font/font-awesome-4.4.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" type="text/css" href="../css/detial.css">
+	<link rel="stylesheet" type="text/css" href="../css/detail.css">
 	<link rel="icon" type="image/x-icon" href="../img/icon/car.ico" />
 
 	<title>通导用车</title>
 </head>
 
 <body>
-	<div class="td-detial-container">
-		<form id="td-detial-form">
+	<div class="td-detail-container">
+		<form id="td-detail-form">
 			<div class="td-form-field">
 				<label for="plateNumber">车牌号</label>
 				<input id="plateNumber" name="plateNumber" type="text" maxlength="8" required="required">
@@ -62,15 +62,11 @@
 				<div class="td-button" id="td-edit-submit">提交修改</div>
 			</div>
 		</form>
-		<section id="cd-timeline" class="cd-container">
-			<!-- 动态加载用车记录 -->
-		</section>
-		<span id="pullTOLoad">上拉加载更多......</span>
 	</div>
 	<div id="td-mask" class="td-mask"><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
 	<script src="../lib/jquery/jquery-3.1.1.min.js"></script>
 	<script src="../js/add.min.js"></script>
-	<script src="../js/detail.min.js"></script>
+	<script src="../js/detail.js"></script>
 </body>
 
 </html>

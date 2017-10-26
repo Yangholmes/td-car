@@ -42,7 +42,7 @@ $condition = "SELECT *
               carstatus.reservation = reservation.id";
 $carStatus = $carStatusQuery->query($condition);
 
-if( $record['userid'] != '03401806572466' ){
+if( !($record['userid'] == '03401806572466' || $record['userid'] == '03402113147517') ){
 // if( $record['userid'] != '03424264076698' ){
   $result = [
     "records"  => $record,
